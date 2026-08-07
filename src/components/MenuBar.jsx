@@ -145,7 +145,6 @@ export default function MenuBar({
         <Menu id="kont" label={t.menu.contact} openId={openMenu} onHover={hover} onClick={click} width={286}>
           <MenuItem label={t.menu.email} hint={email} onClick={actions.kontakt} />
           <MenuItem label="LinkedIn" hint={links.linkedinHandle} href={links.linkedin} external />
-          <MenuItem label="GitHub" hint={links.githubHandle} href={links.github} external />
         </Menu>
       </nav>
 

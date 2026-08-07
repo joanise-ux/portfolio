@@ -32,7 +32,7 @@ export const I18N = {
       toolsMeta: "stack",
       email: "e-mail",
     },
-    dock: { terminal: "terminal", mail: "mail", linkedin: "linkedin", github: "github", trash: "kosz" },
+    dock: { terminal: "terminal", mail: "mail", linkedin: "linkedin", trash: "kosz" },
     ui: {
       replay: "powtórz",
       replayHint: "powtórz animację wejścia — kliknij, żeby ją pominąć",
@@ -114,7 +114,6 @@ export const I18N = {
       sql: "// zapytania do bazy",
       supabase: "// baza i backend",
       vercel: "// deploy",
-      git: "// wersjonowanie",
       "claude code": "// budowa aplikacji i stron",
       "claude design": "// projektowanie interfejsów",
       "figma make": "// szybkie prototypy",
@@ -240,7 +239,7 @@ export const I18N = {
       toolsMeta: "stack",
       email: "e-mail",
     },
-    dock: { terminal: "terminal", mail: "mail", linkedin: "linkedin", github: "github", trash: "trash" },
+    dock: { terminal: "terminal", mail: "mail", linkedin: "linkedin", trash: "trash" },
     ui: {
       replay: "replay",
       replayHint: "replay the intro animation — click to skip it",
@@ -322,7 +321,6 @@ export const I18N = {
       sql: "// database queries",
       supabase: "// database and backend",
       vercel: "// deploy",
-      git: "// versioning",
       "claude code": "// building apps and sites",
       "claude design": "// interface design",
       "figma make": "// quick prototypes",

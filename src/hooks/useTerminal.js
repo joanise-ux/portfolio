@@ -105,7 +105,6 @@ export function useTerminal({ t, registry, open, after }) {
         out.push(
           { c: IVORY, s: `  e-mail      ${DATA.email}` },
           { c: IVORY, s: `  linkedin    ${DATA.linkedin}` },
-          { c: IVORY, s: `  github      ${DATA.github}` },
           { c: VIO, s: `:: ${t.responseTime} … ok` }
         );
         after(60, () => open("kontakt"));

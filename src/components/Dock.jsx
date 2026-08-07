@@ -24,11 +24,6 @@ export default function Dock({ t, revealed, revealDelay, cv, links, termOpen, mi
         <span className="dock__label">{t.dock.linkedin}</span>
       </a>
 
-      <a className="dock__item" href={links.github} target="_blank" rel="noopener noreferrer">
-        <span className="dock__glyph">◍</span>
-        <span className="dock__label">{t.dock.github}</span>
-      </a>
-
       <span className="dock__sep" />
 
       {/* minimised windows land here and restore on click */}
