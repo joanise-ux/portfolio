@@ -1,0 +1,4 @@
+/* NEON OS typefaces — Cormorant Garamond (display/treść) + JetBrains Mono (interfejs).
+   Both are Google Fonts; binaries are not vendored in this project, they stream from
+   fonts.gstatic.com. See readme.md → VISUAL FOUNDATIONS → Typography. */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");

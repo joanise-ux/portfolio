@@ -1,0 +1,31 @@
+:root{
+--font-display:"Cormorant Garamond",Cormorant,Garamond,"Times New Roman",serif;
+--font-body:"Cormorant Garamond",Cormorant,Garamond,"Times New Roman",serif;
+--font-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+
+/* display — serif, ivory, never neon */
+--size-display-xl:104px; --lh-display-xl:.94; /* @kind other */
+--size-display-l:72px;   --lh-display-l:.98; /* @kind other */
+--size-display-m:48px;   --lh-display-m:1.04; /* @kind other */
+--size-display-s:34px;   --lh-display-s:1.12; /* @kind other */
+
+/* body — serif at large optical size */
+--size-body-l:22px;  --lh-body-l:1.62; /* @kind other */
+--size-body-m:19px;  --lh-body-m:1.60; /* @kind other */
+--size-body-s:17px;  --lh-body-s:1.55; /* @kind other */
+
+/* interface — mono, always */
+--size-ui-l:15px;    --lh-ui-l:1.5; /* @kind other */
+--size-ui-m:13px;    --lh-ui-m:1.5; /* @kind other */
+--size-ui-s:11px;    --lh-ui-s:1.45; /* @kind other */
+--size-ui-xs:10px;   --lh-ui-xs:1.4; /* @kind other */
+
+--track-ui:.08em; /* @kind other */     /* mono UI labels */
+--track-ui-wide:.18em; /* @kind other *//* section labels, menu bar */
+--track-display:-.01em; /* @kind other */
+
+--weight-display:400; /* @kind other */
+--weight-display-light:300; /* @kind other */
+--weight-ui:400; /* @kind other */
+--weight-ui-strong:500; /* @kind other */
+}

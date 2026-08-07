@@ -1,0 +1,12 @@
+:root{
+--ease-os:cubic-bezier(.2,.8,.2,1); /* @kind other */     /* window open, dock, panels */
+--ease-linear:linear; /* @kind other */                    /* caret, typewriter, meters */
+--dur-instant:90ms; /* @kind other */
+--dur-fast:160ms; /* @kind other */   /* hover, focus ring */
+--dur-base:240ms; /* @kind other */   /* window/panel enter */
+--dur-slow:420ms; /* @kind other */   /* boot sequence steps */
+--caret-blink:1.05s; /* @kind other */
+}
+@keyframes neon-caret{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes neon-window-in{from{opacity:0;transform:translateY(6px) scale(.995)}to{opacity:1;transform:none}}
+@keyframes neon-meter{from{transform:scaleX(0)}to{transform:scaleX(1)}}

@@ -1,0 +1,57 @@
+:root{
+/* ── base ramp ─────────────────────────────────────────────── */
+--void:#0A0710;            /* fioletowa czerń / tło pulpitu */
+--ink-900:#0F0A18;         /* deep panel wash */
+--ink-800:#170F26;         /* panele i okna */
+--ink-700:#1E1533;         /* raised surface / dock */
+--ink-600:#2A1D42;         /* hairline / inactive chrome */
+--ink-500:#3A2A57;         /* border hover, dividers on raised */
+
+--violet:#6B4DFF;          /* fiolet / tło, paski */
+--violet-dim:#4A35B8;
+--violet-wash:rgba(107,77,255,.14);
+
+--magenta:#FF2E88;         /* magenta / stany, fokus, kursor */
+--magenta-dim:#B31F5F;
+--magenta-wash:rgba(255,46,136,.12);
+
+--gold:#9C8355;            /* złoto / tożsamość, etykiety sekcji */
+--gold-dim:#6B5A3B;
+--gold-wash:rgba(156,131,85,.14);
+
+--ivory:#EDE7DC;           /* kość słoniowa / treść */
+--ivory-80:rgba(237,231,220,.80);
+--ivory-60:rgba(237,231,220,.60);
+--ivory-40:rgba(237,231,220,.40);
+--ivory-22:rgba(237,231,220,.22);
+--ivory-12:rgba(237,231,220,.12);
+--ivory-06:rgba(237,231,220,.06);
+
+/* ── semantic ──────────────────────────────────────────────── */
+--bg-desktop:var(--void);
+--bg-panel:var(--ink-800);
+--bg-raised:var(--ink-700);
+--bg-sunken:var(--ink-900);
+--bg-menubar:rgba(23,15,38,.82);
+--bg-dock:rgba(30,21,51,.72);
+
+--text-body:var(--ivory);
+--text-muted:var(--ivory-60);
+--text-faint:var(--ivory-40);
+--text-meta:var(--gold);
+--text-accent:var(--magenta);
+--text-link:var(--magenta);
+--text-link-hover:var(--ivory);
+--text-ok:var(--violet);
+
+--border-hairline:var(--ivory-12);
+--border-chrome:var(--ink-600);
+--border-focus:var(--magenta);
+--border-identity:var(--gold-dim);
+
+--indicator-live:var(--magenta);
+--indicator-idle:var(--gold);
+--meter-track:var(--ink-600);
+--meter-fill:var(--violet);
+--caret:var(--magenta);
+}

@@ -1,0 +1,15 @@
+:root{
+/* 4px base, but chrome uses odd values from the source spec — do not snap */
+--sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+--sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px; --sp-16:64px; --sp-20:80px;
+
+--titlebar-h:38px;      /* window title bar */
+--menubar-h:46px;       /* desktop menu bar */
+--dock-h:72px;
+--dock-icon:52px;
+--window-pad:26px;      /* window body inset */
+--panel-pad:18px;
+--gutter-desktop:34px;  /* menubar → window field inset */
+--stack-window:22px;    /* gap between tiled windows */
+--maxw-reading:62ch; /* @kind other */
+}

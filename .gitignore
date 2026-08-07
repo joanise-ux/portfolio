@@ -1,0 +1,7 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# lokalne ustawienia maszyny — nie trafiają do repo
+.claude/settings.local.json

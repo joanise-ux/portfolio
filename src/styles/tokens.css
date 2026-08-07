@@ -1,0 +1,163 @@
+/* ══════════════════════════════════════════════════════════════════
+   NEON OS — design tokens.
+   Ported from the design system at
+   _ds/neon-os-design-system-00429180-891b-4b6f-8aa5-4d5571bd2cc1/tokens/
+   (see design/ for the original source of truth).
+
+   The `--desk-*` block at the end holds the values the pulpit screen
+   overrides: the desktop sits on a darker void than --void, its menu
+   bar is 34px rather than the DS default 46px, and window corners are
+   6px rather than the DS 3px. Those are deliberate, from the source
+   layout — don't snap them back to the DS values.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── base ramp ─────────────────────────────────────────────── */
+  --void: #0a0710; /* fioletowa czerń / tło pulpitu */
+  --ink-900: #0f0a18; /* deep panel wash */
+  --ink-800: #170f26; /* panele i okna */
+  --ink-700: #1e1533; /* raised surface / dock */
+  --ink-600: #2a1d42; /* hairline / inactive chrome */
+  --ink-500: #3a2a57; /* border hover, dividers on raised */
+
+  --violet: #6b4dff; /* fiolet / tło, paski */
+  --violet-dim: #4a35b8;
+  --violet-wash: rgba(107, 77, 255, 0.14);
+
+  --magenta: #ff2e88; /* magenta / stany, fokus, kursor */
+  --magenta-dim: #b31f5f;
+  --magenta-wash: rgba(255, 46, 136, 0.12);
+
+  --gold: #9c8355; /* złoto / tożsamość, etykiety sekcji */
+  --gold-dim: #6b5a3b;
+  --gold-wash: rgba(156, 131, 85, 0.14);
+
+  --ivory: #ede7dc; /* kość słoniowa / treść */
+  --ivory-86: rgba(237, 231, 220, 0.86);
+  --ivory-82: rgba(237, 231, 220, 0.82);
+  --ivory-80: rgba(237, 231, 220, 0.8);
+  --ivory-74: rgba(237, 231, 220, 0.74);
+  --ivory-66: rgba(237, 231, 220, 0.66);
+  --ivory-60: rgba(237, 231, 220, 0.6);
+  --ivory-55: rgba(237, 231, 220, 0.55);
+  --ivory-50: rgba(237, 231, 220, 0.5);
+  --ivory-42: rgba(237, 231, 220, 0.42);
+  --ivory-40: rgba(237, 231, 220, 0.4);
+  --ivory-34: rgba(237, 231, 220, 0.34);
+  --ivory-28: rgba(237, 231, 220, 0.28);
+  --ivory-22: rgba(237, 231, 220, 0.22);
+  --ivory-14: rgba(237, 231, 220, 0.14);
+  --ivory-12: rgba(237, 231, 220, 0.12);
+  --ivory-08: rgba(237, 231, 220, 0.08);
+  --ivory-06: rgba(237, 231, 220, 0.06);
+  --ivory-05: rgba(237, 231, 220, 0.05);
+  --ivory-04: rgba(237, 231, 220, 0.04);
+  --ivory-02: rgba(237, 231, 220, 0.02);
+
+  /* ── semantic ──────────────────────────────────────────────── */
+  --text-body: var(--ivory);
+  --text-muted: var(--ivory-60);
+  --text-faint: var(--ivory-40);
+  --text-meta: var(--gold);
+  --text-accent: var(--magenta);
+  --text-link: var(--magenta);
+  --text-link-hover: var(--ivory);
+
+  --border-hairline: var(--ivory-12);
+  --border-chrome: var(--ink-600);
+  --border-focus: var(--magenta);
+  --border-identity: var(--gold-dim);
+
+  --meter-track: #2e2145;
+  --meter-fill: var(--violet);
+  --caret: var(--magenta);
+
+  /* ── type ──────────────────────────────────────────────────── */
+  --font-display: "Cormorant Garamond", Cormorant, Garamond, "Times New Roman", serif;
+  --font-body: var(--font-display);
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-hand: "Caveat", cursive;
+
+  --size-display-l: 72px;
+  --size-display-m: 48px;
+  --size-display-s: 34px;
+  --size-body-m: 19px;
+  --size-body-s: 17px;
+  --size-ui-l: 15px;
+  --size-ui-m: 13px;
+  --size-ui-s: 11px;
+  --size-ui-xs: 10px;
+  --size-ui-2xs: 9px;
+
+  --track-ui: 0.08em;
+  --track-ui-wide: 0.18em;
+  --track-menu: 0.14em;
+  --track-label: 0.12em;
+  --track-display: -0.01em;
+
+  /* ── spacing ───────────────────────────────────────────────── */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --window-pad: 26px;
+  --maxw-reading: 62ch;
+
+  /* ── effects ───────────────────────────────────────────────── */
+  --radius-control: 4px;
+  --radius-panel: 6px;
+  --radius-dock: 16px;
+  --radius-dock-icon: 12px;
+  --radius-pill: 999px;
+
+  /* glow lives ONLY on edges and indicators — never behind text */
+  --glow-dot: 0 0 8px currentColor;
+  --glow-magenta-soft: 0 0 18px rgba(255, 46, 136, 0.32);
+  --glow-violet-soft: 0 0 12px rgba(107, 77, 255, 0.6);
+  --glow-window-focus: 0 0 28px rgba(255, 46, 136, 0.24), 0 0 90px rgba(255, 46, 136, 0.08);
+
+  --shadow-window: 0 28px 70px rgba(0, 0, 0, 0.66);
+  --shadow-panel: 0 20px 44px rgba(0, 0, 0, 0.62);
+  --shadow-dock: 0 20px 46px rgba(0, 0, 0, 0.6);
+  --shadow-menu: 0 24px 52px rgba(0, 0, 0, 0.66);
+  --shadow-icon: 0 12px 20px rgba(0, 0, 0, 0.6);
+
+  --blur-chrome: blur(18px);
+  --blur-dock: blur(22px);
+
+  --scanline: repeating-linear-gradient(
+    to bottom,
+    rgba(237, 231, 220, 0.018) 0 1px,
+    transparent 1px 3px
+  );
+  --rule-identity: linear-gradient(to right, var(--gold-dim), transparent);
+
+  /* ── motion ────────────────────────────────────────────────── */
+  --ease-os: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 0.16s;
+  --dur-base: 0.24s;
+  --dur-reveal: 0.55s;
+  --caret-blink: 1.06s;
+
+  /* ── pulpit overrides (see header note) ────────────────────── */
+  --desk-w: 1440px;
+  --desk-h: 900px;
+  --desk-bg: #06040a;
+  --desk-menubar-h: 34px;
+  --desk-menubar-bg: rgba(23, 15, 38, 0.86);
+  --desk-menubar-border: #241834;
+  --desk-menu-panel: #1b1229;
+  --desk-menu-border: #33254d;
+  --desk-dock-bg: rgba(30, 21, 51, 0.74);
+  --desk-window-bg: var(--ink-800);
+  --desk-titlebar-h: 38px;
+  --desk-widget-bg: #1e1430;
+  --desk-widget-border: #2f2249;
+  --desk-sticky-bg: #241b31;
+  --desk-term-bg: #0c0814;
+  --desk-editor-bg: #140d22;
+  --desk-paper: #e7e1d6;
+}

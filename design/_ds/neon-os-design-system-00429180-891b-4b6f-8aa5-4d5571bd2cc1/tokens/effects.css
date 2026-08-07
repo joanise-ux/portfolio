@@ -1,0 +1,33 @@
+:root{
+/* corners: chrome is sharp ("ostrzejszy, bardziej couture"); only the dock softens */
+--radius-window:3px;
+--radius-panel:3px;
+--radius-control:4px;
+--radius-dock:16px;
+--radius-dock-icon:10px;
+--radius-pill:999px;
+
+--border-w:1px; /* @kind spacing */
+--border-hair:1px solid var(--ivory-12);
+--border-panel:1px solid var(--ink-600);
+--border-focus-w:1px solid var(--magenta);
+
+/* glow lives ONLY on edges and indicators — never behind text */
+--glow-focus:0 0 0 1px var(--magenta),0 0 28px rgba(255,46,136,.30),0 0 90px rgba(255,46,136,.10);
+--glow-magenta-soft:0 0 18px rgba(255,46,136,.35);
+--glow-violet-soft:0 0 18px rgba(107,77,255,.40);
+--glow-dot:0 0 8px currentColor; /* @kind shadow */
+
+--shadow-window:0 28px 70px rgba(0,0,0,.62);
+--shadow-panel:0 14px 34px rgba(0,0,0,.45);
+--shadow-dock:0 18px 40px rgba(0,0,0,.55);
+--inset-sunken:inset 0 1px 0 rgba(237,231,220,.04);
+
+--blur-chrome:blur(18px); /* @kind other */
+--blur-dock:blur(22px); /* @kind other */
+
+/* the desktop backdrop: violet bloom over violet-black */
+--bloom-desktop:radial-gradient(120% 90% at 50% -10%,rgba(107,77,255,.16),transparent 62%),radial-gradient(80% 60% at 85% 105%,rgba(255,46,136,.10),transparent 60%); /* @kind other */
+--scanline:repeating-linear-gradient(to bottom,rgba(237,231,220,.030) 0 1px,transparent 1px 3px); /* @kind other */
+--rule-identity:linear-gradient(to right,var(--gold-dim),transparent); /* @kind other */
+}

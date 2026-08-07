@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_ds/neon-os-design-system-00429180-891b-4b6f-8aa5-4d5571bd2cc1/styles.css">
+<script src="_ds/neon-os-design-system-00429180-891b-4b6f-8aa5-4d5571bd2cc1/_ds_bundle.js"></script>
+<style>
+html,body{margin:0;background:#06040A;overflow:hidden}
+a{color:#FF2E88;text-decoration:none}
+a:hover{color:#EDE7DC}
+@keyframes neonCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes blinkHard{0%{opacity:1}100%{opacity:0}}
+</style>
+</helmet>
+
+<div ref="{{ wrapRef }}" style="position:relative;width:100vw;height:100vh;overflow:hidden;background:#06040A;display:grid;place-items:center">
+<div ref="{{ deskRef }}" style="{{ stage }}position:absolute;left:50%;top:50%;width:1440px;height:900px;overflow:hidden;background:#06040A;font-family:'JetBrains Mono',ui-monospace,monospace;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2722%27%20height%3D%2722%27%3E%3Cpath%20d%3D%27M3%201.5L3%2016.5L6.9%2012.9L9.4%2018.6L11.6%2017.6L9.2%2012.1L14.3%2012.1Z%27%20fill%3D%27%230A0710%27%20stroke%3D%27%23FF2E88%27%20stroke-width%3D%271.1%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E') 3 2, auto">
+
+  <div style="position:absolute;top:-260px;right:-240px;width:920px;height:780px;background:radial-gradient(50% 50% at 50% 50%,rgba(255,46,136,.085),rgba(107,77,255,.05) 46%,transparent 74%);filter:blur(110px);pointer-events:none"></div>
+  <div style="position:absolute;left:-200px;bottom:-300px;width:800px;height:660px;background:radial-gradient(50% 50% at 50% 50%,rgba(107,77,255,.05),transparent 70%);filter:blur(120px);pointer-events:none"></div>
+  <sc-if value="{{ showScanline }}" hint-placeholder-val="{{ true }}">
+  <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(to bottom,rgba(237,231,220,.018) 0 1px,transparent 1px 3px);pointer-events:none"></div>
+  </sc-if>
+  <sc-if value="{{ showGrain }}" hint-placeholder-val="{{ true }}">
+  <div style="position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;pointer-events:none;background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27140%27%20height%3D%27140%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.9%27%20numOctaves%3D%274%27%20stitchTiles%3D%27stitch%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27140%27%20height%3D%27140%27%20filter%3D%27url%28%23n%29%27%2F%3E%3C%2Fsvg%3E')"></div>
+  </sc-if>
+
+  <div style="position:absolute;left:0;right:0;top:38%;z-index:2;text-align:center;pointer-events:none">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:400;line-height:.98;letter-spacing:-.01em;color:rgba(237,231,220,.86);height:74px;white-space:pre"><span ref="{{ l1Ref }}"></span><span style="{{ cur1 }}"></span></div>
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:44px;line-height:1.12;color:rgba(237,231,220,.5);margin-top:8px;height:50px;white-space:pre"><span ref="{{ l2Ref }}"></span><span style="{{ cur2 }}"></span></div>
+  </div>
+
+  <button type="button" onClick="{{ replay }}" title="{{ t.ui.replayHint }}" style="position:absolute;left:26px;bottom:26px;z-index:390;display:flex;align-items:center;gap:7px;padding:7px 11px;background:rgba(30,21,51,.72);border:1px solid rgba(237,231,220,.14);border-radius:6px;font:inherit;font-size:10px;letter-spacing:.14em;color:rgba(237,231,220,.55);cursor:pointer;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#FF2E88;border-color:rgba(255,46,136,.5)"><span style="font-size:11px">↻</span>{{ t.ui.replay }}</button>
+
+  <!-- ── pasek menu ── -->
+  <div style="{{ revMenu }}position:absolute;top:0;left:0;right:0;height:34px;z-index:400;display:flex;align-items:center;gap:26px;padding:0 18px;box-sizing:border-box;background:rgba(23,15,38,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #241834">
+    <span style="display:flex;align-items:center;gap:9px">
+      <span style="font-size:10px;color:#9C8355">◆</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;letter-spacing:.10em;color:#9C8355;line-height:1">JŻ</span>
+    </span>
+
+    <nav ref="{{ navRef }}" style="display:flex;gap:4px;align-items:center" onMouseLeave="{{ menuLeave }}">
+
+      <div style="position:relative" onMouseEnter="{{ hoverPlik }}"><span style="position:absolute;left:0;right:0;top:100%;height:10px"></span>
+        <button type="button" onClick="{{ clickPlik }}" style="background:none;border:none;padding:5px 9px;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.14em;color:rgba(237,231,220,.66);cursor:pointer;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#EDE7DC;background:rgba(237,231,220,.06)">{{ t.menu.file }}</button>
+        <sc-if value="{{ mPlik }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;top:30px;min-width:238px;padding:6px;background:#1B1229;border:1px solid #33254D;border-radius:9px;box-shadow:0 24px 52px rgba(0,0,0,.66);z-index:1200">
+          <button type="button" onClick="{{ go.mail }}" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;background:none;border:none;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>{{ t.menu.newProject }}</span><span style="font-size:9px;color:rgba(237,231,220,.34)">{{ t.dock.mail }}</span></button>
+          <a href="{{ cvUrl }}" download="{{ cvDownload }}" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;border-radius:5px;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);text-decoration:none;cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>{{ t.menu.downloadCv }}</span><span style="font-size:9px;color:rgba(237,231,220,.34)">{{ cvSize }}</span></a>
+          <span style="display:block;height:1px;background:#2C2044;margin:5px 8px"></span>
+          <button type="button" onClick="{{ go.clear }}" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;background:none;border:none;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>{{ t.menu.clearDesktop }}</span><span style="font-size:9px;color:rgba(237,231,220,.34)">⌘⌫</span></button>
+        </div>
+        </sc-if>
+      </div>
+
+      <div style="position:relative" onMouseEnter="{{ hoverProj }}"><span style="position:absolute;left:0;right:0;top:100%;height:10px"></span>
+        <button type="button" onClick="{{ clickProj }}" style="background:none;border:none;padding:5px 9px;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.14em;color:rgba(237,231,220,.66);cursor:pointer;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#EDE7DC;background:rgba(237,231,220,.06)">{{ t.menu.projects }}</button>
+        <sc-if value="{{ mProj }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;top:30px;min-width:252px;padding:6px;background:#1B1229;border:1px solid #33254D;border-radius:9px;box-shadow:0 24px 52px rgba(0,0,0,.66);z-index:1200">
+          <sc-for list="{{ menuProjects }}" as="p" hint-placeholder-count="5">
+            <button type="button" onClick="{{ p.open }}" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;background:none;border:none;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>{{ p.slug }}</span><span style="font-size:9px;color:rgba(237,231,220,.34)">{{ p.meta }}</span></button>
+          </sc-for>
+        </div>
+        </sc-if>
+      </div>
+
+      <div style="position:relative" onMouseEnter="{{ hoverAbout }}"><span style="position:absolute;left:0;right:0;top:100%;height:10px"></span>
+        <button type="button" onClick="{{ clickAbout }}" style="background:none;border:none;padding:5px 9px;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.14em;color:rgba(237,231,220,.66);cursor:pointer;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#EDE7DC;background:rgba(237,231,220,.06)">{{ t.menu.about }}</button>
+        <sc-if value="{{ mAbout }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;top:30px;min-width:224px;padding:6px;background:#1B1229;border:1px solid #33254D;border-radius:9px;box-shadow:0 24px 52px rgba(0,0,0,.66);z-index:1200">
+          <button type="button" onClick="{{ go.bio }}" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;background:none;border:none;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>{{ t.menu.bio }}</span><span style="font-size:9px;color:rgba(237,231,220,.34)">bio.md</span></button>
+          <button type="button" onClick="{{ go.exp }}" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;background:none;border:none;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>{{ t.menu.experience }}</span><span style="font-size:9px;color:rgba(237,231,220,.34)">{{ years }}</span></button>
+          <button type="button" onClick="{{ go.tools }}" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;background:none;border:none;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>{{ t.menu.tools }}</span><span style="font-size:9px;color:rgba(237,231,220,.34)">{{ t.menu.toolsMeta }}</span></button>
+        </div>
+        </sc-if>
+      </div>
+
+      <div style="position:relative" onMouseEnter="{{ hoverKont }}"><span style="position:absolute;left:0;right:0;top:100%;height:10px"></span>
+        <button type="button" onClick="{{ clickKont }}" style="background:none;border:none;padding:5px 9px;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.14em;color:rgba(237,231,220,.66);cursor:pointer;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#EDE7DC;background:rgba(237,231,220,.06)">{{ t.menu.contact }}</button>
+        <sc-if value="{{ mKont }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;top:30px;min-width:286px;padding:6px;background:#1B1229;border:1px solid #33254D;border-radius:9px;box-shadow:0 24px 52px rgba(0,0,0,.66);z-index:1200">
+          <button type="button" onClick="{{ go.kontakt }}" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;background:none;border:none;border-radius:5px;font:inherit;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>{{ t.menu.email }}</span><span style="font-size:9px;color:rgba(237,231,220,.34)">{{ email }}</span></button>
+          <a href="{{ linkedinUrl }}" target="_blank" rel="noopener noreferrer" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;border-radius:5px;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);text-decoration:none;cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>LinkedIn</span><span style="font-size:9px;color:rgba(237,231,220,.34)">{{ linkedinHandle }}</span></a>
+          <a href="{{ githubUrl }}" target="_blank" rel="noopener noreferrer" style="display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px;border-radius:5px;font-size:11px;letter-spacing:.10em;color:rgba(237,231,220,.74);text-decoration:none;cursor:pointer;text-align:left;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,46,136,.18);color:#EDE7DC"><span>GitHub</span><span style="font-size:9px;color:rgba(237,231,220,.34)">{{ githubHandle }}</span></a>
+        </div>
+        </sc-if>
+      </div>
+
+    </nav>
+    <span style="flex:1"></span>
+    <button type="button" onClick="{{ toggleLang }}" style="display:flex;align-items:center;gap:6px;background:none;border:1px solid rgba(237,231,220,.12);border-radius:4px;padding:3px 8px;font:inherit;font-size:10px;letter-spacing:.14em;cursor:pointer;transition:border-color .16s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:rgba(237,231,220,.40)">
+      <span style="color:{{ plColor }}">PL</span>
+      <span style="color:rgba(237,231,220,.22)">/</span>
+      <span style="color:{{ enColor }}">EN</span>
+    </button>
+    <span style="display:flex;align-items:center;gap:7px">
+      <span style="font-size:9px;color:#FF2E88;text-shadow:0 0 8px currentColor">●</span>
+      <span style="font-size:10px;letter-spacing:.14em;color:rgba(237,231,220,.7)">{{ status }}</span>
+    </span>
+    <span style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.14em;color:rgba(237,231,220,.55)">
+      <span>WRO {{ wro }}</span>
+      <span style="color:rgba(237,231,220,.22)">/</span>
+      <span>SEL {{ sel }}</span>
+    </span>
+  </div>
+
+  <!-- ── ikony pulpitu ── -->
+  <div style="{{ ic.suoh.s }}" onPointerDown="{{ ic.suoh.d }}">
+    <div style="width:116px;transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.10)">
+      <div style="position:relative;width:72px;height:58px;margin:0 auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,.6))">
+        <div style="position:absolute;left:3px;top:0;width:30px;height:14px;background:linear-gradient(180deg,#E6CB90,#C4A366);border-radius:9px 13px 0 0"></div>
+        <div style="position:absolute;left:0;right:0;top:8px;bottom:0;border-radius:14px;background:linear-gradient(165deg,#EBD29A 0%,#C7A467 46%,#9C7C44 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,0,0,.28)"></div>
+        <div style="position:absolute;left:0;right:0;top:8px;height:23px;border-radius:14px 14px 18px 18px;background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,0));pointer-events:none"></div>
+      </div>
+      <div style="font-size:11px;letter-spacing:.12em;color:#EDE7DC;text-align:center;margin-top:10px">{{ ic.suoh.label }}</div>
+      <div style="font-size:9px;letter-spacing:.1em;color:rgba(237,231,220,.42);text-align:center;margin-top:3px">{{ ic.suoh.sub }}</div>
+    </div>
+  </div>
+
+  <div style="{{ ic.nature.s }}" onPointerDown="{{ ic.nature.d }}">
+    <div style="width:126px;transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.10)">
+      <div style="position:relative;width:72px;height:58px;margin:0 auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,.6))">
+        <div style="position:absolute;left:3px;top:0;width:30px;height:14px;background:linear-gradient(180deg,#E6CB90,#C4A366);border-radius:9px 13px 0 0"></div>
+        <div style="position:absolute;left:0;right:0;top:8px;bottom:0;border-radius:14px;background:linear-gradient(165deg,#EBD29A 0%,#C7A467 46%,#9C7C44 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,0,0,.28)"></div>
+        <div style="position:absolute;left:0;right:0;top:8px;height:23px;border-radius:14px 14px 18px 18px;background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,0));pointer-events:none"></div>
+      </div>
+      <div style="font-size:11px;letter-spacing:.12em;color:#EDE7DC;text-align:center;margin-top:10px">{{ ic.nature.label }}</div>
+      <div style="font-size:9px;letter-spacing:.1em;color:rgba(237,231,220,.42);text-align:center;margin-top:3px">{{ ic.nature.sub }}</div>
+    </div>
+  </div>
+
+  <div style="{{ ic.logtxt.s }}" onPointerDown="{{ ic.logtxt.d }}">
+    <div style="width:116px;transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.10)">
+      <div style="position:relative;width:56px;height:70px;margin:0 auto;border-radius:11px;background:linear-gradient(160deg,#F2ECDF,#CEC5B3);box-shadow:0 12px 20px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.7)">
+        <div style="position:absolute;left:11px;right:22px;top:26px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+        <div style="position:absolute;left:11px;right:11px;top:36px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+        <div style="position:absolute;left:11px;right:17px;top:46px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+      </div>
+      <div style="font-size:11px;letter-spacing:.12em;color:#EDE7DC;text-align:center;margin-top:10px">{{ ic.logtxt.label }}</div>
+      <div style="font-size:9px;letter-spacing:.1em;color:rgba(237,231,220,.42);text-align:center;margin-top:3px">{{ ic.logtxt.sub }}</div>
+    </div>
+  </div>
+
+  <div style="{{ ic.web.s }}" onPointerDown="{{ ic.web.d }}">
+    <div style="width:116px;transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.10)">
+      <div style="position:relative;width:72px;height:58px;margin:0 auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,.6))">
+        <div style="position:absolute;left:3px;top:0;width:30px;height:14px;background:linear-gradient(180deg,#E6CB90,#C4A366);border-radius:9px 13px 0 0"></div>
+        <div style="position:absolute;left:0;right:0;top:8px;bottom:0;border-radius:14px;background:linear-gradient(165deg,#EBD29A 0%,#C7A467 46%,#9C7C44 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,0,0,.28)"></div>
+        <div style="position:absolute;left:0;right:0;top:8px;height:23px;border-radius:14px 14px 18px 18px;background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,0));pointer-events:none"></div>
+      </div>
+      <div style="font-size:11px;letter-spacing:.12em;color:#EDE7DC;text-align:center;margin-top:10px">{{ ic.web.label }}</div>
+      <div style="font-size:9px;letter-spacing:.1em;color:rgba(237,231,220,.42);text-align:center;margin-top:3px">{{ ic.web.sub }}</div>
+    </div>
+  </div>
+
+  <div style="{{ ic.branding.s }}" onPointerDown="{{ ic.branding.d }}">
+    <div style="width:116px;transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.10)">
+      <div style="position:relative;width:72px;height:58px;margin:0 auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,.6))">
+        <div style="position:absolute;left:3px;top:0;width:30px;height:14px;background:linear-gradient(180deg,#E6CB90,#C4A366);border-radius:9px 13px 0 0"></div>
+        <div style="position:absolute;left:0;right:0;top:8px;bottom:0;border-radius:14px;background:linear-gradient(165deg,#EBD29A 0%,#C7A467 46%,#9C7C44 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,0,0,.28)"></div>
+        <div style="position:absolute;left:0;right:0;top:8px;height:23px;border-radius:14px 14px 18px 18px;background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,0));pointer-events:none"></div>
+      </div>
+      <div style="font-size:11px;letter-spacing:.12em;color:#EDE7DC;text-align:center;margin-top:10px">{{ ic.branding.label }}</div>
+      <div style="font-size:9px;letter-spacing:.1em;color:rgba(237,231,220,.42);text-align:center;margin-top:3px">{{ ic.branding.sub }}</div>
+    </div>
+  </div>
+
+  <div style="{{ ic.readme.s }}" onPointerDown="{{ ic.readme.d }}">
+    <div style="width:116px;transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.10)">
+      <div style="position:relative;width:56px;height:70px;margin:0 auto;border-radius:11px;background:linear-gradient(160deg,#F2ECDF,#CEC5B3);box-shadow:0 12px 20px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.7)">
+        <div style="position:absolute;left:11px;right:22px;top:26px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+        <div style="position:absolute;left:11px;right:11px;top:36px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+        <div style="position:absolute;left:11px;right:17px;top:46px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+      </div>
+      <div style="font-size:11px;letter-spacing:.12em;color:#EDE7DC;text-align:center;margin-top:10px">README.txt</div>
+    </div>
+  </div>
+
+  <div style="{{ ic.stack.s }}" onPointerDown="{{ ic.stack.d }}">
+    <div style="width:116px;transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.10)">
+      <div style="position:relative;width:56px;height:70px;margin:0 auto;border-radius:11px;background:linear-gradient(160deg,#F2ECDF,#CEC5B3);box-shadow:0 12px 20px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.7)">
+        <div style="position:absolute;left:11px;right:22px;top:26px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+        <div style="position:absolute;left:11px;right:11px;top:36px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+        <div style="position:absolute;left:11px;right:17px;top:46px;height:2px;border-radius:2px;background:rgba(10,7,16,.28)"></div>
+      </div>
+      <div style="font-size:11px;letter-spacing:.12em;color:#EDE7DC;text-align:center;margin-top:10px">stack.txt</div>
+    </div>
+  </div>
+
+  <!-- ── polaroid ── -->
+  <div style="{{ ic.polaroid.s }}" onPointerDown="{{ ic.polaroid.d }}">
+    <div style="width:212px;background:#E7E1D6;padding:11px 11px 0;border-radius:4px;box-shadow:0 24px 50px rgba(0,0,0,.66);transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.06)">
+      <img src="assets/suoh-about.png" alt="about_me.jpg" draggable="false" style="display:block;width:190px;height:196px;object-fit:cover;object-position:center;background:#120C1D">
+      <div style="height:56px;display:grid;place-items:center"><span style="font-family:'Caveat',cursive;font-size:20px;color:#2A2118;transform:rotate(-1deg)">about_me.jpg</span></div>
+    </div>
+  </div>
+
+  <!-- ── widget: now_building ── -->
+  <div style="{{ ic.building.s }}" onPointerDown="{{ ic.building.d }}">
+    <div style="width:236px;box-sizing:border-box;padding:18px;background:#1E1430;border:1px solid #2F2249;border-radius:12px;box-shadow:0 20px 44px rgba(0,0,0,.62),inset 0 1px 0 rgba(237,231,220,.05);transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.08)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9C8355;white-space:nowrap">{{ t.widgets.building }}</span>
+        <span style="flex:1;height:1px;background:linear-gradient(to right,#6B5A3B,transparent)"></span>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1.2;color:#EDE7DC">{{ buildName }}</div>
+      <div style="font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.42);margin-top:4px">{{ buildMeta }}</div>
+      <div style="height:2px;background:#2E2145;position:relative;margin-top:15px;overflow:hidden;border-radius:2px">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:{{ buildPct }};background:#6B4DFF;box-shadow:0 0 12px rgba(107,77,255,.6)"></div>
+      </div>
+      <div style="font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.42);margin-top:10px">{{ buildLog }}</div>
+    </div>
+  </div>
+
+  <!-- ── widget: learning ── -->
+  <div style="{{ ic.learning.s }}" onPointerDown="{{ ic.learning.d }}">
+    <div style="width:236px;box-sizing:border-box;padding:18px;background:#1E1430;border:1px solid #2F2249;border-radius:12px;box-shadow:0 20px 44px rgba(0,0,0,.62),inset 0 1px 0 rgba(237,231,220,.05);transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.08)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#9C8355;white-space:nowrap">{{ t.widgets.learning }}</span>
+        <span style="flex:1;height:1px;background:linear-gradient(to right,#6B5A3B,transparent)"></span>
+      </div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between">
+        <span style="font-size:24px;color:#EDE7DC;line-height:1.1">한국어</span>
+        <span style="font-size:11px;letter-spacing:.12em;color:#6B4DFF">{{ learnPct }}</span>
+      </div>
+      <div style="height:2px;background:#2E2145;position:relative;margin-top:14px;overflow:hidden;border-radius:2px">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:{{ learnPct }};background:#6B4DFF;box-shadow:0 0 12px rgba(107,77,255,.6)"></div>
+      </div>
+      <div style="font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.42);margin-top:10px">{{ learnDay }}</div>
+    </div>
+  </div>
+
+  <!-- ── notatka ── -->
+  <div style="{{ ic.sticky.s }}" onPointerDown="{{ ic.sticky.d }}">
+    <div style="width:178px;box-sizing:border-box;padding:16px 16px 18px;background:#241B31;border:1px solid rgba(156,131,85,.42);border-radius:6px;box-shadow:0 20px 40px rgba(0,0,0,.62);transition:filter .16s cubic-bezier(.2,.8,.2,1)" style-hover="filter:brightness(1.08)">
+      <div style="font-family:'Caveat',cursive;font-size:20px;line-height:1.35;color:rgba(237,231,220,.9)">{{ sticky1 }}<br>{{ sticky2 }}</div>
+      <div style="height:1px;background:rgba(156,131,85,.30);margin:12px 0"></div>
+      <div style="font-family:'Caveat',cursive;font-size:19px;line-height:1.35;color:rgba(237,231,220,.7)">{{ sticky3 }}<br>{{ sticky4 }}</div>
+    </div>
+  </div>
+
+  <!-- ── okna ── -->
+  <sc-for list="{{ wins }}" as="w" hint-placeholder-count="0">
+  <div style="{{ w.box }}" onPointerDown="{{ w.focus }}">
+    <header style="{{ w.head }}" onPointerDown="{{ w.drag }}" onDoubleClick="{{ w.max }}">
+      <span style="font-size:11px;letter-spacing:.14em;color:#EDE7DC;white-space:nowrap">{{ w.title }}</span>
+      <span style="flex:1"></span>
+      <span style="display:flex;gap:13px;align-items:center;font-size:12px;color:rgba(237,231,220,.45)">
+        <button type="button" data-nodrag="1" onClick="{{ w.min }}" style="background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;transition:color .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#FF2E88">─</button>
+        <button type="button" data-nodrag="1" onClick="{{ w.max }}" style="background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;transition:color .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#FF2E88">□</button>
+        <button type="button" data-nodrag="1" onClick="{{ w.close }}" style="background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;transition:color .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#FF2E88">×</button>
+      </span>
+    </header>
+
+    <sc-if value="{{ w.isFolder }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+      <div style="height:34px;flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:0 26px;border-bottom:1px solid #241834;font-size:10px;letter-spacing:.12em;color:rgba(237,231,220,.5)">
+        <span style="color:rgba(237,231,220,.28)">‹ ›</span>
+        <span>~/{{ t.ui.projectsRoot }}/{{ w.path }}</span>
+        <span style="flex:1"></span>
+        <span data-nodrag="1" style="display:flex;gap:6px;align-items:center">
+          <button type="button" onClick="{{ w.setGrid }}" title="{{ t.ui.grid }}" style="{{ w.gridBtn }}">▦</button>
+          <button type="button" onClick="{{ w.setRead }}" title="{{ t.ui.read }}" style="{{ w.readBtn }}">▤</button>
+        </span>
+      </div>
+      <div style="flex:1;min-height:0;overflow:auto;padding:26px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
+          <span style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9C8355;white-space:nowrap">{{ w.kicker }}</span>
+          <span style="flex:1;height:1px;background:linear-gradient(to right,#6B5A3B,transparent)"></span>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;line-height:1.05;letter-spacing:-.01em;color:#EDE7DC">{{ w.h1 }}</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;color:rgba(237,231,220,.82);max-width:62ch;margin:10px 0 22px;text-wrap:pretty">{{ w.desc }}</p>
+        <sc-if value="{{ w.isGrid }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <sc-if value="{{ w.hasHero }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ w.hero.open }}" data-nodrag="1" style="{{ w.hero.box }}">
+              <div style="{{ w.hero.img }}"></div>
+              <div style="padding:8px 10px 10px;border-top:1px solid rgba(237,231,220,.12);font-size:10px;letter-spacing:.14em;color:#EDE7DC">{{ w.hero.file }}</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ w.hasRest }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px">
+              <sc-for list="{{ w.rest }}" as="s" hint-placeholder-count="0">
+                <div onClick="{{ s.open }}" data-nodrag="1" style="{{ s.box }}">
+                  <div style="{{ s.img }}"></div>
+                  <div style="padding:8px 10px 10px;border-top:1px solid rgba(237,231,220,.12);font-size:10px;letter-spacing:.14em;color:#EDE7DC">{{ s.file }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ w.noShots }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px dashed rgba(237,231,220,.14);border-radius:3px;padding:34px 22px;text-align:center">
+              <div style="font-size:11px;letter-spacing:.12em;color:rgba(237,231,220,.42)">{{ t.ui.noShots }}{{ w.path }}</div>
+              <div style="font-size:10px;letter-spacing:.12em;color:rgba(237,231,220,.28);margin-top:8px">{{ t.ui.noShotsHelp }}</div>
+            </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ w.isRead }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <sc-for list="{{ w.blocks }}" as="b" hint-placeholder-count="0">
+            <div style="margin-bottom:26px">
+              <sc-if value="{{ b.isText }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
+                  <span style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9C8355;white-space:nowrap">{{ b.label }}</span>
+                  <span style="flex:1;height:1px;background:linear-gradient(to right,#6B5A3B,transparent)"></span>
+                </div>
+                <p style="font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;color:rgba(237,231,220,.86);max-width:62ch;margin:0;text-wrap:pretty">{{ b.text }}</p>
+              </sc-if>
+              <sc-if value="{{ b.isImg }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ b.open }}" data-nodrag="1" style="cursor:pointer">
+                  <div style="{{ b.img }}"></div>
+                  <div style="font-size:10px;letter-spacing:.14em;color:rgba(237,231,220,.42);margin-top:8px">{{ b.file }}</div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{ w.noStudy }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:11px;letter-spacing:.12em;color:rgba(237,231,220,.34)">{{ t.ui.noStudy }}</div>
+          </sc-if>
+        </div>
+        </sc-if>
+      </div>
+      <footer style="flex:0 0 auto;border-top:1px solid #241834;padding:10px 26px;display:flex;align-items:center;gap:18px;font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.4)">
+        <span>{{ w.count }}</span>
+        <span style="flex:1"></span>
+        <span style="color:rgba(237,231,220,.34)">{{ w.hint }}</span>
+      </footer>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ w.isDoc }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;overflow:auto;padding:26px 28px 30px">
+      <sc-for list="{{ w.sections }}" as="sec" hint-placeholder-count="2">
+        <div style="margin-bottom:26px">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
+            <span style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9C8355;white-space:nowrap">{{ sec.label }}</span>
+            <span style="flex:1;height:1px;background:linear-gradient(to right,#6B5A3B,transparent)"></span>
+          </div>
+          <sc-if value="{{ sec.hasText }}" hint-placeholder-val="{{ true }}">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;color:rgba(237,231,220,.86);max-width:60ch;margin:0;text-wrap:pretty">{{ sec.text }}</p>
+          </sc-if>
+          <sc-if value="{{ sec.hasRows }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;gap:9px;margin-top:12px">
+              <sc-for list="{{ sec.rows }}" as="r" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:132px 1fr;gap:16px;align-items:baseline;padding-bottom:9px;border-bottom:1px solid rgba(237,231,220,.08)">
+                  <span style="font-size:10px;letter-spacing:.14em;color:#9C8355">{{ r.k }}</span>
+                  <span style="font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.4;color:#EDE7DC">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ w.isMail }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+
+      <sc-if value="{{ mailForm }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+        <div style="flex:0 0 auto;padding:6px 0 0">
+          <div style="{{ rowDo }}">
+            <span style="font-size:12px;letter-spacing:.1em;color:rgba(237,231,220,.4)">{{ t.mail.to }}</span>
+            <span style="font-size:12px;letter-spacing:.04em;color:rgba(237,231,220,.38)">{{ email }}</span>
+            <span style="font-size:10px;letter-spacing:.12em;color:rgba(237,231,220,.24)">{{ t.mail.locked }}</span>
+          </div>
+
+          <div style="{{ rowFrom }}">
+            <label for="m-from" style="font-size:12px;letter-spacing:.1em;color:#9C8355">{{ t.mail.from }}</label>
+            <input id="m-from" data-nodrag="1" value="{{ mailFrom }}" onChange="{{ onFrom }}" onFocus="{{ focFrom }}" onBlur="{{ blurF }}" placeholder="{{ t.mail.phFrom }}" spellcheck="false" style="width:100%;background:none;border:none;outline:none;padding:0;font:inherit;font-size:12px;letter-spacing:.04em;color:#EDE7DC">
+          </div>
+          <sc-if value="{{ errFrom }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:5px 22px 0 110px;font-size:11px;letter-spacing:.06em;color:#FF2E88">!! {{ errFrom }}</div>
+          </sc-if>
+
+          <div style="{{ rowName }}">
+            <label for="m-name" style="font-size:12px;letter-spacing:.1em;color:#9C8355">{{ t.mail.name }}</label>
+            <input id="m-name" data-nodrag="1" value="{{ mailName }}" onChange="{{ onName }}" onFocus="{{ focName }}" onBlur="{{ blurF }}" placeholder="{{ t.mail.phName }}" spellcheck="false" style="width:100%;background:none;border:none;outline:none;padding:0;font:inherit;font-size:12px;letter-spacing:.04em;color:#EDE7DC">
+          </div>
+
+          <div style="{{ rowSubj }}">
+            <label for="m-subj" style="font-size:12px;letter-spacing:.1em;color:#9C8355">{{ t.mail.subject }}</label>
+            <input id="m-subj" data-nodrag="1" value="{{ mailSubj }}" onChange="{{ onSubj }}" onFocus="{{ focSubj }}" onBlur="{{ blurF }}" placeholder="{{ t.mail.phSubj }}" spellcheck="false" style="width:100%;background:none;border:none;outline:none;padding:0;font:inherit;font-size:12px;letter-spacing:.04em;color:#EDE7DC">
+          </div>
+          <sc-if value="{{ errSubj }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:5px 22px 0 110px;font-size:11px;letter-spacing:.06em;color:#FF2E88">!! {{ errSubj }}</div>
+          </sc-if>
+
+          <div style="{{ rowBodyLbl }}">
+            <span style="font-size:12px;letter-spacing:.1em;color:#9C8355">{{ t.mail.body }}</span>
+            <span style="font-size:10px;letter-spacing:.12em;color:rgba(237,231,220,.28)">{{ t.mail.plain }}</span>
+          </div>
+        </div>
+
+        <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:16px 22px 0">
+          <textarea data-nodrag="1" value="{{ mailBody }}" onChange="{{ onBody }}" onFocus="{{ focBody }}" onBlur="{{ blurF }}" placeholder="{{ t.mail.phBody }}" spellcheck="false" style="flex:1;min-height:0;width:100%;box-sizing:border-box;resize:none;background:none;border:none;outline:none;padding:0;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;letter-spacing:.03em;color:#EDE7DC"></textarea>
+          <sc-if value="{{ errBody }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:6px 0 0;font-size:11px;letter-spacing:.06em;color:#FF2E88">!! {{ errBody }}</div>
+          </sc-if>
+        </div>
+
+        <footer style="flex:0 0 auto;height:56px;display:flex;align-items:center;gap:16px;padding:0 22px;border-top:1px solid #241834">
+          <span style="font-size:10px;letter-spacing:.12em;color:rgba(237,231,220,.4)">{{ mailCount }}</span>
+          <span style="flex:1"></span>
+          <sc-if value="{{ mailIdle }}" hint-placeholder-val="{{ true }}">
+            <button type="button" data-nodrag="1" onClick="{{ send }}" style="height:32px;padding:0 22px;background:#FF2E88;border:1px solid #FF2E88;border-radius:4px;font:inherit;font-size:11px;letter-spacing:.14em;color:#0A0710;cursor:pointer;transition:box-shadow .16s cubic-bezier(.2,.8,.2,1)" style-hover="box-shadow:0 0 22px rgba(255,46,136,.45)" style-active="transform:translateY(1px)">{{ t.mail.send }}</button>
+          </sc-if>
+          <sc-if value="{{ mailSending }}" hint-placeholder-val="{{ false }}">
+            <div style="width:148px">
+              <div style="height:32px;border:1px solid rgba(255,46,136,.5);border-radius:4px;position:relative;overflow:hidden;display:grid;place-items:center">
+                <div style="position:absolute;left:0;top:0;bottom:0;width:{{ sendPct }};background:rgba(255,46,136,.9);transition:width .18s linear"></div>
+                <span style="position:relative;font-size:10px;letter-spacing:.14em;color:#EDE7DC">{{ t.mail.sending }} {{ sendPct }}</span>
+              </div>
+            </div>
+          </sc-if>
+        </footer>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ mailSent }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:40px">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:48px;line-height:1.05;letter-spacing:-.01em;color:#EDE7DC">{{ t.mail.sentTitle }}</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.4;color:rgba(237,231,220,.62);margin-top:10px">{{ t.mail.sentSub }}</div>
+        <div style="width:64px;height:1px;background:linear-gradient(to right,transparent,#6B5A3B,transparent);margin:26px 0"></div>
+        <button type="button" data-nodrag="1" onClick="{{ again }}" style="background:none;border:none;padding:0;font:inherit;font-size:11px;letter-spacing:.14em;color:#9C8355;cursor:pointer;border-bottom:1px solid rgba(156,131,85,.45);transition:color .16s cubic-bezier(.2,.8,.2,1)" style-hover="color:#EDE7DC">{{ t.mail.again }}</button>
+      </div>
+      </sc-if>
+
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ w.isEditor }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+      <div style="height:34px;flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:0 22px;border-bottom:1px solid #241834;font-size:10px;letter-spacing:.12em;color:rgba(237,231,220,.5)">
+        <span>~/about/stack.txt</span>
+        <span style="flex:1"></span>
+        <span style="color:rgba(237,231,220,.34)">utf-8 · plain text</span>
+      </div>
+      <div style="flex:1;min-height:0;overflow:auto;padding:22px 24px 26px;font-size:13px;line-height:1.72;background:#140D22">
+        <div style="color:rgba(237,231,220,.34);margin-bottom:16px">{{ t.editor.comment }}</div>
+        <sc-for list="{{ w.groups }}" as="g" hint-placeholder-count="4">
+          <div style="margin-bottom:20px">
+            <div style="color:#9C8355;letter-spacing:.14em;font-size:11px;margin-bottom:8px">[{{ g.name }}]</div>
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:16px 150px 1fr;gap:10px;align-items:baseline;padding:2px 0">
+                <span style="color:#6B4DFF">→</span>
+                <span style="color:#EDE7DC">{{ it.n }}</span>
+                <span style="color:rgba(237,231,220,.42)">{{ it.m }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+        <div style="color:rgba(237,231,220,.34)">// eof</div>
+      </div>
+      <footer style="flex:0 0 auto;border-top:1px solid #241834;padding:10px 24px;display:flex;align-items:center;gap:18px;font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.4)">
+        <span>{{ t.editor.pos }}</span><span>{{ editorSections }}</span>
+        <span style="flex:1"></span>
+        <span style="color:#6B4DFF">{{ t.editor.saved }}</span>
+      </footer>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ w.isTerm }}" hint-placeholder-val="{{ false }}">
+    <div ref="{{ termRef }}" onClick="{{ focusTerm }}" style="flex:1;min-height:0;overflow:auto;padding:18px 20px 22px;background:#0C0814;font-size:13px;line-height:1.72;cursor:text">
+      <sc-for list="{{ termLines }}" as="l" hint-placeholder-count="4">
+        <div style="color:{{ l.c }};white-space:pre-wrap">{{ l.s }}</div>
+      </sc-for>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+        <span style="color:#6B4DFF">&gt;&gt;</span>
+        <span style="color:#FF2E88;white-space:pre">{{ termIn }}</span>
+        <span style="width:8px;height:15px;background:#FF2E88;box-shadow:0 0 10px rgba(255,46,136,.5);animation:neonCaret 1.05s steps(1,end) infinite"></span>
+      </div>
+      <input ref="{{ inputRef }}" value="{{ termIn }}" onChange="{{ onTermIn }}" onKeyDown="{{ onTermKey }}" spellcheck="false" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    </div>
+    </sc-if>
+
+    <div onPointerDown="{{ w.resize }}" data-nodrag="1" style="{{ w.grip }}">
+      <span style="position:absolute;right:4px;bottom:7px;width:11px;height:1px;background:rgba(237,231,220,.28);transform:rotate(-45deg)"></span>
+      <span style="position:absolute;right:3px;bottom:3px;width:7px;height:1px;background:rgba(237,231,220,.28);transform:rotate(-45deg)"></span>
+    </div>
+  </div>
+  </sc-for>
+
+  <!-- ── quick look ── -->
+  <sc-if value="{{ qlOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:2000;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center" onClick="{{ qlClose }}">
+    <div onClick="{{ qlStop }}" onPointerDown="{{ qlDown }}" onPointerMove="{{ qlMove }}" onPointerUp="{{ qlUp }}" onPointerCancel="{{ qlUp }}" style="{{ qlFrame }}"></div>
+    <div style="position:absolute;left:0;right:0;bottom:38px;text-align:center;pointer-events:none">
+      <div style="font-size:11px;letter-spacing:.14em;color:#EDE7DC">{{ qlName }}</div>
+      <div style="font-size:10px;letter-spacing:.16em;color:rgba(237,231,220,.42);margin-top:6px">{{ qlCount }}</div>
+    </div>
+
+    <sc-if value="{{ qlHasPrev }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ qlPrev }}" style="{{ qlLeft }}">
+      <span style="width:56px;height:56px;display:grid;place-items:center;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid rgba(237,231,220,.22);color:#EDE7DC;font-size:32px;line-height:1;padding-bottom:4px;transition:background .16s cubic-bezier(.2,.8,.2,1),border-color .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(0,0,0,.68);border-color:#FF2E88;box-shadow:0 0 18px rgba(255,46,136,.28)">‹</span>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ qlHasNext }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ qlNext }}" style="{{ qlRight }}">
+      <span style="width:56px;height:56px;display:grid;place-items:center;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid rgba(237,231,220,.22);color:#EDE7DC;font-size:32px;line-height:1;padding-bottom:4px;transition:background .16s cubic-bezier(.2,.8,.2,1),border-color .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(0,0,0,.68);border-color:#FF2E88;box-shadow:0 0 18px rgba(255,46,136,.28)">›</span>
+    </div>
+    </sc-if>
+
+    <button type="button" onClick="{{ qlClose }}" aria-label="{{ t.ql.close }}" style="position:absolute;right:32px;top:32px;z-index:3;width:56px;height:56px;display:grid;place-items:center;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid rgba(237,231,220,.22);color:#EDE7DC;font-size:24px;line-height:1;font-family:inherit;cursor:pointer;transition:background .16s cubic-bezier(.2,.8,.2,1),border-color .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(0,0,0,.68);border-color:#FF2E88;box-shadow:0 0 18px rgba(255,46,136,.28)">×</button>
+
+    <sc-if value="{{ qlHintOn }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ qlHintStyle }}">{{ t.ql.hint }}</div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ── dok ── -->
+  <div style="{{ revDock }}position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:380;display:inline-flex;align-items:flex-start;gap:12px;padding:12px;background:rgba(30,21,51,.74);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(237,231,220,.14);border-radius:16px;box-shadow:0 20px 46px rgba(0,0,0,.6)">
+    <button type="button" onClick="{{ go.term }}" style="width:56px;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;padding:0;font:inherit;cursor:pointer">
+      <span style="width:52px;height:52px;display:grid;place-items:center;border-radius:12px;background:{{ dockTerm.bg }};border:{{ dockTerm.bd }};box-shadow:{{ dockTerm.gl }};color:{{ dockTerm.fg }};font-size:16px;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:rgba(237,231,220,.40)">›_</span>
+      <span style="font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.5)">{{ t.dock.terminal }}</span>
+    </button>
+    <button type="button" onClick="{{ go.mail }}" style="width:56px;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;padding:0;font:inherit;cursor:pointer">
+      <span style="width:52px;height:52px;display:grid;place-items:center;border-radius:12px;background:rgba(237,231,220,.05);border:1px solid rgba(237,231,220,.13);color:rgba(237,231,220,.6);font-size:18px;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:rgba(237,231,220,.40);color:#EDE7DC">◨</span>
+      <span style="font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.5)">{{ t.dock.mail }}</span>
+    </button>
+    <a href="{{ cvUrl }}" download="{{ cvDownload }}" style="width:56px;display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;cursor:pointer">
+      <span style="width:52px;height:52px;display:grid;place-items:center;border-radius:12px;background:rgba(156,131,85,.12);border:1px solid rgba(156,131,85,.55);color:#9C8355;font-size:18px;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:#9C8355">▥</span>
+      <span style="font-size:9px;letter-spacing:.12em;color:#9C8355">{{ cvFile }}</span>
+    </a>
+    <a href="{{ linkedinUrl }}" target="_blank" rel="noopener noreferrer" style="width:56px;display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;cursor:pointer">
+      <span style="width:52px;height:52px;display:grid;place-items:center;border-radius:12px;background:rgba(237,231,220,.05);border:1px solid rgba(237,231,220,.13);color:rgba(237,231,220,.6);font-size:14px;letter-spacing:.04em;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:rgba(237,231,220,.40);color:#EDE7DC">in</span>
+      <span style="font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.5)">{{ t.dock.linkedin }}</span>
+    </a>
+    <a href="{{ githubUrl }}" target="_blank" rel="noopener noreferrer" style="width:56px;display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;cursor:pointer">
+      <span style="width:52px;height:52px;display:grid;place-items:center;border-radius:12px;background:rgba(237,231,220,.05);border:1px solid rgba(237,231,220,.13);color:rgba(237,231,220,.6);font-size:16px;letter-spacing:.04em;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:rgba(237,231,220,.40);color:#EDE7DC">◍</span>
+      <span style="font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.5)">{{ t.dock.github }}</span>
+    </a>
+
+    <span style="width:1px;align-self:stretch;background:rgba(237,231,220,.12);margin:0 2px"></span>
+
+    <sc-for list="{{ minWins }}" as="m" hint-placeholder-count="0">
+      <button type="button" onClick="{{ m.restore }}" style="width:56px;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;padding:0;font:inherit;cursor:pointer">
+        <span style="width:52px;height:52px;display:grid;place-items:center;border-radius:12px;background:rgba(255,46,136,.10);border:1px solid rgba(255,46,136,.42);color:#FF2E88;font-size:16px;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="box-shadow:0 0 18px rgba(255,46,136,.32)">{{ m.glyph }}</span>
+        <span style="font-size:9px;letter-spacing:.1em;color:rgba(255,46,136,.75);max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ m.short }}</span>
+      </button>
+    </sc-for>
+
+    <button type="button" onClick="{{ go.kosz }}" style="width:56px;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;padding:0;font:inherit;cursor:pointer">
+      <span style="width:52px;height:52px;display:grid;place-items:center;border-radius:12px;background:rgba(237,231,220,.04);border:1px solid rgba(237,231,220,.10);color:rgba(237,231,220,.38);font-size:18px;transition:all .16s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:rgba(237,231,220,.40);color:#EDE7DC">▧</span>
+      <span style="font-size:9px;letter-spacing:.12em;color:rgba(237,231,220,.38)">{{ t.dock.trash }}</span>
+    </button>
+  </div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showGrain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Tapeta&quot;},&quot;showScanline&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Tapeta&quot;}}">
+const EASE = "cubic-bezier(.2,.8,.2,1)";
+const IVORY = "#EDE7DC", MAG = "#FF2E88", VIO = "#6B4DFF", DIM = "rgba(237,231,220,.55)";
+/* Kafelek = wyeksportowany obraz. `file` to realna nazwa pliku w assets/,
+   `src` to ścieżka. Nie dopisuj pozycji bez obrazu — siatka pokazuje
+   wyłącznie podglądy. Pierwsza pozycja jest kafelkiem hero. */
+const SHOT = (file, src) => ({ file: file, src: src });
+
+
+/* ══════════════════════════════════════════════════════════════════
+   I18N — wszystkie teksty widoczne dla użytkownika. Nic nie jest
+   wpisane w kodzie ani w szablonie: interfejs czyta tylko stąd.
+   Nie tłumaczymy nazw własnych (SUOH, Nature Future, log.txt),
+   nazw plików, komend i narzędzi.
+   ══════════════════════════════════════════════════════════════════ */
+const I18N = {
+  pl: {
+    role: "projektantka produktowa i UX",
+    status: "dostępna od Q4",
+    availability: "wolne moce od października",
+    responseTime: "odpisuję w mniej niż 24 godziny",
+    years: (n) => { if (n === 1) return "1 rok"; const d = n % 10, s = n % 100; return n + ((d >= 2 && d <= 4 && !(s >= 12 && s <= 14)) ? " lata" : " lat"); },
+    shotCount: (n) => n === 1 ? "1 podgląd" : (n >= 2 && n <= 4 ? n + " podglądy" : n + " podglądów"),
+    menu: { file: "plik", projects: "projekty", about: "o mnie", contact: "kontakt",
+      newProject: "nowy projekt", downloadCv: "pobierz CV", clearDesktop: "wyczyść pulpit",
+      bio: "bio", experience: "doświadczenie", tools: "narzędzia", toolsMeta: "stack", email: "e-mail" },
+    dock: { terminal: "terminal", mail: "mail", linkedin: "linkedin", github: "github", trash: "kosz" },
+    ui: { replay: "powtórz", replayHint: "powtórz animację wejścia — kliknij, żeby ją pominąć",
+      projectsRoot: "projekty", grid: "siatka", read: "czytanie", spaceHint: "spacja — podgląd",
+      noShots: "// brak eksportów w ", noShotsHelp: "dodaj PNG do assets/ i wpisz je w DATA.projects[].shots",
+      noStudy: "// brak opisu — uzupełnij I18N[lang].projects[...].study (problem / proces / rezultat)",
+      study: ["01 — problem", "02 — proces", "03 — rezultat"] },
+    ql: { hint: "← → nawigacja · esc zamyka", close: "zamknij podgląd" },
+    widgets: { building: "teraz_buduję", learning: "nauka",
+      buildLog: (c, u) => "commit " + c + " · ostatnia zmiana " + u,
+      learnDay: (d, lvl) => "dzień_" + d + " · " + lvl,
+      sticky: ["poprawić kerning", "w lockupie SUOH", "oddać do 12.08", "→ potem CV ↗"] },
+    mail: { title: "nowa wiadomość", to: "Do:", locked: "locked", from: "Od:", name: "Imię:",
+      subject: "Temat:", body: "treść:", plain: "plain text",
+      phFrom: "twoj@adres.pl", phName: "jak się do ciebie zwracać", phSubj: "nowy projekt — [nazwa]", phBody: "napisz wiadomość…",
+      send: "wyślij", sending: "wysyłanie…", sentTitle: "wiadomość wysłana", sentSub: "odpowiem w ciągu 48h", again: "napisz kolejną →",
+      chars: (n) => n + " znaków",
+      err: { from: "podaj adres zwrotny", fromBad: "to nie wygląda na adres e-mail", subj: "temat jest wymagany", body: "napisz przynajmniej dwa zdania" } },
+    editor: { comment: "// narzędzia, których używam na co dzień", pos: "ln 1, col 1", sections: (n) => n + " sekcje", saved: "saved" },
+    term: { title: "terminal", helpTitle: "dostępne komendy",
+      cmd: { whoami: "kim jestem", ls: "lista projektów", open: "otwórz okno projektu", contact: "dane kontaktowe", cv: "pobierz ", hire: "dostępność", help: "ta lista" },
+      notFound: "!! nie znaleziono: ", notFoundHint: "   wpisz ls, żeby zobaczyć projekty",
+      typeHelp: "   wpisz help", scope: "zakres: ", write: ":: napisz: " },
+    stackNotes: {
+      "figma": "// makiety, systemy, prototypy",
+      "adobe suite": "// grafika, obróbka, druk",
+      "canva": "// szybkie materiały, social",
+      "html / css": "// layout, tokeny",
+      "javascript": "// interakcje",
+      "react": "// komponenty, buildy w claude code",
+      "sql": "// zapytania do bazy",
+      "supabase": "// baza i backend",
+      "vercel": "// deploy",
+      "git": "// wersjonowanie",
+      "claude code": "// budowa aplikacji i stron",
+      "claude design": "// projektowanie interfejsów",
+      "figma make": "// szybkie prototypy" },
+    projects: {
+      suoh: { sub: "dark_luxury", menuMeta: "e-commerce", tagline: "e-commerce — dark luxury",
+        description: "Sklep pracowni rękodzieła — katalog, karta produktu, koszyk. Ciepła czerń i duża szeryfowa typografia; interfejs schodzi zdjęciom z drogi.", study: {} },
+      nature: { sub: "biotech_story", menuMeta: "biotech", tagline: "biotech — narracja produktowa",
+        description: "Strona i system nawigacji dla laboratorium biotechnologicznego. Dane zostają czytelne, obraz robi ciszę wokół nich.", study: {} },
+      logtxt: { sub: "journaling", menuMeta: "dashboard", tagline: "dziennik jako dashboard",
+        description: "Aplikacja do dziennika, w której nawigacja jest ścieżką pliku, a zmiana stanu — komendą. Wpisy wracają jako wykres tygodnia.", study: {} },
+      web: { sub: "strony", menuMeta: "strony", tagline: "strony — wybór",
+        description: "Cztery strony zbudowane na jednym systemie typograficznym. Każda dostaje własny kontrast, żadna nie dostaje nowego kroju.", study: {} },
+      branding: { sub: "kwartał_solna", menuMeta: "kwartał solna", tagline: "identyfikacja i nawigacja",
+        description: "Identyfikacja i system nawigacji dla kwartału mieszkaniowego. Treść zostaje w kości słoniowej — neon oświetla tylko interfejs wokół niej.", study: {} } },
+    docs: {
+      bio: { kim: { label: "01 — kim jestem", text: "Projektuję i wdrażam. SUOH i Nature&Future to moje projekty od pierwszego szkicu po produkcję — identyfikacja, interfejs, front-end, integracje płatności, deploy." },
+        jak: { label: "02 — jak pracuję", text: "Zaczynam od stanów pustych i błędów, kończę na typografii. Projekt uznaję za skończony, kiedy działa pod adresem, nie kiedy wygląda dobrze na artboardzie." },
+        zakres: "Identyfikacja wizualna, interfejsy, e-commerce. Projekty prowadzone od koncepcji po wdrożenie — projekt, front-end, integracje, deploy." },
+      exp: { expLabel: "01 — doświadczenie", eduLabel: "02 — wykształcenie", scopeLabel: "03 — zakres",
+        rows: [{ k: "2022 — teraz", v: "freelance designer — własna działalność" }, { k: "2024 — teraz", v: "projektowanie produktowe i wdrożenia własnych projektów" }],
+        edu: [{ k: "2024", v: "licencjat — Uniwersytet WSB Merito Wrocław" }] },
+      tools: { label: "01 — narzędzia" },
+      contact: { channels: "01 — kanały", response: "02 — czas odpowiedzi",
+        text: (resp, avail) => "Najszybciej mailem — " + resp + ". " + avail + "." },
+      cv: { fileLabel: "01 — plik", contentLabel: "02 — zawartość",
+        fileText: (file, size, upd) => file + " — " + size + ", ostatnia aktualizacja " + upd + ".",
+        rows: [{ k: "s. 1", v: "doświadczenie i wykształcenie" }, { k: "s. 2", v: "wybrane projekty" }, { k: "s. 3", v: "narzędzia i stack" }] },
+      readme: { howLabel: "01 — jak to działa",
+        howText: "To portfolio jest pulpitem. Foldery otwierają projekty, terminal przyjmuje komendy, okna można przenosić, skalować i minimalizować do doku.",
+        shortcutsLabel: "02 — skróty",
+        rows: [{ k: "dwuklik", v: "maksymalizuj okno" }, { k: "prawy dolny róg", v: "zmiana rozmiaru" }, { k: "help", v: "lista komend w terminalu" }] },
+      trash: { title: "kosz — pusty", label: "01 — kosz", text: "// brak wpisów — nic tu nie wyrzucono" } }
+  },
+  en: {
+    role: "product & ux designer",
+    status: "available from Q4",
+    availability: "capacity open from October",
+    responseTime: "I reply in under 24 hours",
+    years: (n) => n + (n === 1 ? " year" : " years"),
+    shotCount: (n) => n + (n === 1 ? " preview" : " previews"),
+    menu: { file: "file", projects: "projects", about: "about", contact: "contact",
+      newProject: "new project", downloadCv: "download CV", clearDesktop: "clear desktop",
+      bio: "bio", experience: "experience", tools: "tools", toolsMeta: "stack", email: "e-mail" },
+    dock: { terminal: "terminal", mail: "mail", linkedin: "linkedin", github: "github", trash: "trash" },
+    ui: { replay: "replay", replayHint: "replay the intro animation — click to skip it",
+      projectsRoot: "projects", grid: "grid", read: "reading", spaceHint: "space — preview",
+      noShots: "// no exports in ", noShotsHelp: "add PNGs to assets/ and list them in DATA.projects[].shots",
+      noStudy: "// no write-up — fill in I18N[lang].projects[...].study (problem / process / outcome)",
+      study: ["01 — problem", "02 — process", "03 — outcome"] },
+    ql: { hint: "← → navigate · esc closes", close: "close preview" },
+    widgets: { building: "now_building", learning: "learning",
+      buildLog: (c, u) => "commit " + c + " · last update " + u,
+      learnDay: (d, lvl) => "day_" + d + " · " + lvl,
+      sticky: ["fix the kerning", "in the SUOH lockup", "hand off by 12.08", "→ then the CV ↗"] },
+    mail: { title: "new message", to: "To:", locked: "locked", from: "From:", name: "Name:",
+      subject: "Subject:", body: "body:", plain: "plain text",
+      phFrom: "your@address.com", phName: "how should I address you", phSubj: "new project — [name]", phBody: "write your message…",
+      send: "send", sending: "sending…", sentTitle: "message sent", sentSub: "I reply within 48h", again: "write another →",
+      chars: (n) => n + " characters",
+      err: { from: "enter a return address", fromBad: "that doesn't look like an e-mail address", subj: "subject is required", body: "write at least two sentences" } },
+    editor: { comment: "// tools I use every day", pos: "ln 1, col 1", sections: (n) => n + " sections", saved: "saved" },
+    term: { title: "terminal", helpTitle: "available commands",
+      cmd: { whoami: "who I am", ls: "list of projects", open: "open a project window", contact: "contact details", cv: "download ", hire: "availability", help: "this list" },
+      notFound: "!! not found: ", notFoundHint: "   type ls to see the projects",
+      typeHelp: "   type help", scope: "scope: ", write: ":: write: " },
+    stackNotes: {
+      "figma": "// wireframes, systems, prototypes",
+      "adobe suite": "// graphics, retouch, print",
+      "canva": "// quick assets, social",
+      "html / css": "// layout, tokens",
+      "javascript": "// interactions",
+      "react": "// components, builds in claude code",
+      "sql": "// database queries",
+      "supabase": "// database and backend",
+      "vercel": "// deploy",
+      "git": "// versioning",
+      "claude code": "// building apps and sites",
+      "claude design": "// interface design",
+      "figma make": "// quick prototypes" },
+    projects: {
+      suoh: { sub: "dark_luxury", menuMeta: "e-commerce", tagline: "e-commerce — dark luxury",
+        description: "A craft studio's shop — catalogue, product page, cart. Warm black and large serif type; the interface stays out of the photographs' way.", study: {} },
+      nature: { sub: "biotech_story", menuMeta: "biotech", tagline: "biotech — product narrative",
+        description: "Website and navigation system for a biotechnology lab. The data stays readable, the imagery keeps quiet around it.", study: {} },
+      logtxt: { sub: "journaling", menuMeta: "dashboard", tagline: "a journal as a dashboard",
+        description: "A journaling app where navigation is a file path and changing state is a command. Entries come back as the week's chart.", study: {} },
+      web: { sub: "web_pages", menuMeta: "websites", tagline: "websites — a selection",
+        description: "Four sites built on one typographic system. Each gets its own contrast, none gets a new typeface.", study: {} },
+      branding: { sub: "kwartal_solna", menuMeta: "kwartał solna", tagline: "identity and navigation",
+        description: "Identity and navigation system for a residential quarter. Content stays in ivory — neon lights only the interface around it.", study: {} } },
+    docs: {
+      bio: { kim: { label: "01 — who I am", text: "I design and I ship. SUOH and Nature&Future are mine from the first sketch to production — identity, interface, front-end, payment integrations, deploy." },
+        jak: { label: "02 — how I work", text: "I start with empty and error states and finish with typography. A project is done when it works at an address, not when it looks good on an artboard." },
+        zakres: "Visual identity, interfaces, e-commerce. Projects run from concept to launch — design, front-end, integrations, deploy." },
+      exp: { expLabel: "01 — experience", eduLabel: "02 — education", scopeLabel: "03 — scope",
+        rows: [{ k: "2022 — now", v: "freelance designer — own practice" }, { k: "2024 — now", v: "product design and shipping my own projects" }],
+        edu: [{ k: "2024", v: "bachelor's degree — WSB Merito University Wrocław" }] },
+      tools: { label: "01 — tools" },
+      contact: { channels: "01 — channels", response: "02 — response time",
+        text: (resp, avail) => "Fastest by e-mail — " + resp + ". " + avail + "." },
+      cv: { fileLabel: "01 — file", contentLabel: "02 — contents",
+        fileText: (file, size, upd) => file + " — " + size + ", last updated " + upd + ".",
+        rows: [{ k: "p. 1", v: "experience and education" }, { k: "p. 2", v: "selected projects" }, { k: "p. 3", v: "tools and stack" }] },
+      readme: { howLabel: "01 — how this works",
+        howText: "This portfolio is a desktop. Folders open projects, the terminal takes commands, windows can be moved, resized and minimised to the dock.",
+        shortcutsLabel: "02 — shortcuts",
+        rows: [{ k: "double-click", v: "maximise window" }, { k: "bottom-right corner", v: "resize" }, { k: "help", v: "list of terminal commands" }] },
+      trash: { title: "trash — empty", label: "01 — trash", text: "// no entries — nothing was thrown out here" } }
+  }
+};
+
+let LANG = "en", T = I18N.en;
+function detectLang() {
+  try { const s = localStorage.getItem("neonos.lang"); if (s === "pl" || s === "en") return s; } catch (e) {}
+  const n = ((navigator.language || "") + "").toLowerCase();
+  return n.indexOf("pl") === 0 ? "pl" : "en";
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DATA — fakty (adresy, daty, pliki, nazwy własne). Wszystkie dane osobowe, kontaktowe
+   i treści zmieniaj TYLKO tutaj; reszta pliku je odczytuje.
+   ══════════════════════════════════════════════════════════════════ */
+const DATA = {
+  name: "Joanna Żuczkowska",
+  email: "joanna@neon-os.pl",
+  linkedin: "https://www.linkedin.com/in/joannazuczkowska",
+  github: "https://github.com/joannazuczkowska",
+  city: "wrocław",
+  careerStart: "2022-06",             // start własnej działalności (RRRR-MM)
+  learningStart: "2026-06-26",          // start nauki koreańskiego (RRRR-MM-DD)
+  learningGoalDays: 365,                // cel: rok nauki
+  learningLevel: "topik_1",
+  social: [
+    { label: "Behance", handle: "be.net/joannaz" },
+    { label: "Instagram", handle: "@joanna.designs" }
+  ],
+  cvUrl: "/cv.pdf",
+  cvDownload: "Joanna_Zuczkowska_CV.pdf",
+  cv: { file: "cv_2026.pdf", dir: "assets/", size: "2.4 MB", updated: "12.07.2026" },
+  building: { projectKey: "nature", meta: "design_system — v0.4", commits: 34, lastUpdate: "2d ago", progress: 62 },
+  projects: [
+    { key: "suoh", name: "SUOH", slug: "suoh/", short: "suoh",
+      shots: [SHOT("suoh-hero.png", "assets/suoh-hero.png"), SHOT("suoh-about.png", "assets/suoh-about.png")] },
+    { key: "nature", name: "Nature Future", slug: "nature_future/", short: "nature", shots: [] },
+    { key: "logtxt", name: "log.txt", slug: "log.txt", short: "log.txt",
+      shots: [SHOT("logtxt-dashboard.png", "assets/logtxt-dashboard.png")] },
+    { key: "web", name: "web_design", slug: "web_design/", short: "web", shots: [] },
+    { key: "branding", name: "Kwartał Solna", slug: "branding/", short: "branding", shots: [] }
+  ],
+  stack: {
+    design: ["figma", "adobe suite", "canva"],
+    code: ["html / css", "javascript", "react", "sql", "supabase", "vercel", "git"],
+    ai: ["claude code", "claude design", "figma make"]
+  }
+};
+
+const PROJ = {};
+DATA.projects.forEach((p) => { PROJ[p.key] = p; });
+let STACK_GROUPS = [];
+function stackGroups(t) {
+  return Object.keys(DATA.stack).map((g) => ({ name: g, items: DATA.stack[g].map((n) => ({ n: n, m: t.stackNotes[n] || "" })) }));
+}
+
+function yearsSinceCareerStart() {
+  const p = DATA.careerStart.split("-").map(Number);
+  const now = new Date();
+  let y = now.getFullYear() - p[0];
+  if (now.getMonth() + 1 < p[1]) y -= 1;
+  return Math.max(0, y);
+}
+function yearsLabel() { return T.years(yearsSinceCareerStart()); }
+
+function daysSinceLearnStart() {
+  const parts = DATA.learningStart.split("-").map(Number);
+  const d0 = new Date(parts[0], parts[1] - 1, parts[2]);
+  const n = new Date();
+  const d1 = new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  return Math.max(0, Math.round((d1 - d0) / 86400000));
+}
+
+let REG = {};
+function buildREG(t) {
+  const R = {};
+  const cap = (x) => x.charAt(0).toUpperCase() + x.slice(1);
+  const d = t.docs;
+  DATA.projects.forEach((p) => {
+    const tp = t.projects[p.key] || {};
+    const n = (p.shots || []).length;
+    R[p.key] = { kind: "folder", title: p.slug, short: p.short, glyph: "▤", path: p.slug,
+      kicker: tp.tagline || "", h1: p.name, desc: tp.description || "",
+      count: t.shotCount(n), study: tp.study || {}, shots: p.shots || [] };
+  });
+  Object.assign(R, {
+    term: { kind: "term", title: t.term.title + " — " + DATA.email.split("@")[0] + "@neon-os", short: "term", glyph: "›_" },
+    bio: { kind: "doc", title: "bio.md", short: "bio", glyph: "▢", sections: [d.bio.kim, d.bio.jak] },
+    exp: { kind: "doc", title: "doswiadczenie.md", short: "exp", glyph: "▢", sections: [
+      { label: d.exp.expLabel, rows: d.exp.rows },
+      { label: d.exp.eduLabel, rows: d.exp.edu },
+      { label: d.exp.scopeLabel, text: d.bio.zakres } ] },
+    tools: { kind: "doc", title: "narzedzia.md", short: "tools", glyph: "▢", sections: [
+      { label: d.tools.label, rows: stackGroups(t).map((g) => ({ k: g.name, v: g.items.map((i) => i.n).join(" · ") })) } ] },
+    kontakt: { kind: "doc", title: "kontakt.txt", short: "kontakt", glyph: "◨", sections: [
+      { label: d.contact.channels, rows: [
+        { k: "e-mail", v: DATA.email },
+        { k: "linkedin", v: DATA.linkedin } ].concat(DATA.social.map((s) => ({ k: s.label.toLowerCase(), v: s.handle }))) },
+      { label: d.contact.response, text: d.contact.text(t.responseTime, cap(t.availability)) } ] },
+    mail: { kind: "mail", title: t.mail.title, short: "mail", glyph: "◨" },
+    cv: { kind: "doc", title: DATA.cv.file, short: "cv", glyph: "▥", sections: [
+      { label: d.cv.fileLabel, text: d.cv.fileText(DATA.cv.file, DATA.cv.size, DATA.cv.updated) },
+      { label: d.cv.contentLabel, rows: d.cv.rows } ] },
+    readme: { kind: "doc", title: "README.txt", short: "readme", glyph: "▢", sections: [
+      { label: d.readme.howLabel, text: d.readme.howText },
+      { label: d.readme.shortcutsLabel, rows: d.readme.rows } ] },
+    stack: { kind: "editor", title: "stack.txt", short: "stack", glyph: "▢", groups: stackGroups(t) },
+    kosz: { kind: "doc", title: d.trash.title, short: t.dock.trash, glyph: "▧", sections: [
+      { label: d.trash.label, text: d.trash.text } ] }
+  });
+  return R;
+}
+function applyLang(lang) {
+  LANG = (lang === "pl" || lang === "en") ? lang : "en";
+  T = I18N[LANG];
+  STACK_GROUPS = stackGroups(T);
+  REG = buildREG(T);
+}
+applyLang(detectLang());
+
+const PROJECT_KEYS = DATA.projects.map((p) => p.key);
+const ICONS = PROJECT_KEYS.concat(["readme", "stack", "polaroid", "building", "learning", "sticky"]);
+const OPENS = { readme: "readme", stack: "stack", polaroid: "bio" };
+PROJECT_KEYS.forEach((k) => { OPENS[k] = k; });
+const ROT = { polaroid: -3.2, sticky: 2.4 };
+const ALIAS = {};
+DATA.projects.forEach((p) => {
+  [p.key, p.slug.replace(/\/$/, ""), p.name.toLowerCase().replace(/\s+/g, "_")].forEach((a) => { ALIAS[a] = p.key; });
+});
+
+function layout(W, H) {
+  return {
+    suoh: { x: 40, y: 62 }, nature: { x: 172, y: 188 }, logtxt: { x: 44, y: 314 },
+    web: { x: 176, y: 440 }, branding: { x: 48, y: 566 }, readme: { x: 180, y: 686 },
+    stack: { x: 44, y: 692 },
+    polaroid: { x: Math.max(300, W - 288), y: 58 },
+    building: { x: Math.max(300, W - 276), y: 356 },
+    learning: { x: Math.max(300, W - 276), y: 552 },
+    sticky: { x: Math.max(300, W - 520), y: 566 }
+  };
+}
+
+class Component extends DCLogic {
+  state = {
+    p: layout(1440, 900), W: 1440, H: 900, scale: 1,
+    wins: [], topZ: 300, menu: null, menuPin: false, drag: null,
+    term: [], termIn: "", hist: [], histI: -1,
+    lang: LANG, playing: true, pos: 72, wro: "", sel: "",
+    cur: 1, revealed: false,
+    view: {}, selShot: {}, ql: null,
+    mail: { from: "", name: "", subj: "", body: "" }, mailFoc: null,
+    mailStage: "form", mailErr: {}, mailProg: 0
+  };
+
+  /* ── widok okna projektu + quick look ── */
+  setView(id, mode) { this.setState((s) => ({ view: Object.assign({}, s.view, { [id]: mode }) })); }
+  shotsOf(id) { return (REG[id] && REG[id].shots) || []; }
+  quick(id, i) {
+    this.setState((s) => ({ selShot: Object.assign({}, s.selShot, { [id]: i }), ql: { id: id, i: i }, qlDy: 0 }));
+    if (!this._qlHintSeen) {
+      this._qlHintSeen = true;
+      this.setState({ qlHint: 1 });
+      clearTimeout(this._qlh1); clearTimeout(this._qlh2);
+      this._qlh1 = setTimeout(() => this.setState({ qlHint: 2 }), 3000);
+      this._qlh2 = setTimeout(() => this.setState({ qlHint: 0 }), 3600);
+    }
+  }
+  qlStep(d) {
+    this.setState((s) => {
+      if (!s.ql) return {};
+      const n = this.shotsOf(s.ql.id).length;
+      if (!n) return {};
+      const i = s.ql.i + d;
+      if (i < 0 || i > n - 1) return {};
+      return { ql: { id: s.ql.id, i: i }, selShot: Object.assign({}, s.selShot, { [s.ql.id]: i }), qlDy: 0 };
+    });
+  }
+  topFolder() {
+    const s = this.state;
+    let best = null;
+    s.wins.forEach((w) => { if (!w.min && REG[w.id] && REG[w.id].kind === "folder" && (!best || w.z > best.z)) best = w; });
+    return best;
+  }
+  onGlobalKey = (e) => {
+    const t = e.target;
+    const typing = t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA");
+    if (this.state.ql) {
+      if (e.key === "Escape") { e.preventDefault(); this.setState({ ql: null }); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); this.qlStep(-1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); this.qlStep(1); }
+      else if (e.key === " ") { e.preventDefault(); this.setState({ ql: null }); }
+      return;
+    }
+    if (typing) return;
+    if (e.key === " ") {
+      const w = this.topFolder();
+      if (!w) return;
+      const shots = this.shotsOf(w.id);
+      if (!shots.length) return;
+      e.preventDefault();
+      this.quick(w.id, this.state.selShot[w.id] || 0);
+    }
+  };
+
+  setMail(k, v) { this.setState((s) => ({ mail: Object.assign({}, s.mail, { [k]: v }), mailErr: Object.assign({}, s.mailErr, { [k]: null }) })); }
+  sendMail() {
+    const m = this.state.mail, err = {};
+    if (!m.from.trim()) err.from = T.mail.err.from;
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m.from.trim())) err.from = T.mail.err.fromBad;
+    if (!m.subj.trim()) err.subj = T.mail.err.subj;
+    if (m.body.trim().length < 10) err.body = T.mail.err.body;
+    if (Object.keys(err).length) { this.setState({ mailErr: err }); return; }
+    this.setState({ mailStage: "sending", mailProg: 0, mailErr: {} });
+    clearInterval(this.sendIv);
+    this.sendIv = setInterval(() => {
+      this.setState((s) => {
+        const p = s.mailProg + 14;
+        if (p >= 100) { clearInterval(this.sendIv); this.after(320, () => this.setState({ mailStage: "sent" })); return { mailProg: 100 }; }
+        return { mailProg: p };
+      });
+    }, 130);
+  }
+
+  /* ── animacja wejścia: maszynopisanie ── */
+  introAfter(ms, fn) { (this.introT = this.introT || []).push(setTimeout(fn, ms)); }
+  intro() {
+    (this.introT || []).forEach(clearTimeout);
+    this.introT = [];
+    const t1 = DATA.name;
+    const t2 = T.role;
+    if (this._l1) this._l1.textContent = "";
+    if (this._l2) this._l2.textContent = "";
+    this.setState({ cur: 1, revealed: false });
+    const rnd = (b, j) => Math.max(12, b + (Math.random() * 2 - 1) * j);
+    let i = 0, j = 0;
+    const typ2 = () => {
+      j++;
+      if (this._l2) this._l2.textContent = t2.slice(0, j);
+      if (j < t2.length) this.introAfter(rnd(35, 12), typ2);
+      else this.introAfter(120, () => {
+        this.setState({ revealed: true });
+        this.introAfter(2000, () => this.setState({ cur: 0 }));
+      });
+    };
+    const typ1 = () => {
+      i++;
+      if (this._l1) this._l1.textContent = t1.slice(0, i);
+      if (i < t1.length) this.introAfter(rnd(55, 20), typ1);
+      else this.introAfter(400, () => { this.setState({ cur: 2 }); typ2(); });
+    };
+    this.introAfter(620, typ1);
+  }
+
+  componentDidMount() {
+    this.onMove = this.onMove.bind(this);
+    this.onUp = this.onUp.bind(this);
+    this.onResize = this.onResize.bind(this);
+    window.addEventListener("pointermove", this.onMove);
+    window.addEventListener("pointerup", this.onUp);
+    window.addEventListener("resize", this.onResize);
+    document.addEventListener("mousedown", this.onDocDown, true);
+    window.addEventListener("keydown", this.onGlobalKey);
+    this.onResize();
+    this.intro();
+    this.tick();
+    this.iv = setInterval(() => this.tick(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.iv);
+    clearInterval(this.sendIv);
+    (this.timers || []).forEach(clearTimeout);
+    (this.introT || []).forEach(clearTimeout);
+    window.removeEventListener("pointermove", this.onMove);
+    window.removeEventListener("pointerup", this.onUp);
+    window.removeEventListener("resize", this.onResize);
+    document.removeEventListener("mousedown", this.onDocDown, true);
+    window.removeEventListener("keydown", this.onGlobalKey);
+    clearTimeout(this._mt);
+    clearTimeout(this._qlh1); clearTimeout(this._qlh2);
+  }
+  componentDidUpdate() {
+    if (this._term) this._term.scrollTop = this._term.scrollHeight;
+  }
+
+  onResize() {
+    const el = this._wrap;
+    const vw = el ? el.clientWidth : window.innerWidth;
+    const vh = el ? el.clientHeight : window.innerHeight;
+    this.setState({ scale: Math.min(vw / 1440, vh / 900) });
+  }
+  sc() {
+    const el = this._desk;
+    if (!el) return this.state.scale || 1;
+    const r = el.getBoundingClientRect();
+    return r.width ? r.width / 1440 : 1;
+  }
+
+  tick() {
+    const fmt = (tz) => {
+      try { return new Intl.DateTimeFormat("pl-PL", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: tz }).format(new Date()); }
+      catch (e) { return "--:--"; }
+    };
+    this.setState((s) => ({ wro: fmt("Europe/Warsaw"), sel: fmt("Asia/Seoul"), pos: s.playing ? (s.pos + 1) % 300 : s.pos }));
+  }
+
+  /* ── okna ── */
+  open(id) {
+    const def = REG[id];
+    if (!def) return;
+    this.setState((s) => {
+      const z = s.topZ + 1;
+      if (s.wins.some((w) => w.id === id)) {
+        return { menu: null, topZ: z, wins: s.wins.map((w) => w.id === id ? Object.assign({}, w, { min: false, z: z, spawn: false }) : w) };
+      }
+      const W = s.W, H = s.H;
+      const size = def.kind === "folder" ? [Math.min(840, W - 120), Math.min(600, H - 150)]
+        : def.kind === "term" ? [Math.min(680, W - 160), Math.min(430, H - 200)]
+        : def.kind === "mail" ? [Math.min(620, W - 140), Math.min(560, H - 160)]
+        : [Math.min(600, W - 160), Math.min(520, H - 180)];
+      const n = s.wins.length % 5;
+      const x = Math.max(20, Math.round((W - size[0]) / 2) + (n - 2) * 32);
+      const y = Math.max(48, Math.round((H - size[1]) / 2 - 34) + (n - 2) * 26);
+      const win = { id: id, kind: def.kind, x: x, y: y, w: size[0], h: size[1], z: z, min: false, max: false, spawn: true };
+      return { menu: null, topZ: z, wins: s.wins.concat([win]) };
+    }, () => {
+      this.after(30, () => this.upd(id, { spawn: false }));
+      if (id === "term") this.bootTerm();
+    });
+  }
+  after(ms, fn) { (this.timers = this.timers || []).push(setTimeout(fn, ms)); }
+  upd(id, patch) {
+    this.setState((s) => ({ wins: s.wins.map((w) => w.id === id ? Object.assign({}, w, patch) : w) }));
+  }
+  menuEnter(k) {
+    clearTimeout(this._mt);
+    this.setState({ menu: k });
+  }
+  menuLeave() {
+    clearTimeout(this._mt);
+    if (this.state.menuPin) return;
+    this._mt = setTimeout(() => this.setState({ menu: null }), 250);
+  }
+  menuClick(k, e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    clearTimeout(this._mt);
+    this.setState((s) => (s.menu === k && s.menuPin) ? { menu: null, menuPin: false } : { menu: k, menuPin: true });
+  }
+  onDocDown = (e) => {
+    if (!this.state.menu) return;
+    if (this._nav && this._nav.contains(e.target)) return;
+    clearTimeout(this._mt);
+    this.setState({ menu: null, menuPin: false });
+  };
+  focus(id) {
+    this.setState((s) => {
+      if (s.wins.length && s.wins[s.wins.length - 1] && s.wins.find((w) => w.id === id && w.z === s.topZ)) return { menu: null };
+      const z = s.topZ + 1;
+      return { menu: null, topZ: z, wins: s.wins.map((w) => w.id === id ? Object.assign({}, w, { z: z }) : w) };
+    });
+  }
+  close(id) { this.setState((s) => ({ wins: s.wins.filter((w) => w.id !== id) })); }
+  minimize(id) { this.upd(id, { min: true }); }
+  toggleMax(id) {
+    this.setState((s) => ({ wins: s.wins.map((w) => {
+      if (w.id !== id) return w;
+      if (w.max) return Object.assign({}, w, { max: false }, w.prev || {});
+      return Object.assign({}, w, { max: true, prev: { x: w.x, y: w.y, w: w.w, h: w.h } });
+    }) }));
+  }
+
+  /* ── przeciąganie ── */
+  startIcon(key, e) {
+    if (e.button != null && e.button !== 0) return;
+    if (e.target && e.target.closest && e.target.closest("[data-nodrag]")) return;
+    const el = e.currentTarget;
+    const base = this.state.p[key] || { x: 40, y: 62 };
+    this.d = { mode: "icon", key: key, scale: this.sc(), sx: e.clientX, sy: e.clientY, ox: base.x, oy: base.y, w: el.offsetWidth, h: el.offsetHeight, moved: false };
+    if (e.preventDefault) e.preventDefault();
+    this.setState({ menu: null, drag: key });
+  }
+  startWin(id, e) {
+    if (e.button != null && e.button !== 0) return;
+    if (e.target && e.target.closest && e.target.closest("[data-nodrag]")) return;
+    const w = this.state.wins.find((x) => x.id === id);
+    if (!w || w.max) return;
+    this.d = { mode: "win", id: id, scale: this.sc(), sx: e.clientX, sy: e.clientY, ox: w.x, oy: w.y };
+    if (e.preventDefault) e.preventDefault();
+    this.focus(id);
+  }
+  startSize(id, e) {
+    if (e.button != null && e.button !== 0) return;
+    const w = this.state.wins.find((x) => x.id === id);
+    if (!w) return;
+    this.d = { mode: "size", id: id, scale: this.sc(), sx: e.clientX, sy: e.clientY, ow: w.w, oh: w.h };
+    if (e.preventDefault) e.preventDefault();
+    this.focus(id);
+  }
+  onMove(e) {
+    const d = this.d;
+    if (!d) return;
+    const k = d.scale || 1;
+    const dx = (e.clientX - d.sx) / k, dy = (e.clientY - d.sy) / k;
+    const W = this.state.W, H = this.state.H;
+    if (d.mode === "icon") {
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) { d.moved = true; this.moved = true; }
+      const x = Math.max(6, Math.min(W - d.w - 6, d.ox + dx));
+      const y = Math.max(40, Math.min(H - d.h - 8, d.oy + dy));
+      this.setState((s) => ({ p: Object.assign({}, s.p, { [d.key]: { x: x, y: y } }) }));
+    } else if (d.mode === "win") {
+      const x = Math.max(-160, Math.min(W - 120, d.ox + dx));
+      const y = Math.max(34, Math.min(H - 60, d.oy + dy));
+      this.upd(d.id, { x: x, y: y });
+    } else if (d.mode === "size") {
+      this.upd(d.id, { w: Math.max(360, Math.min(W - 24, d.ow + dx)), h: Math.max(220, Math.min(H - 48, d.oh + dy)) });
+    }
+  }
+  onUp() {
+    const d = this.d;
+    if (!d) return;
+    this.d = null;
+    if (d.mode === "icon") {
+      this.setState({ drag: null });
+      if (!d.moved && OPENS[d.key]) this.open(OPENS[d.key]);
+    }
+  }
+
+  /* ── terminal ── */
+  push(lines) { this.setState((s) => ({ term: s.term.concat(lines) })); }
+  bootTerm() {
+    (this.bootT || []).forEach(clearTimeout);
+    this.bootT = [];
+    this.setState({ term: [], termIn: "" });
+    const seq = [
+      { c: VIO, s: ":: mount /portfolio … ok" },
+      { c: DIM, s: "zsh — " + DATA.email.split("@")[0] + "@neon-os · " + new Date().getFullYear() }
+    ].concat(this.help());
+    seq.forEach((l, i) => this.bootT.push(setTimeout(() => this.push([l]), 90 + i * 70)));
+    this.after(120, () => this.focusInput());
+  }
+  help() {
+    const c = T.term.cmd;
+    const pad = (s) => (s + "                ").slice(0, 16);
+    return [
+      { c: IVORY, s: "" },
+      { c: "#9C8355", s: T.term.helpTitle },
+      { c: IVORY, s: "  " + pad("whoami") + c.whoami },
+      { c: IVORY, s: "  " + pad("ls") + c.ls },
+      { c: IVORY, s: "  " + pad("open [project]") + c.open },
+      { c: IVORY, s: "  " + pad("contact") + c.contact },
+      { c: IVORY, s: "  " + pad("cv") + c.cv + DATA.cv.file },
+      { c: IVORY, s: "  " + pad("hire") + c.hire },
+      { c: IVORY, s: "  " + pad("help") + c.help },
+      { c: IVORY, s: "" }
+    ];
+  }
+  focusInput() { if (this._in) this._in.focus(); }
+  run(raw) {
+    const cmd = raw.trim();
+    const out = [{ c: MAG, s: ">> " + cmd }];
+    const parts = cmd.toLowerCase().split(/\s+/);
+    const head = parts[0];
+    if (!cmd) { this.push([{ c: MAG, s: ">> " }]); return; }
+    if (head === "help") out.push.apply(out, this.help());
+    else if (head === "whoami") out.push({ c: IVORY, s: DATA.name.toLowerCase() + " — " + T.role }, { c: DIM, s: DATA.city + " · " + yearsLabel() + " · " + T.status });
+    else if (head === "ls") {
+      DATA.projects.forEach((p) => out.push({ c: IVORY, s: "  " + p.slug + "   " + ((T.projects[p.key] || {}).tagline || "") }));
+      out.push({ c: DIM, s: "  bio.md   " + DATA.cv.file + "   kontakt.txt   stack.txt" });
+    }
+    else if (head === "open") {
+      const key = ALIAS[(parts[1] || "").replace(/\/$/, "")];
+      if (key) { out.push({ c: VIO, s: ":: open " + REG[key].path + " … ok" }); this.after(60, () => this.open(key)); }
+      else out.push({ c: MAG, s: T.term.notFound + (parts[1] || "—") }, { c: DIM, s: T.term.notFoundHint });
+    }
+    else if (head === "contact") {
+      out.push({ c: IVORY, s: "  e-mail      " + DATA.email }, { c: IVORY, s: "  linkedin    " + DATA.linkedin }, { c: IVORY, s: "  github      " + DATA.github }, { c: VIO, s: ":: " + T.responseTime + " … ok" });
+      this.after(60, () => this.open("kontakt"));
+    }
+    else if (head === "cv") { out.push({ c: VIO, s: ":: " + DATA.cv.file + " — " + DATA.cv.size + " … ok" }); this.after(60, () => this.open("cv")); }
+    else if (head === "hire") out.push({ c: IVORY, s: T.status + " — " + T.availability }, { c: IVORY, s: T.term.scope + T.docs.bio.zakres.split(".")[0].toLowerCase() }, { c: VIO, s: T.term.write + DATA.email + " … ok" });
+    else if (head === "clear") { this.setState({ term: [], termIn: "" }); return; }
+    else out.push({ c: MAG, s: "!! command not found: " + head }, { c: DIM, s: T.term.typeHelp });
+    out.push({ c: IVORY, s: "" });
+    this.setState((s) => ({ term: s.term.concat(out), termIn: "", hist: [cmd].concat(s.hist).slice(0, 20), histI: -1 }));
+  }
+  onKey(e) {
+    if (e.key === "Enter") { e.preventDefault(); this.run(this.state.termIn); }
+    else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      this.setState((s) => { const i = Math.min(s.hist.length - 1, s.histI + 1); return i < 0 ? {} : { histI: i, termIn: s.hist[i] }; });
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      this.setState((s) => { const i = s.histI - 1; return { histI: i, termIn: i < 0 ? "" : s.hist[i] }; });
+    }
+  }
+
+  winView(w) {
+    const s = this.state;
+    const def = REG[w.id];
+    const focused = w.z === s.topZ && !w.min;
+    const max = w.max;
+    const x = max ? 0 : w.x, y = max ? 34 : w.y;
+    const ww = max ? s.W : w.w, hh = max ? s.H - 34 : w.h;
+    let tf = "none", op = "1", pe = "auto";
+    if (w.min) {
+      const dx = Math.round(s.W / 2 - (x + ww / 2));
+      const dy = Math.round(s.H - 46 - (y + hh / 2));
+      tf = "translate(" + dx + "px," + dy + "px) scale(.06)"; op = "0"; pe = "none";
+    } else if (w.spawn) { tf = "translateY(8px) scale(.995)"; op = "0"; }
+    const box = "position:absolute;left:" + x + "px;top:" + y + "px;width:" + ww + "px;height:" + hh + "px" +
+      ";display:flex;flex-direction:column;background:#170F26;overflow:hidden" +
+      ";border:1px solid " + (focused ? MAG : "#2A1D42") +
+      ";border-radius:" + (max ? "0" : "6px") +
+      ";box-shadow:0 28px 70px rgba(0,0,0,.66)" + (focused ? ",0 0 28px rgba(255,46,136,.24),0 0 90px rgba(255,46,136,.08)" : "") +
+      ";z-index:" + w.z + ";opacity:" + op + ";transform:" + tf + ";pointer-events:" + pe +
+      ";transform-origin:50% 50%;transition:opacity .24s " + EASE + ",transform .24s " + EASE + ",border-color .16s " + EASE;
+    const head = "height:38px;flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:0 14px;cursor:" + (max ? "default" : "grab") +
+      ";user-select:none;-webkit-user-select:none;touch-action:none" +
+      ";border-bottom:1px solid " + (focused ? "rgba(255,46,136,.32)" : "#241834") +
+      ";background:" + (focused ? "rgba(255,46,136,.05)" : "rgba(237,231,220,.02)");
+    let extra = {};
+    if (def.kind === "folder") {
+      const shots = def.shots || [];
+      const mode = s.view[w.id] || "grid";
+      const selI = s.selShot[w.id] || 0;
+      const tile = (i) => "position:relative;background:#0F0A18;border-radius:3px;overflow:hidden;cursor:pointer" +
+        ";border:1px solid " + (selI === i ? MAG : "rgba(237,231,220,.12)") +
+        (selI === i ? ";box-shadow:0 0 18px rgba(255,46,136,.20)" : "") +
+        ";transition:border-color .16s " + EASE + ",box-shadow .16s " + EASE;
+      const cover = (src, h) => "width:100%;height:" + h + "px;background-image:url(" + src + ")" +
+        ";background-size:cover;background-position:top center;background-color:#0A0710";
+      const btn = (on) => "width:26px;height:20px;display:grid;place-items:center;background:" +
+        (on ? "rgba(255,46,136,.14)" : "none") + ";border:1px solid " + (on ? MAG : "rgba(237,231,220,.14)") +
+        ";border-radius:4px;font:inherit;font-size:11px;color:" + (on ? MAG : "rgba(237,231,220,.5)") +
+        ";cursor:pointer;transition:all .16s " + EASE;
+      const order = [["problem", T.ui.study[0]], ["proces", T.ui.study[1]], ["rezultat", T.ui.study[2]]];
+      const texts = order.filter((o) => (def.study || {})[o[0]]).map((o) => ({ label: o[1], text: def.study[o[0]] }));
+      const blocks = [];
+      const n = Math.max(texts.length, shots.length);
+      for (let i = 0; i < n; i++) {
+        if (texts[i]) blocks.push({ isText: true, isImg: false, label: texts[i].label, text: texts[i].text });
+        if (shots[i]) blocks.push({ isText: false, isImg: true, file: shots[i].file, open: () => this.quick(w.id, i),
+          img: "width:100%;height:300px;background-image:url(" + shots[i].src + ");background-size:cover;background-position:top center;background-color:#0A0710;border-top:1px solid rgba(237,231,220,.12);border-bottom:1px solid rgba(237,231,220,.12)" });
+      }
+      extra = {
+        isGrid: mode === "grid", isRead: mode === "read",
+        setGrid: () => this.setView(w.id, "grid"), setRead: () => this.setView(w.id, "read"),
+        gridBtn: btn(mode === "grid"), readBtn: btn(mode === "read"),
+        hasHero: shots.length > 0, hasRest: shots.length > 1, noShots: shots.length === 0,
+        hero: shots[0] ? { file: shots[0].file, box: tile(0), img: cover(shots[0].src, 244), open: () => this.quick(w.id, 0) } : {},
+        rest: shots.slice(1).map((sh, i) => ({ file: sh.file, box: tile(i + 1), img: cover(sh.src, 118), open: () => this.quick(w.id, i + 1) })),
+        blocks: blocks, noStudy: texts.length === 0,
+        hint: shots.length ? T.ui.spaceHint : ""
+      };
+    }
+    return Object.assign({}, def, extra, {
+      box: box, head: head,
+      isFolder: def.kind === "folder", isDoc: def.kind === "doc", isTerm: def.kind === "term", isEditor: def.kind === "editor", isMail: def.kind === "mail",
+      sections: (def.sections || []).map((sec) => Object.assign({}, sec, { hasText: !!sec.text, hasRows: !!(sec.rows && sec.rows.length) })),
+      grip: "position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize;z-index:5" + (max ? ";display:none" : ""),
+      focus: () => this.focus(w.id),
+      drag: (e) => this.startWin(w.id, e),
+      resize: (e) => this.startSize(w.id, e),
+      min: () => this.minimize(w.id),
+      max: () => this.toggleMax(w.id),
+      close: () => this.close(w.id)
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const R = s.revealed;
+    const delay = {};
+    ICONS.map((k) => {
+      const p = s.p[k] || { x: 40, y: 62 };
+      return { k: k, d: Math.hypot(p.x + 58 - 720, p.y + 50 - 450) };
+    }).concat([{ k: "__dock", d: 380 }, { k: "__menu", d: 433 }])
+      .sort((a, b) => a.d - b.d)
+      .forEach((it, n) => { delay[it.k] = n * 60; });
+
+    const ic = {};
+    ICONS.forEach((k) => {
+      const p = s.p[k] || { x: 40, y: 62 };
+      const dragging = s.drag === k;
+      const rot = (ROT[k] || 0) + (dragging ? 2 : 0);
+      const tr = (dragging ? "" : "transform .18s " + EASE + ",") + "opacity .55s " + EASE + " " + delay[k] + "ms";
+      ic[k] = {
+        s: "position:absolute;left:" + p.x + "px;top:" + p.y + "px;z-index:" + (dragging ? 220 : 12) +
+          ";transform:rotate(" + rot + "deg)" + (dragging ? " scale(1.03)" : "") +
+          ";cursor:" + (dragging ? "grabbing" : "grab") + ";touch-action:none;user-select:none;-webkit-user-select:none" +
+          ";filter:" + (dragging ? "drop-shadow(0 26px 38px rgba(0,0,0,.65))" : "none") +
+          ";opacity:" + (R ? 1 : 0) + ";pointer-events:" + (R ? "auto" : "none") +
+          ";transition:" + tr,
+        d: (e) => this.startIcon(k, e),
+        label: PROJ[k] ? PROJ[k].slug : "",
+        sub: (T.projects[k] || {}).sub || ""
+      };
+    });
+    const termOpen = s.wins.some((w) => w.id === "term" && !w.min);
+    const mm = String(Math.floor(s.pos / 60)).padStart(2, "0");
+    const ss = String(s.pos % 60).padStart(2, "0");
+    const learnDays = daysSinceLearnStart();
+    const goal = Math.max(1, DATA.learningGoalDays);
+    const learn = Math.max(0, Math.min(100, Math.floor((learnDays / goal) * 100)));
+    const go = {};
+    ["suoh", "nature", "logtxt", "web", "branding", "term", "mail", "cv", "bio", "exp", "tools", "kontakt", "kosz", "readme", "stack"].forEach((k) => { go[k] = () => this.open(k); });
+    go.clear = () => this.setState({ wins: [], menu: null });
+
+    const m = s.mail, foc = s.mailFoc;
+    const row = (k) => "display:grid;grid-template-columns:88px 1fr auto;gap:14px;align-items:center;min-height:38px;padding:0 22px" +
+      ";border-bottom:1px solid " + (foc === k ? MAG : "#241834") +
+      (foc === k ? ";box-shadow:0 1px 0 rgba(255,46,136,.35)" : "") +
+      ";transition:border-color .16s " + EASE;
+
+    const buildProj = PROJ[DATA.building.projectKey];
+    const qs = s.ql ? this.shotsOf(s.ql.id) : [];
+    const qi = s.ql ? Math.min(s.ql.i, Math.max(0, qs.length - 1)) : 0;
+    const CUR_L = "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2726%27%20height%3D%2726%27%3E%3Cpath%20d%3D%27M16%205L8%2013L16%2021%27%20fill%3D%27none%27%20stroke%3D%27%23FF2E88%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E\") 13 13, w-resize";
+    const CUR_R = "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2726%27%20height%3D%2726%27%3E%3Cpath%20d%3D%27M10%205L18%2013L10%2021%27%20fill%3D%27none%27%20stroke%3D%27%23FF2E88%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E\") 13 13, e-resize";
+    const edge = (side, cur) => "position:absolute;top:0;bottom:0;" + side + ":0;width:33.333%;z-index:2" +
+      ";display:flex;align-items:center;justify-content:" + (side === "left" ? "flex-start" : "flex-end") +
+      ";padding-" + side + ":32px;cursor:" + cur;
+    const dy = s.qlDy || 0;
+    return {
+      qlOpen: !!(s.ql && qs.length),
+      qlFrame: "position:relative;z-index:1;touch-action:none;width:78%;height:72%;background-image:url(" + (qs[qi] ? qs[qi].src : "") + ")" +
+        ";background-size:contain;background-position:center;background-repeat:no-repeat" +
+        ";filter:drop-shadow(0 40px 90px rgba(0,0,0,.72))" +
+        ";transform:translateY(" + dy + "px);opacity:" + (dy > 0 ? Math.max(0.25, 1 - dy / 320).toFixed(3) : 1) +
+        (this._qlDragging ? "" : ";transition:transform .24s " + EASE + ",opacity .24s " + EASE),
+      qlStop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
+      qlHasPrev: qi > 0,
+      qlHasNext: qi < qs.length - 1,
+      qlHintOn: !!s.qlHint,
+      qlHintStyle: "position:absolute;left:50%;bottom:96px;transform:translateX(-50%);z-index:3;pointer-events:none" +
+        ";padding:8px 16px;background:rgba(0,0,0,.55);border:1px solid rgba(237,231,220,.16)" +
+        ";font-size:11px;letter-spacing:.14em;color:rgba(237,231,220,.72)" +
+        ";opacity:" + (s.qlHint === 2 ? 0 : 1) + ";transition:opacity .6s " + EASE,
+      qlDown: (e) => {
+        if (e.pointerType === "mouse") return;
+        this._qlY0 = e.clientY; this._qlDragging = true;
+        if (e.currentTarget.setPointerCapture) { try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {} }
+      },
+      qlMove: (e) => {
+        if (!this._qlDragging) return;
+        const d = e.clientY - this._qlY0;
+        this.setState({ qlDy: d > 0 ? d : 0 });
+      },
+      qlUp: (e) => {
+        if (!this._qlDragging) return;
+        this._qlDragging = false;
+        if ((this.state.qlDy || 0) > 110) this.setState({ ql: null, qlDy: 0 });
+        else this.setState({ qlDy: 0 });
+      },
+      qlName: qs[qi] ? qs[qi].file : "",
+      qlCount: (qi + 1) + " / " + qs.length,
+      qlLeft: edge("left", CUR_L), qlRight: edge("right", CUR_R),
+      qlClose: () => this.setState({ ql: null }),
+      qlPrev: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.qlStep(-1); },
+      qlNext: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.qlStep(1); },
+      email: DATA.email,
+      linkedinUrl: DATA.linkedin,
+      githubUrl: DATA.github,
+      githubHandle: DATA.github.replace(/^https?:\/\/(www\.)?github\.com\//, ""),
+      linkedinHandle: DATA.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com/, ""),
+      status: T.status, years: yearsLabel(),
+      cvFile: DATA.cv.file, cvUrl: DATA.cvUrl, cvDownload: DATA.cvDownload, cvSize: DATA.cv.size,
+      menuProjects: DATA.projects.map((p) => ({ slug: p.slug, meta: (T.projects[p.key] || {}).menuMeta || "", open: () => this.open(p.key) })),
+      menuSocial: DATA.social.map((c) => ({ label: c.label, handle: c.handle, open: () => this.open("kontakt") })),
+      buildName: buildProj ? buildProj.name : "",
+      buildMeta: DATA.building.meta,
+      buildLog: T.widgets.buildLog(DATA.building.commits, DATA.building.lastUpdate),
+      sticky1: T.widgets.sticky[0], sticky2: T.widgets.sticky[1], sticky3: T.widgets.sticky[2], sticky4: T.widgets.sticky[3],
+      editorSections: T.editor.sections(STACK_GROUPS.length),
+      rowDo: row("__do"), rowFrom: row("from"), rowName: row("name"), rowSubj: row("subj"),
+      rowBodyLbl: "display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:center;min-height:38px;padding:0 22px;border-bottom:1px solid " + (foc === "body" ? MAG : "#241834") + ";transition:border-color .16s " + EASE,
+      mailFrom: m.from, mailName: m.name, mailSubj: m.subj, mailBody: m.body,
+      onFrom: (e) => this.setMail("from", e.target.value),
+      onName: (e) => this.setMail("name", e.target.value),
+      onSubj: (e) => this.setMail("subj", e.target.value),
+      onBody: (e) => this.setMail("body", e.target.value),
+      focFrom: () => this.setState({ mailFoc: "from" }),
+      focName: () => this.setState({ mailFoc: "name" }),
+      focSubj: () => this.setState({ mailFoc: "subj" }),
+      focBody: () => this.setState({ mailFoc: "body" }),
+      blurF: () => this.setState({ mailFoc: null }),
+      errFrom: s.mailErr.from || "", errSubj: s.mailErr.subj || "", errBody: s.mailErr.body || "",
+      mailForm: s.mailStage !== "sent", mailSent: s.mailStage === "sent",
+      mailIdle: s.mailStage === "form", mailSending: s.mailStage === "sending",
+      sendPct: s.mailProg + "%",
+      mailCount: T.mail.chars(m.body.length),
+      send: () => this.sendMail(),
+      again: () => this.setState({ mail: { from: "", name: "", subj: "", body: "" }, mailStage: "form", mailErr: {}, mailProg: 0 }),
+      l1Ref: (el) => { this._l1 = el; },
+      l2Ref: (el) => { this._l2 = el; },
+      replay: () => this.intro(),
+      cur1: s.cur === 1 ? "display:inline-block;width:3px;height:50px;background:#FF2E88;box-shadow:0 0 10px rgba(255,46,136,.45);vertical-align:-6px;margin-left:7px;animation:blinkHard 1.06s steps(2,jump-none) infinite" : "display:none",
+      cur2: s.cur === 2 ? "display:inline-block;width:3px;height:32px;background:#FF2E88;box-shadow:0 0 10px rgba(255,46,136,.45);vertical-align:-4px;margin-left:6px;animation:blinkHard 1.06s steps(2,jump-none) infinite" : "display:none",
+      revMenu: "opacity:" + (R ? 1 : 0) + ";pointer-events:" + (R ? "auto" : "none") + ";transition:opacity .55s " + EASE + " " + delay.__menu + "ms;",
+      revDock: "opacity:" + (R ? 1 : 0) + ";pointer-events:" + (R ? "auto" : "none") + ";transition:opacity .55s " + EASE + " " + delay.__dock + "ms;",
+      deskRef: (el) => { this._desk = el; },
+      wrapRef: (el) => { this._wrap = el; if (el && !this._measured) { this._measured = true; setTimeout(() => this.onResize(), 0); } },
+      stage: "transform:translate(-50%,-50%) scale(" + (s.scale || 1) + ");box-shadow:0 0 0 1px #1B1229;",
+      ic: ic,
+      wins: s.wins.map((w) => this.winView(w)),
+      minWins: s.wins.filter((w) => w.min).map((w) => ({
+        short: REG[w.id].short, glyph: REG[w.id].glyph, restore: () => this.open(w.id)
+      })),
+      go: go,
+      dockTerm: {
+        bg: termOpen ? "rgba(255,46,136,.12)" : "rgba(237,231,220,.05)",
+        bd: termOpen ? "1px solid #FF2E88" : "1px solid rgba(237,231,220,.13)",
+        gl: termOpen ? "0 0 20px rgba(255,46,136,.32)" : "none",
+        fg: termOpen ? MAG : "rgba(237,231,220,.6)"
+      },
+      mPlik: s.menu === "plik", mProj: s.menu === "proj", mAbout: s.menu === "about", mKont: s.menu === "kont",
+      hoverPlik: () => this.menuEnter("plik"),
+      hoverProj: () => this.menuEnter("proj"),
+      hoverAbout: () => this.menuEnter("about"),
+      hoverKont: () => this.menuEnter("kont"),
+      clickPlik: (e) => this.menuClick("plik", e),
+      clickProj: (e) => this.menuClick("proj", e),
+      clickAbout: (e) => this.menuClick("about", e),
+      clickKont: (e) => this.menuClick("kont", e),
+      menuLeave: () => this.menuLeave(),
+      navRef: (el) => { this._nav = el; },
+      closeMenu: () => this.setState({ menu: null, menuPin: false }),
+      termLines: s.term,
+      termIn: s.termIn,
+      termRef: (el) => { this._term = el; },
+      inputRef: (el) => { this._in = el; },
+      focusTerm: () => this.focusInput(),
+      onTermIn: (e) => this.setState({ termIn: e.target.value }),
+      onTermKey: (e) => this.onKey(e),
+      t: T,
+      toggleLang: () => {
+        const next = this.state.lang === "pl" ? "en" : "pl";
+        applyLang(next);
+        try { localStorage.setItem("neonos.lang", next); } catch (e) {}
+        this.setState({ lang: next }, () => { if (this._l2 && this.state.revealed) this._l2.textContent = T.role; });
+      },
+      togglePlay: () => this.setState((st) => ({ playing: !st.playing })),
+      plColor: s.lang === "pl" ? IVORY : "rgba(237,231,220,.35)",
+      enColor: s.lang === "en" ? IVORY : "rgba(237,231,220,.35)",
+      playGlyph: s.playing ? "❚❚" : "▶",
+      buildPct: Math.max(0, Math.min(100, DATA.building.progress)) + "%",
+      trackPct: (s.pos / 300) * 100 + "%",
+      elapsed: mm + ":" + ss,
+      learnPct: learn + "%",
+      learnDay: T.widgets.learnDay(learnDays, DATA.learningLevel),
+      wro: s.wro, sel: s.sel,
+      showGrain: this.props.showGrain ?? true,
+      showScanline: this.props.showScanline ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>
