@@ -137,6 +137,22 @@ export default function App({ showScanline = true, showGrain = true }) {
     };
   }, [windows, openWindow]);
 
+  /* A click anywhere winds the boot sequence to its end. The replay
+     button is exempt — clicking it mid-boot means "start over", not
+     "skip", and the skip would fight the restart. */
+  const introRunning = !intro.revealed;
+  const skipIntro = intro.skip;
+
+  useEffect(() => {
+    if (!introRunning) return undefined;
+    const onDown = (e) => {
+      if (e.target instanceof Element && e.target.closest(".replay")) return;
+      skipIntro();
+    };
+    window.addEventListener("pointerdown", onDown);
+    return () => window.removeEventListener("pointerdown", onDown);
+  }, [introRunning, skipIntro]);
+
   /* Top-most non-minimised folder — the one the space bar previews. */
   const topFolder = useMemo(() => {
     let best = null;
@@ -175,22 +191,22 @@ export default function App({ showScanline = true, showGrain = true }) {
 
   /* ── reveal stagger ──────────────────────────────────────────── */
 
+  /* Items fade in from the middle of the screen outwards, 60ms apart,
+     starting once the intro lockup has finished shrinking. The menu bar
+     is not in here — it rides along with the shrink instead. */
   const revealDelays = useMemo(() => {
     const entries = ITEMS.map((k) => {
       const p = iconPositions[k] || { x: 40, y: 62 };
       return { k, d: Math.hypot(p.x + 58 - 720, p.y + 50 - 450) };
     })
-      .concat([
-        { k: "__dock", d: 380 },
-        { k: "__menu", d: 433 },
-      ])
+      .concat([{ k: "__dock", d: 380 }])
       .sort((a, b) => a.d - b.d);
     return Object.fromEntries(entries.map((e, i) => [e.k, i * 60]));
   }, [iconPositions]);
 
   /* ── derived view data ───────────────────────────────────────── */
 
-  const { revealed } = intro;
+  const { revealed, settled } = intro;
   const termOpen = wins.some((w) => w.id === "term" && !w.min);
   const buildProject = PROJECTS_BY_KEY[DATA.building.projectKey];
   const years = t.years(yearsSinceCareerStart());
@@ -272,7 +288,7 @@ export default function App({ showScanline = true, showGrain = true }) {
   return (
     <div className="stage-wrap" ref={wrapRef}>
       <div
-        className="stage"
+        className={`stage${intro.instant ? " is-boot-skipped" : ""}`}
         ref={deskRef}
         style={{ transform: `translate(-50%,-50%) scale(${scale})` }}
       >
@@ -282,7 +298,11 @@ export default function App({ showScanline = true, showGrain = true }) {
         {showGrain ? <div className="grain" /> : null}
 
         {/* ── intro lockup ── */}
-        <div className="hero">
+        <div
+          className={`hero${intro.settled ? " is-settled" : ""}${
+            intro.instant ? " is-instant" : ""
+          }`}
+        >
           <div className="hero__name">
             <span ref={intro.line1Ref} />
             {intro.caret === 1 ? <span className="hero__caret hero__caret--l1" /> : null}
@@ -300,8 +320,8 @@ export default function App({ showScanline = true, showGrain = true }) {
 
         <MenuBar
           t={t}
-          revealed={revealed}
-          revealDelay={revealDelays.__menu}
+          revealed={settled}
+          revealDelay={0}
           lang={lang}
           onToggleLang={toggleLang}
           status={t.status}

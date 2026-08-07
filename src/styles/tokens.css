@@ -141,6 +141,9 @@
   --dur-base: 0.24s;
   --dur-reveal: 0.55s;
   --caret-blink: 1.06s;
+  /* Boot lockup shrinking down onto the desktop. */
+  --ease-shrink: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-shrink: 0.9s;
 
   /* ── pulpit overrides (see header note) ────────────────────── */
   --desk-w: 1440px;

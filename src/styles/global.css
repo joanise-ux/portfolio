@@ -125,6 +125,15 @@ button {
 
 /* ── intro lockup ──────────────────────────────────────────────── */
 
+/* The lockup is authored at its final desktop size and blown up for the
+   typing phase with a transform — animating font-size would relayout the
+   text on every frame and the shrink would judder. The origin sits at the
+   centre of the two-line block, so scale and translate read as a single
+   move rather than a jump.
+
+   Geometry, in stage pixels: blown up, the ink of the two lines runs
+   304 → 565, i.e. centred on 434. The stage centre is 450, hence the
+   58px nudge that squares the boot lockup up with the screen. */
 .hero {
   position: absolute;
   left: 0;
@@ -133,6 +142,18 @@ button {
   z-index: 2;
   text-align: center;
   pointer-events: none;
+  transform-origin: 50% 50%;
+  /* 140px / 72px — the boot size of the name line. */
+  transform: translateY(58px) scale(1.944);
+  will-change: transform;
+}
+.hero.is-settled {
+  transform: none;
+  transition: transform var(--dur-shrink) var(--ease-shrink);
+}
+/* Boot was skipped (or replayed): land on the new state with no tween. */
+.hero.is-instant {
+  transition: none;
 }
 
 .hero__name {
@@ -156,6 +177,18 @@ button {
   margin-top: var(--sp-2);
   height: 50px;
   white-space: pre;
+  /* The boot lockup is 140/72 for the name but only 72/44 for the role,
+     so the role gives back the difference. Anchored to its own top edge
+     to keep the gap under the name proportional. */
+  transform-origin: 50% 0;
+  transform: scale(0.842);
+}
+.hero.is-settled .hero__role {
+  transform: none;
+  transition: transform var(--dur-shrink) var(--ease-shrink);
+}
+.hero.is-instant .hero__role {
+  transition: none;
 }
 
 .hero__caret {
@@ -210,6 +243,14 @@ button {
 .reveal.is-revealed {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Boot was clicked through: the desktop is simply already there — no
+   stagger, no fade to sit through a second time. */
+.stage.is-boot-skipped .reveal,
+.stage.is-boot-skipped .item {
+  transition: none;
+  transition-delay: 0ms;
 }
 
 /* ── menu bar ──────────────────────────────────────────────────── */
@@ -1463,4 +1504,16 @@ button {
   align-self: stretch;
   background: var(--ivory-12);
   margin: 0 2px;
+}
+
+/* ── reduced motion ────────────────────────────────────────────── */
+
+/* The lockup starts at its desktop size and position; the typewriter
+   still runs, it just has nothing to fly in from. */
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .hero__role {
+    transform: none;
+    transition: none;
+  }
 }
