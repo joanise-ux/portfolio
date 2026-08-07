@@ -2,8 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import Dock from "./components/Dock.jsx";
 import DesktopIcon from "./components/DesktopIcon.jsx";
-import DesktopItem from "./components/DesktopItem.jsx";
+import DesktopItem, { FALLBACK_POSITION } from "./components/DesktopItem.jsx";
 import MenuBar from "./components/MenuBar.jsx";
+import PhotoFile from "./components/PhotoFile.jsx";
 import QuickLook from "./components/QuickLook.jsx";
 import Window from "./components/Window.jsx";
 import { BuildingWidget, LearningWidget, Polaroid, StickyNote } from "./components/Widget.jsx";
@@ -15,6 +16,8 @@ import TerminalWindow from "./components/windows/TerminalWindow.jsx";
 
 import {
   DATA,
+  DESK_IMAGES,
+  POLAROIDS,
   PROJECTS_BY_KEY,
   PROJECT_KEYS,
   learningPercent,
@@ -31,21 +34,48 @@ import { DESK_W, useStage } from "./hooks/useStage.js";
 import { useTerminal } from "./hooks/useTerminal.js";
 import { useWindows } from "./hooks/useWindows.js";
 
+const IMAGE_KEYS = DESK_IMAGES.map((i) => i.key);
+
 /* Everything loose on the desktop, in no particular order — the reveal
    stagger below sorts them by distance from the centre of the screen. */
-const ITEMS = [...PROJECT_KEYS, "readme", "stack", "polaroid", "building", "learning", "sticky"];
+const ITEMS = [
+  ...PROJECT_KEYS,
+  "readme",
+  "stack",
+  ...POLAROIDS.map((p) => p.key),
+  ...IMAGE_KEYS,
+  "building",
+  "learning",
+  "sticky",
+];
 
-/* Which window each item opens. Widgets and the sticky note open nothing. */
+/* Which window each item opens. Widgets, the sticky note and the loose
+   image files open nothing — the images go to Quick Look instead. */
 const OPENS = {
   ...Object.fromEntries(PROJECT_KEYS.map((k) => [k, k])),
+  ...Object.fromEntries(POLAROIDS.map((p) => [p.key, p.opens])),
   readme: "readme",
   stack: "stack",
-  polaroid: "bio",
 };
 
-/* A couple of items sit slightly off-square, like objects put down by hand. */
-const ROTATION = { polaroid: -3.2, sticky: 2.4 };
+/* Anything dropped by hand rather than snapped to a grid sits slightly
+   off-square. The image files stay inside ±3° so the desktop reads as
+   untidy, not broken. */
+const ROTATION = {
+  sticky: 2.4,
+  pol_about_me: -3.2,
+  pol_logtxt_polaroid: 2.8,
+  img_suoh_detail_04: -2.4,
+  img_suoh_studio_02: 1.8,
+  img_logtxt_dash_v3: -1.1,
+  img_logtxt_cards: 2.6,
+  img_nav_dark: -2.9,
+  img_logtxt_activity: 1.5,
+};
 
+/* The name lockup settles across roughly x 430–1010 / y 340–480. Nothing
+   below is allowed into that box — the files sit above it, down its left
+   side and along the bottom, overlapping each other rather than it. */
 const initialLayout = () => ({
   suoh: { x: 40, y: 62 },
   nature: { x: 172, y: 188 },
@@ -54,7 +84,14 @@ const initialLayout = () => ({
   branding: { x: 48, y: 566 },
   readme: { x: 180, y: 686 },
   stack: { x: 44, y: 692 },
-  polaroid: { x: Math.max(300, DESK_W - 288), y: 58 },
+  img_suoh_detail_04: { x: 352, y: 96 },
+  img_suoh_studio_02: { x: 500, y: 62 },
+  img_logtxt_dash_v3: { x: 676, y: 128 },
+  img_logtxt_cards: { x: 838, y: 74 },
+  img_nav_dark: { x: 308, y: 236 },
+  img_logtxt_activity: { x: 528, y: 636 },
+  pol_logtxt_polaroid: { x: 330, y: 498 },
+  pol_about_me: { x: Math.max(300, DESK_W - 288), y: 58 },
   building: { x: Math.max(300, DESK_W - 276), y: 356 },
   learning: { x: Math.max(300, DESK_W - 276), y: 552 },
   sticky: { x: Math.max(300, DESK_W - 520), y: 566 },
@@ -127,7 +164,10 @@ export default function App({ showScanline = true, showGrain = true }) {
     const onMove = (e) => windows.onPointerMove(e);
     const onUp = () => {
       const clickedIcon = windows.onPointerUp();
-      if (clickedIcon && OPENS[clickedIcon]) openWindow(OPENS[clickedIcon]);
+      if (!clickedIcon) return;
+      if (OPENS[clickedIcon]) openWindow(OPENS[clickedIcon]);
+      // an image file has no window — it goes straight to Quick Look
+      else if (registry[clickedIcon]?.kind === "photo") ql.show(clickedIcon, 0);
     };
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
@@ -135,7 +175,7 @@ export default function App({ showScanline = true, showGrain = true }) {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
     };
-  }, [windows, openWindow]);
+  }, [windows, openWindow, registry, ql]);
 
   /* A click anywhere winds the boot sequence to its end. The replay
      button is exempt — clicking it mid-boot means "start over", not
@@ -196,7 +236,7 @@ export default function App({ showScanline = true, showGrain = true }) {
      is not in here — it rides along with the shrink instead. */
   const revealDelays = useMemo(() => {
     const entries = ITEMS.map((k) => {
-      const p = iconPositions[k] || { x: 40, y: 62 };
+      const p = iconPositions[k] || FALLBACK_POSITION;
       return { k, d: Math.hypot(p.x + 58 - 720, p.y + 50 - 450) };
     })
       .concat([{ k: "__dock", d: 380 }])
@@ -213,9 +253,7 @@ export default function App({ showScanline = true, showGrain = true }) {
 
   const links = {
     linkedin: DATA.linkedin,
-    github: DATA.github,
     linkedinHandle: DATA.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com/, ""),
-    githubHandle: DATA.github.replace(/^https?:\/\/(www\.)?github\.com\//, ""),
   };
   const cv = { url: DATA.cvUrl, download: DATA.cvDownload, file: DATA.cv.file, size: DATA.cv.size };
 
@@ -250,7 +288,7 @@ export default function App({ showScanline = true, showGrain = true }) {
     }));
 
   const itemProps = (key) => ({
-    position: iconPositions[key],
+    position: iconPositions[key] || FALLBACK_POSITION,
     rotation: ROTATION[key] || 0,
     dragging: draggingIcon === key,
     revealed,
@@ -362,9 +400,17 @@ export default function App({ showScanline = true, showGrain = true }) {
           <DesktopIcon variant="doc" label="stack.txt" />
         </DesktopItem>
 
-        <DesktopItem {...itemProps("polaroid")}>
-          <Polaroid src="/assets/suoh-about.png" alt="about_me.jpg" caption="about_me.jpg" />
-        </DesktopItem>
+        {DESK_IMAGES.map((img) => (
+          <DesktopItem key={img.key} {...itemProps(img.key)}>
+            <PhotoFile name={img.name} thumb={img.thumb} w={img.w} h={img.h} />
+          </DesktopItem>
+        ))}
+
+        {POLAROIDS.map((p) => (
+          <DesktopItem key={p.key} {...itemProps(p.key)}>
+            <Polaroid src={p.thumb} caption={p.caption} />
+          </DesktopItem>
+        ))}
 
         <DesktopItem {...itemProps("building")}>
           <BuildingWidget

@@ -42,6 +42,20 @@ A project with no `shots` renders the empty state rather than placeholder
 boxes — the grid only ever shows real exports. Filling in `study.problem`,
 `study.proces` and `study.rezultat` populates the ▤ reading view.
 
+## Loose image files on the desktop
+
+The scattered image files (and the two polaroids) are cut from the project
+exports by `scripts/desk-assets.py`, which writes a pair of WebPs per entry
+into `public/assets/desk/`: the full crop for Quick Look, and a thumbnail at
+exactly twice the box it renders in. Only the thumbnails ever reach the
+desktop — together they are around 27 kB.
+
+To change one, edit the crop and display size in that script, run
+`python scripts/desk-assets.py`, and keep the display size in step with
+`DESK_IMAGES` in `src/content/data.js`. Positions and the ±3° tilt live in
+`initialLayout` / `ROTATION` in `src/App.jsx`; the name lockup settles across
+roughly x 450–990 / y 333–475 and nothing is placed inside that box.
+
 ## Notes
 
 - **Contact form** — `useMail` validates and then plays a staged send

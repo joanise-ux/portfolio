@@ -537,6 +537,45 @@ button {
   margin-top: 3px;
 }
 
+/* ── loose image files ─────────────────────────────────────────── */
+
+/* No icon chrome — the thumbnail is the icon, so the frame is just a
+   hairline and a soft drop. Sized inline from the data, because each
+   file is a different crop. */
+.photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: filter var(--dur-fast) var(--ease-os);
+}
+.photo:hover {
+  filter: brightness(1.08);
+}
+.photo__frame {
+  overflow: hidden;
+  background: #120c1d;
+  border: 1px solid var(--ivory-22);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+  transition: border-color var(--dur-fast) var(--ease-os);
+}
+.photo:hover .photo__frame {
+  border-color: var(--ivory-40);
+}
+.photo__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo__name {
+  margin-top: 7px;
+  font-family: var(--font-mono);
+  font-size: var(--size-ui-xs);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: var(--ivory-55);
+}
+
 /* ── polaroid ──────────────────────────────────────────────────── */
 
 .polaroid {

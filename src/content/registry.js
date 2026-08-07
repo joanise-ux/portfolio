@@ -6,7 +6,7 @@
    it is translated copy.
    ══════════════════════════════════════════════════════════════════ */
 
-import { DATA, stackGroups } from "./data.js";
+import { DATA, DESK_IMAGES, stackGroups } from "./data.js";
 
 const capitalise = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
@@ -28,6 +28,18 @@ export function buildRegistry(t) {
       count: t.shotCount((p.shots || []).length),
       study: tp.study || {},
       shots: p.shots || [],
+    };
+  });
+
+  /* Loose image files never open a window — they only need somewhere for
+     Quick Look to read the full-size crop from. A one-shot folder does it. */
+  DESK_IMAGES.forEach((img) => {
+    reg[img.key] = {
+      kind: "photo",
+      title: img.name,
+      short: img.name,
+      glyph: "▦",
+      shots: [{ file: img.name, src: img.src }],
     };
   });
 

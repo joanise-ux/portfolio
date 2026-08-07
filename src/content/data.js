@@ -11,11 +11,37 @@
    siatka pokazuje wyłącznie podglądy. Pierwsza pozycja jest hero. */
 const shot = (file) => ({ file, src: `/assets/${file}` });
 
+/* Luźny plik graficzny leżący na pulpicie. `thumb` to WebP wycięty na
+   dwukrotność pola, w którym się rysuje (`w`×`h` w pikselach pulpitu) —
+   pulpit nigdy nie pobiera pełnego kadru, ten idzie dopiero do Quick
+   Looka po kliknięciu. Oba pliki generuje się z eksportu do
+   public/assets/desk/<slug>{-thumb}.webp. */
+const deskImage = (name, w, h) => {
+  const slug = name.replace(/\.[a-z0-9]+$/i, "");
+  return {
+    key: `img_${slug}`,
+    name,
+    w,
+    h,
+    thumb: `/assets/desk/${slug}-thumb.webp`,
+    src: `/assets/desk/${slug}.webp`,
+  };
+};
+
+/* Polaroid = inny materiał niż plik png: papier, ręczny podpis, klik
+   prowadzi do treści (bio / case study), nie do podglądu. Maksymalnie
+   dwa — jeden osobisty, jeden projektowy. */
+const polaroid = (caption, slug, opens) => ({
+  key: `pol_${slug}`,
+  caption,
+  opens,
+  thumb: `/assets/desk/${slug}-thumb.webp`,
+});
+
 export const DATA = {
   name: "Joanna Żuczkowska",
   email: "joanna@neon-os.pl",
   linkedin: "https://www.linkedin.com/in/joannazuczkowska",
-  github: "https://github.com/joannazuczkowska",
   city: "wrocław",
   careerStart: "2022-06", // start własnej działalności (RRRR-MM)
   learningStart: "2026-06-26", // start nauki koreańskiego (RRRR-MM-DD)
@@ -50,10 +76,26 @@ export const DATA = {
   ],
   stack: {
     design: ["figma", "adobe suite", "canva"],
-    code: ["html / css", "javascript", "react", "sql", "supabase", "vercel", "git"],
+    code: ["html / css", "javascript", "react", "sql", "supabase", "vercel"],
     ai: ["claude code", "claude design", "figma make"],
   },
 };
+
+/* Rozrzucone po pulpicie zdjęcia i zrzuty — kolejność jest kolejnością
+   rysowania, więc dalsze pozycje nakładają się na wcześniejsze. */
+export const DESK_IMAGES = [
+  deskImage("suoh_detail_04.jpg", 176, 76),
+  deskImage("suoh_studio_02.jpg", 132, 136),
+  deskImage("logtxt_dash_v3.png", 172, 85),
+  deskImage("logtxt_cards.png", 152, 72),
+  deskImage("nav_dark.png", 72, 147),
+  deskImage("logtxt_activity.png", 168, 67),
+];
+
+export const POLAROIDS = [
+  polaroid("about_me.jpg", "about_me", "bio"),
+  polaroid("logtxt_v3.png", "logtxt_polaroid", "logtxt"),
+];
 
 export const PROJECTS_BY_KEY = Object.fromEntries(DATA.projects.map((p) => [p.key, p]));
 

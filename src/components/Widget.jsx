@@ -51,10 +51,19 @@ export function StickyNote({ lines }) {
   );
 }
 
-export function Polaroid({ src, alt, caption }) {
+export function Polaroid({ src, caption }) {
   return (
     <div className="polaroid">
-      <img className="polaroid__img" src={src} alt={alt} draggable="false" />
+      <img
+        className="polaroid__img"
+        src={src}
+        alt={caption}
+        width="190"
+        height="196"
+        loading="lazy"
+        decoding="async"
+        draggable="false"
+      />
       <div className="polaroid__caption">
         <span>{caption}</span>
       </div>
