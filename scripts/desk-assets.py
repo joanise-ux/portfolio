@@ -23,6 +23,7 @@ OUT = os.path.join(ROOT, "desk")
 SOURCES = {
     "about": "suoh-about.png",
     "log": "logtxt-dashboard.png",
+    "monitor": "logtxt-monitor.png",
 }
 
 # slug, source, crop box, displayed size on the desktop
@@ -35,7 +36,7 @@ ITEMS = [
     ("logtxt_activity", "log", (620, 480, 1400, 790), (168, 67)),
     # polaroids — the paper holds a 190x196 window
     ("about_me", "about", (252, 272, 510, 530), (190, 196)),
-    ("logtxt_polaroid", "log", (620, 60, 1140, 580), (190, 196)),
+    ("logtxt_polaroid", "monitor", (590, 140, 1310, 840), (190, 196)),
 ]
 
 FULL_MAX = 1600
