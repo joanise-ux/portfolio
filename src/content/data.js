@@ -51,9 +51,23 @@ export const DATA = {
     { label: "Behance", handle: "be.net/joannaz" },
     { label: "Instagram", handle: "@joanna.designs" },
   ],
-  cvUrl: "/assets/cv_2026.pdf",
-  cvDownload: "Joanna_Zuczkowska_CV.pdf",
-  cv: { file: "cv_2026.pdf", dir: "assets/", size: "2.4 MB", updated: "12.07.2026" },
+  /* Jeden plik na język — pulpit podaje wersję zgodną z aktualnym
+     językiem interfejsu (patrz cvFor niżej). */
+  cv: {
+    dir: "assets/",
+    pl: {
+      file: "cv_2026_pl.pdf",
+      download: "Joanna_Zuczkowska_CV_PL.pdf",
+      size: "247 KB",
+      updated: "07.08.2026",
+    },
+    en: {
+      file: "cv_2026_en.pdf",
+      download: "Joanna_Zuczkowska_CV_EN.pdf",
+      size: "205 KB",
+      updated: "07.08.2026",
+    },
+  },
   building: {
     projectKey: "nature",
     meta: "design_system — v0.4",
@@ -100,6 +114,12 @@ export const POLAROIDS = [
 export const PROJECTS_BY_KEY = Object.fromEntries(DATA.projects.map((p) => [p.key, p]));
 
 export const PROJECT_KEYS = DATA.projects.map((p) => p.key);
+
+/* CV w języku interfejsu — polski jako zapasowy. */
+export function cvFor(lang) {
+  const c = DATA.cv[lang] || DATA.cv.pl;
+  return { ...c, url: `/${DATA.cv.dir}${c.file}` };
+}
 
 /* Terminal `open <x>` accepts the key, the slug without a trailing
    slash, and the display name snake_cased. */

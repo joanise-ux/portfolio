@@ -6,12 +6,13 @@
    it is translated copy.
    ══════════════════════════════════════════════════════════════════ */
 
-import { DATA, DESK_IMAGES, stackGroups } from "./data.js";
+import { DATA, DESK_IMAGES, cvFor, stackGroups } from "./data.js";
 
 const capitalise = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export function buildRegistry(t) {
   const d = t.docs;
+  const cv = cvFor(t.code);
   const reg = {};
 
   DATA.projects.forEach((p) => {
@@ -97,11 +98,11 @@ export function buildRegistry(t) {
     mail: { kind: "mail", title: t.mail.title, short: "mail", glyph: "◨" },
     cv: {
       kind: "doc",
-      title: DATA.cv.file,
+      title: cv.file,
       short: "cv",
       glyph: "▥",
       sections: [
-        { label: d.cv.fileLabel, text: d.cv.fileText(DATA.cv.file, DATA.cv.size, DATA.cv.updated) },
+        { label: d.cv.fileLabel, text: d.cv.fileText(cv.file, cv.size, cv.updated) },
         { label: d.cv.contentLabel, rows: d.cv.rows },
       ],
     },

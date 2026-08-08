@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ALIASES, DATA, yearsSinceCareerStart } from "../content/data.js";
+import { ALIASES, DATA, cvFor, yearsSinceCareerStart } from "../content/data.js";
 
 /* Line colours are semantic keys, not hex — Terminal.jsx maps them to
    design-system variables. */
@@ -38,7 +38,7 @@ export function useTerminal({ t, registry, open, after }) {
       { c: IVORY, s: `  ${pad("ls")}${c.ls}` },
       { c: IVORY, s: `  ${pad("open [project]")}${c.open}` },
       { c: IVORY, s: `  ${pad("contact")}${c.contact}` },
-      { c: IVORY, s: `  ${pad("cv")}${c.cv}${DATA.cv.file}` },
+      { c: IVORY, s: `  ${pad("cv")}${c.cv}${cvFor(t.code).file}` },
       { c: IVORY, s: `  ${pad("hire")}${c.hire}` },
       { c: IVORY, s: `  ${pad("help")}${c.help}` },
       { c: IVORY, s: "" },
@@ -89,7 +89,7 @@ export function useTerminal({ t, registry, open, after }) {
         DATA.projects.forEach((p) =>
           out.push({ c: IVORY, s: `  ${p.slug}   ${(t.projects[p.key] || {}).tagline || ""}` })
         );
-        out.push({ c: DIM, s: `  bio.md   ${DATA.cv.file}   kontakt.txt   stack.txt` });
+        out.push({ c: DIM, s: `  bio.md   ${cvFor(t.code).file}   kontakt.txt   stack.txt` });
       } else if (head === "open") {
         const key = ALIASES[(parts[1] || "").replace(/\/$/, "")];
         if (key) {
@@ -109,7 +109,8 @@ export function useTerminal({ t, registry, open, after }) {
         );
         after(60, () => open("kontakt"));
       } else if (head === "cv") {
-        out.push({ c: VIO, s: `:: ${DATA.cv.file} — ${DATA.cv.size} … ok` });
+        const doc = cvFor(t.code);
+        out.push({ c: VIO, s: `:: ${doc.file} — ${doc.size} … ok` });
         after(60, () => open("cv"));
       } else if (head === "hire") {
         out.push(

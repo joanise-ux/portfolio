@@ -20,6 +20,7 @@ import {
   POLAROIDS,
   PROJECTS_BY_KEY,
   PROJECT_KEYS,
+  cvFor,
   learningPercent,
   daysSinceLearnStart,
   yearsSinceCareerStart,
@@ -255,7 +256,7 @@ export default function App({ showScanline = true, showGrain = true }) {
     linkedin: DATA.linkedin,
     linkedinHandle: DATA.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com/, ""),
   };
-  const cv = { url: DATA.cvUrl, download: DATA.cvDownload, file: DATA.cv.file, size: DATA.cv.size };
+  const cv = cvFor(lang);
 
   const actions = useMemo(() => {
     const map = {};

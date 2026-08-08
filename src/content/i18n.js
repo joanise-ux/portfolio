@@ -7,6 +7,7 @@
 
 export const I18N = {
   pl: {
+    code: "pl",
     role: "projektantka produktowa i UX",
     status: "dostępna od Q4",
     availability: "wolne moce od października",
@@ -219,6 +220,7 @@ export const I18N = {
   },
 
   en: {
+    code: "en",
     role: "product & ux designer",
     status: "available from Q4",
     availability: "capacity open from October",
