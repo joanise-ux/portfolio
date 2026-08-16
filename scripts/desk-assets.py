@@ -24,6 +24,7 @@ SOURCES = {
     "about": "suoh-about.png",
     "log": "logtxt-dashboard.png",
     "monitor": "logtxt-monitor.png",
+    "me": "about-me-photo.png",
 }
 
 # slug, source, crop box, displayed size on the desktop
@@ -35,7 +36,7 @@ ITEMS = [
     ("nav_dark", "log", (0, 0, 220, 520), (72, 147)),
     ("logtxt_activity", "log", (620, 480, 1400, 790), (168, 67)),
     # polaroids — the paper holds a 190x196 window
-    ("about_me", "about", (252, 272, 510, 530), (190, 196)),
+    ("about_me", "me", (110, 0, 940, 856), (190, 196)),
     ("logtxt_polaroid", "monitor", (590, 140, 1310, 840), (190, 196)),
 ]
 

@@ -1000,6 +1000,19 @@ button {
 .doc__section {
   margin-bottom: var(--window-pad);
 }
+/* bio.md only — the copy wraps around the portrait */
+.doc__photo {
+  float: right;
+  margin: 0 0 var(--sp-4) var(--window-pad);
+}
+.doc__photo img {
+  display: block;
+  width: 140px;
+  height: 144px;
+  object-fit: cover;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--ivory-12);
+}
 .doc__text {
   font-family: var(--font-display);
   font-size: var(--size-body-m);

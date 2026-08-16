@@ -312,7 +312,7 @@ export default function App({ showScanline = true, showGrain = true }) {
           />
         );
       case "doc":
-        return <DocWindow sections={def.sections} />;
+        return <DocWindow sections={def.sections} photo={def.photo} />;
       case "editor":
         return <EditorWindow t={t} groups={def.groups} />;
       case "mail":

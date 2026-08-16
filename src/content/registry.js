@@ -51,7 +51,15 @@ export function buildRegistry(t) {
       short: "term",
       glyph: "›_",
     },
-    bio: { kind: "doc", title: "bio.md", short: "bio", glyph: "▢", sections: [d.bio.kim, d.bio.jak] },
+    bio: {
+      kind: "doc",
+      title: "bio.md",
+      short: "bio",
+      glyph: "▢",
+      /* the polaroid crop — already in the cache, the desktop drew it */
+      photo: { src: "/assets/desk/about_me-thumb.webp", alt: DATA.name },
+      sections: [d.bio.kim, d.bio.jak],
+    },
     exp: {
       kind: "doc",
       title: "doswiadczenie.md",

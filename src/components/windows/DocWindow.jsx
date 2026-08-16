@@ -1,10 +1,17 @@
 import SectionLabel from "../SectionLabel.jsx";
 
 /* bio.md, doswiadczenie.md, kontakt.txt, cv, README.txt, kosz —
-   a section is either a paragraph or a key/value table. */
-export default function DocWindow({ sections }) {
+   a section is either a paragraph or a key/value table. `photo` is
+   optional: bio.md floats a portrait into the first section, the rest
+   of the documents open without one. */
+export default function DocWindow({ sections, photo }) {
   return (
     <div className="doc">
+      {photo ? (
+        <figure className="doc__photo">
+          <img src={photo.src} alt={photo.alt} width="140" height="144" />
+        </figure>
+      ) : null}
       {sections.map((sec, i) => (
         <div className="doc__section" key={sec.label || i}>
           <SectionLabel>{sec.label}</SectionLabel>
