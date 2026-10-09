@@ -1,0 +1,223 @@
+/* v2 lab — placeholder tokens for direction C (dark base, persimmon accent).
+   Final values come from the Claude Design moodboard. */
+:root {
+  --bg: #0e0c0b;
+  --ink: #f1eadf;
+  --ink-60: rgba(241, 234, 223, 0.6);
+  --ink-20: rgba(241, 234, 223, 0.2);
+  --accent: #ff5b35; /* persymona — placeholder */
+  --font-display: "DynaPuff", "Modak", system-ui, sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+#stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none; /* we own pan gestures on the canvas */
+  cursor: grab;
+}
+#stage.is-dragging {
+  cursor: grabbing;
+}
+#stage.is-pointer {
+  cursor: pointer;
+}
+
+/* ── name that follows the cursor (desktop) / sits at the tap (touch) ── */
+.cursor-label {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0);
+  transition: opacity 0.25s var(--ease);
+  z-index: 5;
+}
+.cursor-label.is-visible {
+  opacity: 1;
+}
+.cursor-label__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.6vw, 40px);
+  line-height: 1;
+  color: var(--ink);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+}
+.cursor-label__cat {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--accent);
+}
+
+.hint {
+  position: fixed;
+  left: 50%;
+  top: calc(20px + env(safe-area-inset-top));
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--ink-60);
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
+  z-index: 4;
+}
+.hint.is-hidden {
+  opacity: 0;
+}
+
+/* ── expanded tile overlay ── */
+.detail {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(20px, 4vw, 56px);
+  padding-bottom: calc(clamp(96px, 12vh, 140px) + env(safe-area-inset-bottom));
+  z-index: 6;
+}
+.detail.is-open {
+  pointer-events: auto;
+}
+.detail > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+}
+.detail.is-open > * {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.45s;
+}
+.detail__back {
+  position: absolute;
+  top: calc(clamp(16px, 3vw, 32px) + env(safe-area-inset-top));
+  left: clamp(16px, 3vw, 32px);
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--ink-20);
+  background: rgba(14, 12, 11, 0.6);
+  backdrop-filter: blur(10px);
+  color: var(--ink);
+  font: 500 14px var(--font-body);
+  cursor: pointer;
+}
+.detail__back:hover {
+  border-color: var(--accent);
+}
+.detail__cat {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+.detail__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(48px, 10vw, 160px);
+  line-height: 0.9;
+  text-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+.detail__note {
+  margin: 12px 0 0;
+  color: var(--ink-60);
+  font-size: 14px;
+}
+
+/* ── bottom navigation ── */
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(24, 21, 19, 0.72);
+  border: 1px solid var(--ink-20);
+  backdrop-filter: blur(14px);
+  z-index: 7;
+  white-space: nowrap;
+}
+.dock a,
+.dock button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 0;
+  background: none;
+  color: var(--ink-60);
+  font: 500 14px var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+}
+.dock a:hover,
+.dock button:hover {
+  color: var(--ink);
+}
+.dock a.is-active {
+  color: var(--bg);
+  background: var(--ink);
+}
+.dock__mark {
+  width: 28px;
+  height: 28px;
+  margin: 0 6px 0 8px;
+  border-radius: 46% 54% 50% 50% / 55% 50% 50% 45%;
+  background: var(--accent);
+}
+.dock__sep {
+  width: 1px;
+  height: 20px;
+  background: var(--ink-20);
+  margin: 0 4px;
+}
+
+@media (max-width: 480px) {
+  .dock a,
+  .dock button {
+    padding: 0 11px;
+    font-size: 13px;
+  }
+  .dock__mark {
+    margin: 0 2px 0 6px;
+  }
+}
+
+/* lil-gui sits out of the dock's way, collapsed on phones */
+.lil-gui.root {
+  z-index: 8;
+  top: env(safe-area-inset-top);
+}

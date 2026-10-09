@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <title>lab — v2 motion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@600;700&family=Modak&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/lab/lab.css" />
+  </head>
+  <body>
+    <canvas id="stage" aria-label="Płótno projektów — przeciągnij, żeby się poruszać"></canvas>
+
+    <div class="cursor-label" id="cursorLabel" aria-hidden="true">
+      <span class="cursor-label__name"></span>
+      <span class="cursor-label__cat"></span>
+    </div>
+
+    <div class="hint" id="hint">przeciągnij · drag</div>
+
+    <section class="detail" id="detail" aria-hidden="true">
+      <button class="detail__back" id="detailBack" type="button">← wróć</button>
+      <div class="detail__meta">
+        <p class="detail__cat"></p>
+        <h1 class="detail__title"></h1>
+        <p class="detail__note">tu będzie case study (tekst zastępczy)</p>
+      </div>
+    </section>
+
+    <nav class="dock" aria-label="Nawigacja">
+      <span class="dock__mark" aria-hidden="true"></span>
+      <a href="#" class="is-active">work</a>
+      <a href="#">about</a>
+      <a href="#">kontakt</a>
+      <span class="dock__sep"></span>
+      <button type="button" id="replay">intro ↻</button>
+    </nav>
+
+    <script type="module" src="/src/lab/main.js"></script>
+  </body>
+</html>
