@@ -9,6 +9,14 @@ npm run dev      # http://localhost:4321
 npm run build    # -> dist/
 ```
 
+Two sites are built from this repo:
+
+- `/` — the v2 portfolio (`index.html`, `src/lab/`): project orbit and list,
+  case studies, About, Kontakt, PL/EN. Design exports are in `design/v2/`.
+  Add `?panel` to the address for the motion tuning panel.
+- `/classic/` — the NEON OS desktop described below (`classic/index.html`,
+  `src/main.jsx`).
+
 ## Layout model
 
 The desktop is authored at a fixed **1440×900** and scaled to fit the viewport
