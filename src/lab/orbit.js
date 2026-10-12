@@ -45,6 +45,7 @@ export class Orbit {
     this.hovered = null;
     this.opened = null;
     this.locked = false;
+    this.cover = null; // where an opened card lands: { x, y, w, h, r }; the whole screen if unset
     this.reveal = 0;
     this.idle = 0;
     this.snapped = true;
@@ -185,6 +186,19 @@ export class Orbit {
     gsap.to(tile, { open: 1, duration: 0.9, ease: "expo.inOut", onComplete: onDone });
   }
 
+  /* Hand the open state to another card with no animation (next project,
+     resize) and turn the ring so that card is in front when it closes. */
+  swapOpened(tile) {
+    if (this.opened) this.opened.open = 0;
+    this.opened = tile;
+    this.locked = true;
+    this.hovered = null;
+    tile.open = 1;
+    this.target.x = this.offset.x = -tile.index * this.pitch;
+    this.prev.copy(this.offset);
+    this.snapped = true;
+  }
+
   close(onDone) {
     const tile = this.opened;
     if (!tile) return;
@@ -227,6 +241,7 @@ export class Orbit {
     const anyHover = !!this.hovered && !this.opened;
     const hk = 1 - Math.pow(0.86, dt * 60);
     const turn = (this.offset.x / this.pitch) * this.step;
+    const c = this.cover || { x: 0, y: 0, w: this.vw, h: this.vh, r: 0 };
 
     this.front = null;
     for (const t of this.tiles) {
@@ -248,10 +263,10 @@ export class Orbit {
 
       const o = t.open;
       const scale = lerp(0.22, 1, front) * (1 + t.hover * (s.hoverScale - 1));
-      const w = lerp(t.w * scale, this.vw, o);
-      const h = lerp(t.h * scale, this.vh, o);
-      const x = lerp(Math.sin(a) * this.radius, 0, o);
-      const y = lerp(this.lift0 - t.side * this.jitter * (1 - tt) * Math.abs(Math.sin(a)) - (1 - rvE) * 40, 0, o);
+      const w = lerp(t.w * scale, c.w, o);
+      const h = lerp(t.h * scale, c.h, o);
+      const x = lerp(Math.sin(a) * this.radius, c.x, o);
+      const y = lerp(this.lift0 - t.side * this.jitter * (1 - tt) * Math.abs(Math.sin(a)) - (1 - rvE) * 40, c.y, o);
 
       t.mesh.position.set(x, y, this.opened === t ? 2 : depth);
       t.mesh.renderOrder = this.opened === t ? 2 : depth;
@@ -261,7 +276,7 @@ export class Orbit {
       u.uPlane.value.set(w, h);
       u.uDim.value = t.dim;
       u.uBlur.value = (1 - tt) * s.orbitBlur * (1 - o);
-      u.uRadius.value = lerp(this.cardRadius * scale, 0, o);
+      u.uRadius.value = lerp(this.cardRadius * scale, c.r, o);
       const fadeOthers = this.opened && this.opened !== t ? 1 - this.opened.open : 1;
       // cards right at the back fade out instead of piling up behind the front one
       t.alpha = rvE * fadeOthers * THREE.MathUtils.clamp((tt - 0.05) / 0.12, 0, 1);

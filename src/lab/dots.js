@@ -162,7 +162,8 @@ export class Dots {
 
   /* reading a project: the field steps back */
   setReading(on) {
-    gsap.to(this.uniforms.uOpacity, { value: on ? 0 : 1, duration: on ? 0.5 : 1.0, ease: "power2.out" });
+    // overwrite: this may be called while the intro is still fading the field in
+    gsap.to(this.uniforms.uOpacity, { value: on ? 0 : 1, duration: on ? 0.5 : 1.0, ease: "power2.out", overwrite: "auto" });
   }
 
   update(t, offset) {

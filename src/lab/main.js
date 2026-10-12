@@ -11,7 +11,9 @@ import { InfiniteCanvas } from "./canvas.js";
 import { Orbit } from "./orbit.js";
 import { Dots } from "./dots.js";
 import { Buddy } from "./buddy.js";
-import { buildShots, shuffled } from "./tiles.js";
+import { CasePage } from "./case.js";
+import { ProjectList } from "./list.js";
+import { PROJECTS, buildShots, shuffled } from "./tiles.js";
 
 const $ = (s) => document.querySelector(s);
 const stage = $("#stage");
@@ -21,13 +23,13 @@ const captionName = caption.querySelector(".caption__name");
 const captionCat = caption.querySelector(".caption__cat");
 const labelName = label.querySelector(".cursor-label__name");
 const hint = $("#hint");
-const detail = $("#detail");
 
 const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* Everything the panel can tune. Values here are the starting "feel". */
 const settings = {
   accent: "#f0532a", // persymona
+  view: "orbita", // "orbita" = the wall below, "lista" = the plain list (switch in the navbar)
   layout: "orbita", // "orbita" suits 3–6 projects, "siatka" needs many more
   ease: 0.085, // how fast the wall catches up with the finger (lower = more glide)
   dragSpeed: 1.15,
@@ -66,15 +68,58 @@ const walls = {
 let wall = walls[settings.layout];
 const dots = new Dots({ scene, settings });
 const buddy = new Buddy({ settings, dock: $(".dock") });
+const list = new ProjectList({ root: $("#list"), projects: PROJECTS, shotOf: (p) => shots.find((s) => s.project === p), onOpen: openFromList });
+const page = new CasePage({ root: $("#case"), settings, onBack: () => leave(), onNext: () => openNext() });
 if (import.meta.env.DEV) window.__lab = { walls, dots, buddy, settings, renderer, gsap };
+
+const listing = () => settings.view === "lista";
+
+/* Only the chosen wall is drawn, and none of them under the list. */
+function showWall(animate) {
+  for (const w of Object.values(walls)) w.group.visible = w === wall && !listing();
+  if (!animate || listing()) return;
+  gsap.killTweensOf(wall);
+  gsap.fromTo(wall, { reveal: 0 }, { reveal: 1, duration: settings.reducedMotion ? 0 : 1.2, ease: "power2.out" });
+}
 
 function setLayout() {
   closeDetail(true);
   wall = walls[settings.layout];
-  for (const w of Object.values(walls)) w.group.visible = w === wall;
-  gsap.killTweensOf(wall);
-  gsap.fromTo(wall, { reveal: 0 }, { reveal: 1, duration: settings.reducedMotion ? 0 : 1.2, ease: "power2.out" });
+  showWall(true);
 }
+
+function setView(view) {
+  if (view === settings.view) return;
+  closeDetail(true);
+  settings.view = view;
+  for (const b of $("#viewSwitch").children) {
+    b.classList.toggle("is-on", b.dataset.view === view);
+    b.setAttribute("aria-pressed", b.dataset.view === view);
+  }
+  wall.setHovered(null);
+  mouse.inside = false;
+  touchSelected = null;
+  showLabel(null);
+  stage.classList.remove("is-pointer");
+  hint.classList.add("is-hidden");
+  if (listing()) {
+    list.show();
+    buddy.hide();
+  } else {
+    list.hide();
+    if (settings.buddy) buddy.show();
+  }
+  dots.setReading(listing());
+  gui.show(!listing()); // the panel only tunes the wall, and it would cover the right column
+  showWall(true);
+}
+$("#viewSwitch").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  // on a phone only the current view's icon is shown, and it flips to the other
+  const other = b.dataset.view === "orbita" ? "lista" : "orbita";
+  setView(b.classList.contains("is-on") ? other : b.dataset.view);
+});
 
 let vw = 0;
 let vh = 0;
@@ -89,12 +134,21 @@ function resize() {
   camera.top = vh / 2;
   camera.bottom = -vh / 2;
   camera.updateProjectionMatrix();
-  closeDetail(true);
-  for (const w of Object.values(walls)) w.layout(vw, vh);
+  // a case study stays open through a resize: the walls are rebuilt under it
+  const reading = wall.opened && wall.opened.shot.project;
+  for (const w of Object.values(walls)) {
+    w.locked = false;
+    w.layout(vw, vh);
+  }
+  if (reading) {
+    page.fit();
+    wall.cover = heroCover();
+    wall.swapOpened(tileFor(reading));
+  }
   dots.layout(vw, vh, pr);
 }
 resize();
-for (const w of Object.values(walls)) w.group.visible = w === wall;
+showWall();
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
@@ -108,7 +162,7 @@ function intro() {
   gsap.killTweensOf(wall);
   dots.playIntro({
     onRelease: () => gsap.to(wall, { reveal: 1, duration: settings.reducedMotion ? 0 : 1.8, ease: "power2.out" }),
-    onDone: () => settings.buddy && buddy.show(),
+    onDone: () => settings.buddy && !listing() && buddy.show(),
   });
 }
 intro();
@@ -241,7 +295,8 @@ stage.addEventListener(
 );
 
 window.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") return closeDetail();
+  if (e.key === "Escape") return leave();
+  if (wall.opened || listing()) return; // the arrows scroll the case study or the list
   const step = 140;
   const map = { ArrowLeft: [step, 0], ArrowRight: [-step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
   if (map[e.key]) {
@@ -251,28 +306,89 @@ window.addEventListener("keydown", (e) => {
 });
 
 /* ── open / close ────────────────────────────────────── */
+const tileFor = (project) => wall.tiles.find((t) => t.shot.project === project);
+const nextOf = (project) => PROJECTS[(PROJECTS.indexOf(project) + 1) % PROJECTS.length];
+
+/* The hero of the case study, as the rect an opened card flies to. */
+function heroCover() {
+  const r = page.heroRect();
+  return { x: r.left + r.width / 2 - vw / 2, y: vh / 2 - r.top - r.height / 2, w: r.width, h: r.height, r: r.radius };
+}
+
+function fillPage(tile) {
+  page.render(tile.shot, tileFor(nextOf(tile.shot.project)).shot);
+  wall.cover = heroCover();
+  document.documentElement.classList.add("is-reading");
+}
+
+/* An open case study is a history entry, so the browser's Back (button,
+   two-finger swipe, Alt+←) closes it. Moving on to the next project
+   replaces the entry: Back always lands on the wall or the list. */
+const urlFor = (project) => `#${project.name.toLowerCase().replaceAll(" ", "-")}`;
+function remember(project, replace) {
+  history[replace ? "replaceState" : "pushState"]({ project: project.key }, "", urlFor(project));
+}
+function leave() {
+  if (history.state?.project) history.back();
+  else closeDetail();
+}
+window.addEventListener("popstate", (e) => {
+  const project = PROJECTS.find((p) => p.key === e.state?.project);
+  if (project) openPlain(project); // Forward, back into a project
+  else closeDetail();
+});
+if (location.hash) history.replaceState(null, "", location.pathname); // a reload starts on the wall
+
 function openDetail(tile) {
   showLabel(null);
   touchSelected = null;
   stage.classList.remove("is-pointer");
   hint.classList.add("is-hidden");
-  detail.querySelector(".detail__title").textContent = tile.shot.project.name;
-  detail.querySelector(".detail__cat").textContent = tile.shot.project.cat;
+  fillPage(tile);
   dots.setReading(true);
   buddy.hide();
+  gui.hide(); // the panel tunes the wall, and it would sit on top of the page
   wall.open(tile);
-  detail.classList.add("is-open");
-  detail.setAttribute("aria-hidden", "false");
-  $("#detailBack").focus({ preventScroll: true });
+  page.show(settings.reducedMotion ? 0 : 0.6);
+  remember(tile.shot.project);
+}
+
+/* No card to fly (from the list, or the browser's Forward): the page simply fades in. */
+function openPlain(project) {
+  const tile = tileFor(project);
+  fillPage(tile);
+  wall.swapOpened(tile);
+  dots.setReading(true);
+  buddy.hide();
+  gui.hide();
+  page.show();
+}
+function openFromList(project) {
+  openPlain(project);
+  remember(project);
+}
+
+function openNext() {
+  const tile = tileFor(nextOf(wall.opened.shot.project));
+  page.swap(() => {
+    fillPage(tile);
+    wall.swapOpened(tile);
+    remember(tile.shot.project, true);
+  });
 }
 
 function closeDetail(instant) {
   if (!wall.opened) return;
-  detail.classList.remove("is-open");
-  detail.setAttribute("aria-hidden", "true");
-  dots.setReading(false);
-  if (settings.buddy) buddy.show();
-  if (instant === true) {
+  if (history.state?.project) history.back(); // closed some other way than Back (view switch, intro replay)
+  document.documentElement.classList.remove("is-reading");
+  page.hide();
+  gui.show(!listing());
+  if (listing()) list.refocus();
+  else {
+    dots.setReading(false);
+    if (settings.buddy) buddy.show();
+  }
+  if (instant === true || listing()) {
     wall.opened.open = 0;
     wall.opened = null;
     wall.locked = false;
@@ -280,9 +396,13 @@ function closeDetail(instant) {
   }
   wall.close();
 }
-$("#detailBack").addEventListener("click", () => closeDetail());
+$("#navWork").addEventListener("click", (e) => {
+  e.preventDefault();
+  leave();
+});
 function replay() {
   closeDetail(true);
+  setView("orbita");
   intro();
 }
 $("#replay").addEventListener("click", replay);
@@ -311,7 +431,7 @@ f2.add(settings, "parallax", 0, 0.5, 0.01).name("paralaksa");
 f2.add(settings, "introSpeed", 0.4, 2.5, 0.05).name("długość intra");
 f2.add(settings, "dotsDesktop", 300, 3000, 50).name("ilość: desktop").onFinishChange(resize);
 f2.add(settings, "dotsMobile", 150, 800, 10).name("ilość: telefon").onFinishChange(resize);
-gui.add(settings, "buddy").name("mała Nuri na stronie").onChange((on) => (on ? buddy.show() : buddy.hide()));
+gui.add(settings, "buddy").name("mała Nuri na stronie").onChange((on) => (on && !listing() ? buddy.show() : buddy.hide()));
 gui.add(settings, "reducedMotion").name("mniej ruchu (a11y)");
 gui.add({ replay }, "replay").name("powtórz intro");
 
@@ -339,7 +459,7 @@ function frame() {
 
   // the front card's name sits under its left edge; hover hands it to the cursor label
   const front = wall.front;
-  const showCaption = !!front && !wall.opened && !wall.hovered && wall.reveal > 0.6;
+  const showCaption = !!front && !wall.opened && !wall.hovered && wall.reveal > 0.6 && !listing();
   caption.classList.toggle("is-visible", showCaption);
   if (front) {
     if (caption.dataset.key !== front.shot.project.key) {

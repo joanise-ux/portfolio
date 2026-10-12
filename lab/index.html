@@ -33,14 +33,9 @@
 
     <div class="hint" id="hint">← przeciągnij →</div>
 
-    <section class="detail" id="detail" aria-hidden="true">
-      <button class="detail__back" id="detailBack" type="button">← wróć</button>
-      <div class="detail__meta">
-        <p class="detail__cat"></p>
-        <h1 class="detail__title"></h1>
-        <p class="detail__note">tu będzie case study (tekst zastępczy)</p>
-      </div>
-    </section>
+    <nav class="list" id="list" aria-label="Projekty"></nav>
+
+    <article class="case" id="case" tabindex="-1" aria-label="Case study"></article>
 
     <nav class="dock" aria-label="Nawigacja">
       <button type="button" class="dock__mark" id="replay" aria-label="Nuri — odtwórz intro">
@@ -51,7 +46,7 @@
           <ellipse class="dock__eye" cx="118" cy="114" rx="8" ry="13" />
         </svg>
       </button>
-      <a href="#" class="is-active">Work</a>
+      <a href="#" class="is-active" id="navWork">Work</a>
       <a href="#">About</a>
       <a href="#">Kontakt</a>
       <span class="dock__sep"></span>
@@ -60,9 +55,9 @@
         <span>EN</span>
       </span>
       <span class="dock__sep"></span>
-      <span class="dock__pair" aria-label="Widok: orbita">
-        <span class="is-on dock__icon"><i class="ico-orbit"></i></span>
-        <span class="dock__icon dock__list"><i class="ico-list"></i></span>
+      <span class="dock__pair" id="viewSwitch" role="group" aria-label="Widok projektów">
+        <button type="button" class="dock__icon is-on" data-view="orbita" aria-label="Widok orbita" aria-pressed="true"><i class="ico-orbit"></i></button>
+        <button type="button" class="dock__icon" data-view="lista" aria-label="Widok lista" aria-pressed="false"><i class="ico-list"></i></button>
       </span>
     </nav>
 
