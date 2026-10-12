@@ -160,6 +160,14 @@ export class Dots {
       .to(u.uDisperse, { value: 1, duration: 1.4 * T, ease: "power3.inOut" }, "<");
   }
 
+  /* No intro: straight to the ambient field. */
+  settle() {
+    this.timeline && this.timeline.kill();
+    this.uniforms.uMorph.value = 0;
+    this.uniforms.uDisperse.value = 0;
+    this.uniforms.uOpacity.value = 1;
+  }
+
   /* reading a project: the field steps back */
   setReading(on) {
     // overwrite: this may be called while the intro is still fading the field in

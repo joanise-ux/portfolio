@@ -11,6 +11,7 @@
    stays inside the second signature effect rather than adding a third. */
 
 import gsap from "gsap";
+import { UI } from "./i18n.js";
 import { FILL, EYES, sampleShape } from "./nuri.js";
 
 const NS = "http://www.w3.org/2000/svg";
@@ -45,7 +46,7 @@ export class Buddy {
     const el = document.createElement("button");
     el.type = "button";
     el.className = "buddy";
-    el.setAttribute("aria-label", "Nuri — kliknij albo przeciągnij");
+    el.setAttribute("aria-label", UI.aria.buddy);
     el.innerHTML = `
       <svg viewBox="0 0 200 200" aria-hidden="true">
         <path class="buddy__body buddy__tail" d="${FILL[1]}"/>

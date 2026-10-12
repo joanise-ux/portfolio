@@ -3,14 +3,14 @@
    like the case study; the copy lives in profile.js. */
 
 import { ABOUT, KONTAKT, CONTACT } from "./profile.js";
-import { NURI } from "./case.js";
+import { UI } from "./i18n.js";
 import { sampleShape, shapeSpacing } from "./nuri.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const KEYS = ["name", "email", "msg"];
 
 const WHO = `<div class="page__who"><span>Joanna Żuczkowska</span><span>UX/UI designer</span></div>`;
-const cvLink = (cls) => `<a class="${cls}" href="${CONTACT.cv.href}" download="${CONTACT.cv.download}">Pobierz CV</a>`;
+const cvLink = (cls) => `<a class="${cls}" href="${CONTACT.cv.href}" download="${CONTACT.cv.download}">${UI.getCv}</a>`;
 const linkedin = `<a class="link-arrow" href="${CONTACT.linkedin}" target="_blank" rel="noopener">LinkedIn →</a>`;
 
 function about() {
@@ -25,21 +25,21 @@ function about() {
       <section class="about__me">
         <figure class="about__portrait"><img src="${a.portrait}" alt="Joanna Żuczkowska" loading="lazy" /></figure>
         <div class="prose">
-          <span class="eyebrow">o mnie</span>
+          <span class="eyebrow">${UI.aboutMe}</span>
           <h2>${a.me.title}</h2>
           ${a.me.text.map((t) => `<p>${t}</p>`).join("")}
         </div>
       </section>
 
       <section class="about__block">
-        <div class="prose"><span class="eyebrow">co robię</span><h2>${a.services.title}</h2></div>
+        <div class="prose"><span class="eyebrow">${UI.services}</span><h2>${a.services.title}</h2></div>
         <ol class="about__services">
           ${a.services.items.map(([title, text], i) => `<li><span class="num">0${i + 1}</span><h3>${title}</h3><p>${text}</p></li>`).join("")}
         </ol>
       </section>
 
       <section class="about__block">
-        <div class="prose"><span class="eyebrow">doświadczenie</span><h2>${a.experience.title}</h2></div>
+        <div class="prose"><span class="eyebrow">${UI.experience}</span><h2>${a.experience.title}</h2></div>
         <ul class="about__jobs">
           ${a.experience.rows.map(([when, role, where]) => `<li><span>${when}</span><strong>${role}</strong><span>${where}</span></li>`).join("")}
         </ul>
@@ -47,7 +47,7 @@ function about() {
 
       <section class="about__kit">
         <div>
-          <span class="eyebrow">narzędzia</span>
+          <span class="eyebrow">${UI.tools}</span>
           <ul class="about__tools">${a.tools.map((t) => `<li>${t}</li>`).join("")}</ul>
         </div>
         <div>
@@ -56,17 +56,7 @@ function about() {
         </div>
       </section>
     </div>
-
-    <footer class="about__talk">
-      <span class="peek-nuri">${NURI}</span>
-      <a class="about__talk-card" href="#kontakt" data-go="kontakt">
-        <span class="about__talk-text">
-          <span class="eyebrow">${a.talk.eyebrow}</span>
-          <span class="about__talk-name">${a.talk.title}</span>
-        </span>
-        <span class="about__talk-arrow" aria-hidden="true">→</span>
-      </a>
-    </footer>`;
+`;
 }
 
 function field(key) {
@@ -85,7 +75,7 @@ function dotNuri(count) {
   const r = shapeSpacing(count, 1) * 0.45;
   let d = "";
   for (let i = 0; i < pts.length; i += 2) d += `<circle cx="${pts[i].toFixed(4)}" cy="${(-pts[i + 1]).toFixed(4)}" r="${r.toFixed(4)}"/>`;
-  return `<svg class="kontakt__nuri" viewBox="-0.5 -0.44 1 1" role="img" aria-label="Nuri z kropek">${d}</svg>`;
+  return `<svg class="kontakt__nuri" viewBox="-0.5 -0.44 1 1" role="img" aria-label="${UI.aria.dotNuri}">${d}</svg>`;
 }
 
 function kontakt() {
@@ -93,9 +83,8 @@ function kontakt() {
   return `${WHO}
     <div class="kontakt">
       <div class="kontakt__intro">
-        <span class="eyebrow">kontakt</span>
+        <span class="eyebrow">${UI.contact}</span>
         <h1>${k.title}</h1>
-        <p>${k.lead}</p>
         <a class="kontakt__mail" href="mailto:${CONTACT.email}">${CONTACT.email}</a>
         <div class="kontakt__links">${linkedin}${cvLink("btn btn--line")}</div>
       </div>
@@ -119,20 +108,12 @@ function kontakt() {
 }
 
 export class Pages {
-  /* `roots` is { about, kontakt }; `onGo(name)` follows a link to another stop. */
-  constructor({ roots, onGo }) {
+  /* `roots` is { about, kontakt }. */
+  constructor({ roots }) {
     this.roots = roots;
     roots.about.innerHTML = about();
     roots.kontakt.innerHTML = kontakt();
-    for (const root of Object.values(roots)) {
-      root.inert = true;
-      root.addEventListener("click", (e) => {
-        const link = e.target.closest("[data-go]");
-        if (!link) return;
-        e.preventDefault();
-        onGo(link.dataset.go);
-      });
-    }
+    for (const root of Object.values(roots)) root.inert = true;
     this.form();
     window.addEventListener("resize", () => this.fit());
   }
@@ -174,7 +155,7 @@ export class Pages {
       err.textContent = msg || "";
     };
     const done = (copy, arg) => {
-      sent.querySelector("[data-nuri]").innerHTML ||= dotNuri(300);
+      sent.querySelector("[data-nuri]").innerHTML ||= dotNuri(320); // the same Nuri as the phone intro
       sent.querySelector("h2").textContent = copy.title;
       sent.querySelector("p").textContent = copy.text(arg);
       form.hidden = true;
@@ -200,7 +181,7 @@ export class Pages {
       sendErr.hidden = true;
       if (!CONTACT.formEndpoint) {
         // no backend: the visitor's own mail program sends it
-        const subject = encodeURIComponent(`Portfolio — wiadomość od: ${v.name}`);
+        const subject = encodeURIComponent(KONTAKT.subject(v.name));
         const body = encodeURIComponent(`${v.msg}\n\n${v.name}\n${v.email}`);
         window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
         return done(KONTAKT.handed, CONTACT.email);

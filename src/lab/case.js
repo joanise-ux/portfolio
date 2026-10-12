@@ -8,18 +8,18 @@
    corner, so the way out is there at any scroll depth. */
 
 import { caseFor } from "./cases.js";
+import { UI } from "./i18n.js";
 import { FILL, EYES } from "./nuri.js";
 import { cardStyle, cardSpot } from "./tiles.js";
 
 const RISE = 72; // px an image travels as it comes in
 const TRIGGER = 0.9; // …once its top edge passes this share of the screen height
 
-/* Nuri as she peeks over a card at the bottom of a page. */
-export const NURI = `<svg viewBox="0 24 196 160" aria-hidden="true">
+const NURI = `<svg viewBox="0 24 196 160" aria-hidden="true">
   <path d="${FILL[1]}"/><path d="${FILL[0]}"/>
-  <g class="peek-nuri-blush"><ellipse cx="60" cy="130" rx="8" ry="4.5"/><ellipse cx="136" cy="130" rx="8" ry="4.5"/></g>
-  <g class="peek-nuri-face">${EYES.map((e) => `<ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}"/>`).join("")}</g>
-  <path class="peek-nuri-mouth" d="M91 121 q3.5 5 7 0 q3.5 5 7 0"/>
+  <g class="case__nuri-blush"><ellipse cx="60" cy="130" rx="8" ry="4.5"/><ellipse cx="136" cy="130" rx="8" ry="4.5"/></g>
+  <g class="case__nuri-face">${EYES.map((e) => `<ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}"/>`).join("")}</g>
+  <path class="case__nuri-mouth" d="M91 121 q3.5 5 7 0 q3.5 5 7 0"/>
 </svg>`;
 
 const shot = (label, kind) => `<figure class="case__shot case__shot--${kind}" data-reveal><figcaption>${label}</figcaption></figure>`;
@@ -28,7 +28,7 @@ function markup(s, next) {
   const p = s.project;
   const c = caseFor(p);
   return `
-    <button class="case__back" type="button" data-back>← wróć</button>
+    <button class="case__back" type="button" data-back>${UI.back}</button>
     <header class="case__top">
       <div class="case__hero" ${cardStyle(s)}>
         ${cardSpot(s)}
@@ -50,7 +50,7 @@ function markup(s, next) {
 
       <section class="case__split">
         <div class="prose">
-          <span class="eyebrow">problem</span>
+          <span class="eyebrow">${UI.problem}</span>
           <h2>${c.problem.title}</h2>
           ${c.problem.text.map((t) => `<p>${t}</p>`).join("")}
         </div>
@@ -59,7 +59,7 @@ function markup(s, next) {
 
       <section class="case__process">
         <div class="prose">
-          <span class="eyebrow">proces</span>
+          <span class="eyebrow">${UI.process}</span>
           <h2>${c.process.title}</h2>
         </div>
         <ol>
@@ -79,10 +79,10 @@ function markup(s, next) {
       </section>
 
       <section class="case__gallery">
-        <span class="eyebrow">galeria</span>
+        <span class="eyebrow">${UI.gallery}</span>
         <div class="case__grid">
           <figure class="case__shot case__shot--video" data-reveal>
-            <span class="case__play" role="img" aria-label="Odtwórz wideo"></span>
+            <span class="case__play" role="img" aria-label="${UI.aria.play}"></span>
             <figcaption>${c.gallery.video}</figcaption>
           </figure>
           ${c.gallery.phones.map((label) => shot(label, "tall")).join("")}
@@ -93,7 +93,7 @@ function markup(s, next) {
 
       <section class="case__result">
         <div class="prose">
-          <span class="eyebrow">rezultat</span>
+          <span class="eyebrow">${UI.result}</span>
           <h2>${c.result.title}</h2>
           <p>${c.result.text}</p>
         </div>
@@ -104,11 +104,11 @@ function markup(s, next) {
     </div>
 
     <footer class="case__next">
-      <span class="peek-nuri">${NURI}</span>
+      <span class="case__nuri">${NURI}</span>
       <a class="case__next-card" href="#" data-next ${cardStyle(next)}>
         ${cardSpot(next)}
         <span class="case__next-text">
-          <span class="eyebrow">następny projekt</span>
+          <span class="eyebrow">${UI.next}</span>
           <span class="case__next-name" data-fit>${next.project.name}</span>
         </span>
         <span class="case__next-arrow" aria-hidden="true">→</span>

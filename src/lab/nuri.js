@@ -20,18 +20,9 @@ export const EYES = [
 const CUT = EYES.map((e) => `M${e.cx} ${e.cy} m-${e.rx} 0 a${e.rx} ${e.ry} 0 1 0 ${e.rx * 2} 0 a${e.rx} ${e.ry} 0 1 0 -${e.rx * 2} 0`);
 
 const BOX = 200;
+const AXIS = 98; // x half-way between her eyes, in the box: the dots mirror about it
 const RES = 384;
 const RELAX = 80;
-
-// fixed seed: Nuri is the same dots on every visit
-function rng(seed) {
-  return () => {
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
 
 function mask() {
   const c = document.createElement("canvas");
@@ -59,16 +50,18 @@ function relax(count) {
   let area = 0;
   for (let i = 0; i < m.length; i++) area += m[i];
   const step = Math.sqrt(area / count);
-  const rand = rng(7);
 
+  // an exact hex lattice, mirrored about her middle so both halves match;
+  // relaxing then only has to bend the rows near the outline and the eyes
   const px = [];
   const py = [];
   const row = step * 0.93;
+  const col = step * 1.075;
+  const mid = (AXIS / BOX) * RES;
   for (let y = row / 2, r = 0; y < RES; y += row, r++) {
-    for (let x = (r % 2 ? step : step / 2); x < RES; x += step * 1.075) {
-      const jx = x + (rand() - 0.5) * step * 0.2;
-      const jy = y + (rand() - 0.5) * step * 0.2;
-      if (inside(jx, jy)) px.push(jx), py.push(jy);
+    const shift = r % 2 ? col / 2 : 0;
+    for (let x = mid + shift - Math.ceil(mid / col) * col; x < RES; x += col) {
+      if (inside(x, y)) px.push(x), py.push(y);
     }
   }
 

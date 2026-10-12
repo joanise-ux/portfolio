@@ -14,6 +14,7 @@ import { Buddy } from "./buddy.js";
 import { CasePage } from "./case.js";
 import { ProjectList } from "./list.js";
 import { Pages } from "./pages.js";
+import { LANG, UI, saveLang } from "./i18n.js";
 import { PROJECTS, buildShots, shuffled } from "./tiles.js";
 
 const $ = (s) => document.querySelector(s);
@@ -24,6 +25,39 @@ const captionName = caption.querySelector(".caption__name");
 const captionCat = caption.querySelector(".caption__cat");
 const labelName = label.querySelector(".cursor-label__name");
 const hint = $("#hint");
+
+/* ── language ────────────────────────────────────────── */
+document.documentElement.lang = LANG;
+document.title = UI.title;
+stage.setAttribute("aria-label", UI.aria.stage);
+hint.textContent = UI.hint;
+$(".dock").setAttribute("aria-label", UI.aria.nav);
+$("#replay").setAttribute("aria-label", UI.aria.replay);
+$("#list").setAttribute("aria-label", UI.aria.projects);
+$("#langSwitch").setAttribute("aria-label", UI.aria.lang);
+$("#viewSwitch").setAttribute("aria-label", UI.aria.view);
+$('[data-view="orbita"]').setAttribute("aria-label", UI.aria.orbit);
+$('[data-view="lista"]').setAttribute("aria-label", UI.aria.list);
+for (const a of document.querySelectorAll(".dock [data-go]")) a.textContent = UI.nav[a.dataset.go];
+for (const b of $("#langSwitch").children) {
+  b.classList.toggle("is-on", b.dataset.lang === LANG);
+  b.setAttribute("aria-pressed", b.dataset.lang === LANG);
+}
+
+/* The switch saves the choice and reloads; `resume` carries where the
+   visitor was across that reload, so only the words change. */
+const RESUME_KEY = "lab.resume";
+const resume = JSON.parse(sessionStorage.getItem(RESUME_KEY) || "null");
+sessionStorage.removeItem(RESUME_KEY);
+$("#langSwitch").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  // a tap on the current language flips to the other: on a phone the pair is one small target
+  const lang = b.dataset.lang === LANG ? (LANG === "pl" ? "en" : "pl") : b.dataset.lang;
+  saveLang(lang);
+  sessionStorage.setItem(RESUME_KEY, JSON.stringify({ view: settings.view, project: wall.opened ? wall.opened.shot.project.key : null }));
+  location.reload();
+});
 
 const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -70,7 +104,7 @@ let wall = walls[settings.layout];
 const dots = new Dots({ scene, settings });
 const buddy = new Buddy({ settings, dock: $(".dock") });
 const list = new ProjectList({ root: $("#list"), projects: PROJECTS, shotOf: (p) => shots.find((s) => s.project === p), onOpen: openFromList });
-const pages = new Pages({ roots: { about: $("#about"), kontakt: $("#kontakt") }, onGo: (name) => go(name) });
+const pages = new Pages({ roots: { about: $("#about"), kontakt: $("#kontakt") } });
 const page = new CasePage({ root: $("#case"), settings, onBack: () => leave(), onNext: () => openNext() });
 if (import.meta.env.DEV) window.__lab = { walls, dots, buddy, settings, renderer, gsap };
 
@@ -160,16 +194,22 @@ window.addEventListener("resize", () => {
 });
 
 /* ── intro ───────────────────────────────────────────── */
-function intro() {
+function intro(skip) {
   buddy.hide();
-  wall.reveal = 0;
   gsap.killTweensOf(wall);
+  if (skip) {
+    dots.settle();
+    wall.reveal = 1;
+    if (settings.buddy && onWall()) buddy.show();
+    return;
+  }
+  wall.reveal = 0;
   dots.playIntro({
     onRelease: () => gsap.to(wall, { reveal: 1, duration: settings.reducedMotion ? 0 : 1.8, ease: "power2.out" }),
     onDone: () => settings.buddy && onWall() && buddy.show(),
   });
 }
-intro();
+intro(!!resume); // not again after a language switch
 
 /* ── picking + label ─────────────────────────────────── */
 const raycaster = new THREE.Raycaster();
@@ -483,6 +523,11 @@ gui.add({ replay }, "replay").name("powtórz intro");
 /* A reload keeps About / Kontakt; a project address starts on the wall. */
 if (sectionAt() !== "work") showSection(sectionAt());
 else if (location.hash) history.replaceState(null, "", location.pathname);
+if (resume) {
+  setView(resume.view);
+  const project = PROJECTS.find((p) => p.key === resume.project);
+  if (project && section === "work") openFromList(project);
+}
 
 /* ── loop ────────────────────────────────────────────── */
 const clock = new THREE.Clock();
