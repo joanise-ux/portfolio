@@ -32,6 +32,11 @@ body {
   overscroll-behavior: none;
 }
 
+/* the tuning panel is a workshop tool: only with ?panel in the address */
+html:not(.has-panel) .lil-gui {
+  display: none !important;
+}
+
 /* a case study is a history entry: let the two-finger swipe go back */
 html.is-reading,
 html.is-reading body {

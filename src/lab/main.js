@@ -2,7 +2,8 @@
    1. the project wall: an orbit of cards (orbit.js) or the infinite
       Phantom-style grid (canvas.js), switchable in the panel
    2. the dot field that forms Nuri in the intro (dots.js)
-   Open /lab/ and tune the feel with the panel in the corner. */
+   This is the home page. Add ?panel to the address to tune the feel with
+   the panel in the corner. */
 
 import * as THREE from "three";
 import gsap from "gsap";
@@ -494,6 +495,7 @@ $("#replay").addEventListener("click", replay);
 
 /* ── tuning panel ────────────────────────────────────── */
 const gui = new GUI({ title: "czucie / feel" });
+document.documentElement.classList.toggle("has-panel", new URLSearchParams(location.search).has("panel"));
 if (window.innerWidth < 640) gui.close();
 gui.add(settings, "layout", ["orbita", "siatka"]).name("układ projektów").onChange(setLayout);
 const f0 = gui.addFolder("orbita");

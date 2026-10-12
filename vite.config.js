@@ -6,12 +6,13 @@ export default defineConfig({
   plugins: [react()],
   server: { port: Number(process.env.PORT) || 4321 },
   build: {
-    target: "es2022", // the lab uses top-level await
+    target: "es2022", // the v2 page (src/lab) uses top-level await
     rollupOptions: {
       input: {
+        /* the v2 portfolio (src/lab) is the home page */
         main: resolve(__dirname, "index.html"),
-        /* v2 motion prototype — served at /lab/ */
-        lab: resolve(__dirname, "lab/index.html"),
+        /* the earlier NEON OS desktop (src/main.jsx) — kept at /classic/ */
+        classic: resolve(__dirname, "classic/index.html"),
       },
     },
   },
