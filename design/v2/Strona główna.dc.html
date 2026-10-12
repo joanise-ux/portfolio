@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&amp;family=Modak&amp;family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E0C0A}a{color:#F0532A;text-decoration:none}a:hover{color:#F3EBDD}</style>
+</helmet>
+<div style="background:#0E0C0A;padding:80px;display:flex;flex-direction:column;gap:96px;font-family:Outfit,sans-serif;color:#F3EBDD;width:max-content">
+
+  <header style="display:flex;flex-direction:column;gap:12px;max-width:1440px">
+    <span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Joanna Żuczkowska · portfolio · ekran kluczowy</span>
+    <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:56px;line-height:1.05">Strona główna — orbita projektów</h1>
+    <p style="margin:0;font-size:18px;line-height:1.5;color:#A99E8E;max-width:72ch;text-wrap:pretty">Kadry 1a i 1b są żywe: przeciągnij orbitę albo kliknij boczną kartę. Teksty i obrazy są zastępcze.</p>
+  </header>
+
+  <section style="display:flex;gap:64px;align-items:flex-start">
+    <div id="1a" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <a href="#1a" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1a</a>
+        <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Desktop · A. Spoczynek</span>
+        <span style="font-size:15px;color:#A99E8E">1440 × 900 · interaktywny</span>
+      </div>
+      <div ref="{{ deskRef }}" onPointerDown="{{ onDownA }}" style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px;user-select:none;touch-action:none;cursor:grab">
+        <svg width="1440" height="900" viewBox="0 0 1440 900" style="position:absolute;inset:0;opacity:.3;pointer-events:none"><path d="{{ bgD }}" fill="#F3EBDD"></path></svg>
+        <div style="position:absolute;left:32px;top:28px;display:flex;flex-direction:column;gap:2px;z-index:300">
+          <span style="font-size:15px;font-weight:500">Joanna Żuczkowska</span>
+          <span style="font-size:13px;color:#A99E8E">UX/UI designer</span>
+        </div>
+        <span style="position:absolute;left:50%;top:32px;transform:translateX(-50%);font-size:13px;color:#A99E8E;letter-spacing:.06em;z-index:300">← przeciągnij →</span>
+        <sc-for list="{{ deskA.cards }}" as="c" hint-placeholder-count="10">
+          <div data-idx="{{ c.i }}" onMouseMove="{{ c.onMove }}" onMouseLeave="{{ c.onLeave }}" style="position:absolute;left:{{ c.x }}px;top:{{ c.y }}px;width:{{ c.w }}px;height:{{ c.h }}px;margin-left:{{ c.ml }}px;margin-top:{{ c.mt }}px;transform:scale({{ c.s }});z-index:{{ c.zi }};filter:{{ c.filter }};opacity:{{ c.op }};border-radius:{{ c.rad }}px;background:{{ c.bg }};overflow:hidden;cursor:{{ c.cursor }};transition:filter .25s">
+            <div style="position:absolute;left:{{ c.il }}px;top:{{ c.it }}px;width:{{ c.iw }}px;height:{{ c.ih }}px;border-radius:{{ c.ir }};background:rgba(243,235,221,.08)"></div>
+            <span style="position:absolute;left:{{ c.pad }}px;bottom:{{ c.pad }}px;font-size:{{ c.fs }}px;font-weight:500;color:#F3EBDD">{{ c.label }}</span>
+          </div>
+        </sc-for>
+        <div style="position:absolute;left:{{ deskA.cap.x }}px;top:{{ deskA.cap.y }}px;display:flex;flex-direction:column;gap:6px;z-index:150;opacity:{{ deskA.cap.op }};transition:opacity .2s;pointer-events:none">
+          <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:30px;line-height:1.1">{{ deskA.cap.name }}</span>
+          <span style="font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#F0532A">{{ deskA.cap.cat }}</span>
+        </div>
+        <sc-if value="{{ deskA.hasCur }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:{{ deskA.cur.x }}px;top:{{ deskA.cur.y }}px;z-index:250;pointer-events:none;display:flex;align-items:center;gap:10px;margin:-6px 0 0 -6px">
+            <span style="width:12px;height:12px;border-radius:50%;background:#F0532A;flex:none"></span>
+            <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:18px;color:#15120F;background:#F3EBDD;padding:8px 16px;border-radius:999px;white-space:nowrap">{{ deskA.cur.name }}</span>
+          </div>
+        </sc-if>
+        <div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+          <a href="#" aria-label="Nuri — start" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%">
+            <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.src }});background-size:contain;background-repeat:no-repeat;background-position:center"></span></sc-if>
+          </a>
+          <a href="#" style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:15px;font-weight:600" style-active="background:#D2401C">Work</a>
+          <a href="#" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">About</a>
+          <a href="#" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">Kontakt</a>
+          <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+          <div style="display:flex;align-items:center">
+            <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+            <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+          </div>
+          <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+          <div style="display:flex;align-items:center">
+            <span aria-label="Widok orbita" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#F0532A"><span style="width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:4px;height:4px;border-radius:50%;background:currentColor"></span></span></span>
+            <span aria-label="Widok lista" style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#A99E8E"><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1b" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <a href="#1b" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1b</a>
+        <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Telefon · A. Spoczynek</span>
+        <span style="font-size:15px;color:#A99E8E">375 × 812</span>
+      </div>
+      <div onPointerDown="{{ onDownP }}" style="width:375px;height:812px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:48px;user-select:none;touch-action:none;cursor:grab">
+        <svg width="375" height="812" viewBox="0 0 375 812" style="position:absolute;inset:0;opacity:.3;pointer-events:none"><path d="{{ bgP }}" fill="#F3EBDD"></path></svg>
+        <span style="position:absolute;left:32px;top:16px;font-size:15px;font-weight:600;z-index:300">9:41</span>
+        <div style="position:absolute;left:24px;top:60px;display:flex;flex-direction:column;gap:2px;z-index:300">
+          <span style="font-size:14px;font-weight:500">Joanna Żuczkowska</span>
+          <span style="font-size:12px;color:#A99E8E">UX/UI designer</span>
+        </div>
+        <span style="position:absolute;right:24px;top:63px;font-size:12px;color:#A99E8E;letter-spacing:.06em;z-index:300">← przeciągnij →</span>
+        <sc-for list="{{ phone.cards }}" as="c" hint-placeholder-count="10">
+          <div data-idx="{{ c.i }}" style="position:absolute;left:{{ c.x }}px;top:{{ c.y }}px;width:{{ c.w }}px;height:{{ c.h }}px;margin-left:{{ c.ml }}px;margin-top:{{ c.mt }}px;transform:scale({{ c.s }});z-index:{{ c.zi }};filter:{{ c.filter }};opacity:{{ c.op }};border-radius:{{ c.rad }}px;background:{{ c.bg }};overflow:hidden">
+            <div style="position:absolute;left:{{ c.il }}px;top:{{ c.it }}px;width:{{ c.iw }}px;height:{{ c.ih }}px;border-radius:{{ c.ir }};background:rgba(243,235,221,.08)"></div>
+            <span style="position:absolute;left:{{ c.pad }}px;bottom:{{ c.pad }}px;font-size:{{ c.fs }}px;font-weight:500;color:#F3EBDD">{{ c.label }}</span>
+          </div>
+        </sc-for>
+        <div style="position:absolute;left:{{ phone.cap.x }}px;top:{{ phone.cap.y }}px;display:flex;flex-direction:column;gap:4px;z-index:150;pointer-events:none">
+          <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:22px;line-height:1.15">{{ phone.cap.name }}</span>
+          <span style="font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#F0532A">{{ phone.cap.cat }}</span>
+        </div>
+        <div style="position:absolute;left:12px;right:12px;bottom:42px;height:56px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 5px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+          <a href="#" aria-label="Nuri — start" style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:50%">
+            <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:26px;height:26px;display:block;background-image:url({{ nuri.src }});background-size:contain;background-repeat:no-repeat;background-position:center"></span></sc-if>
+          </a>
+          <a href="#" style="height:44px;padding:0 12px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:14px;font-weight:600" style-active="background:#D2401C">Work</a>
+          <a href="#" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">About</a>
+          <a href="#" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">Kontakt</a>
+          <span aria-label="Język PL, przełącz na EN" style="height:44px;min-width:48px;display:flex;align-items:center;justify-content:center;gap:3px;font-size:13px"><span style="font-weight:600;color:#F0532A">PL</span><span style="color:#A99E8E">EN</span></span>
+          <span aria-label="Widok orbita, przełącz na listę" style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;color:#F0532A"><span style="width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:4px;height:4px;border-radius:50%;background:currentColor"></span></span></span>
+        </div>
+        <span style="position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#F3EBDD;z-index:300"></span>
+      </div>
+      <span style="font-size:14px;color:#A99E8E;max-width:375px;line-height:1.5">Nawigacja: cele 44 px, dolny margines 34 px safe-area + 8 px. PL/EN i widok to pojedyncze przełączniki.</span>
+    </div>
+  </section>
+
+  <section style="display:flex;gap:64px;align-items:flex-start">
+    <div id="1c" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <a href="#1c" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1c</a>
+        <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Desktop · B. Hover na przedniej karcie</span>
+        <span style="font-size:15px;color:#A99E8E">karta ×1,05 · reszta przygaszona · nazwa przy kursorze</span>
+      </div>
+      <div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px">
+        <svg width="1440" height="900" viewBox="0 0 1440 900" style="position:absolute;inset:0;opacity:.3;pointer-events:none"><path d="{{ bgD }}" fill="#F3EBDD"></path></svg>
+        <div style="position:absolute;left:32px;top:28px;display:flex;flex-direction:column;gap:2px;z-index:300">
+          <span style="font-size:15px;font-weight:500">Joanna Żuczkowska</span>
+          <span style="font-size:13px;color:#A99E8E">UX/UI designer</span>
+        </div>
+        <span style="position:absolute;left:50%;top:32px;transform:translateX(-50%);font-size:13px;color:#A99E8E;letter-spacing:.06em;z-index:300">← przeciągnij →</span>
+        <sc-for list="{{ deskB.cards }}" as="c" hint-placeholder-count="10">
+          <div style="position:absolute;left:{{ c.x }}px;top:{{ c.y }}px;width:{{ c.w }}px;height:{{ c.h }}px;margin-left:{{ c.ml }}px;margin-top:{{ c.mt }}px;transform:scale({{ c.s }});z-index:{{ c.zi }};filter:{{ c.filter }};opacity:{{ c.op }};border-radius:{{ c.rad }}px;background:{{ c.bg }};overflow:hidden">
+            <div style="position:absolute;left:{{ c.il }}px;top:{{ c.it }}px;width:{{ c.iw }}px;height:{{ c.ih }}px;border-radius:{{ c.ir }};background:rgba(243,235,221,.08)"></div>
+            <span style="position:absolute;left:{{ c.pad }}px;bottom:{{ c.pad }}px;font-size:{{ c.fs }}px;font-weight:500;color:#F3EBDD">{{ c.label }}</span>
+          </div>
+        </sc-for>
+        <div style="position:absolute;left:{{ deskB.cur.x }}px;top:{{ deskB.cur.y }}px;z-index:250;pointer-events:none;display:flex;align-items:center;gap:10px;margin:-6px 0 0 -6px">
+          <span style="width:12px;height:12px;border-radius:50%;background:#F0532A;flex:none"></span>
+          <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:18px;color:#15120F;background:#F3EBDD;padding:8px 16px;border-radius:999px;white-space:nowrap">{{ deskB.cur.name }}</span>
+        </div>
+        <div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+          <span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center">
+            <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.src }});background-size:contain;background-repeat:no-repeat;background-position:center"></span></sc-if>
+          </span>
+          <span style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:15px;font-weight:600">Work</span>
+          <span style="height:44px;padding:0 18px;display:flex;align-items:center;font-size:15px;font-weight:500">About</span>
+          <span style="height:44px;padding:0 18px;display:flex;align-items:center;font-size:15px;font-weight:500">Kontakt</span>
+          <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+          <div style="display:flex;align-items:center">
+            <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+            <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+          </div>
+          <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+          <div style="display:flex;align-items:center">
+            <span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#F0532A"><span style="width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:4px;height:4px;border-radius:50%;background:currentColor"></span></span></span>
+            <span style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#A99E8E"><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1d" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <a href="#1d" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1d</a>
+        <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Desktop · C. Intro</span>
+        <span style="font-size:15px;color:#A99E8E">Nuri z {{ nuri.n1 }} kropek · próbkowane z nuri.svg.png</span>
+      </div>
+      <div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px">
+        <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}">
+          <svg viewBox="{{ nuri.vb1 }}" style="position:absolute;left:50%;top:50%;width:600px;height:600px;transform:translate(-50%,-50%);display:block"><path d="{{ nuri.d1 }}" fill="#F0532A"></path></svg>
+        </sc-if>
+      </div>
+    </div>
+
+    <div id="1e" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <a href="#1e" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1e</a>
+        <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Telefon · Intro</span>
+        <span style="font-size:15px;color:#A99E8E">{{ nuri.n2 }} kropek</span>
+      </div>
+      <div style="width:375px;height:812px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:48px">
+        <span style="position:absolute;left:32px;top:16px;font-size:15px;font-weight:600">9:41</span>
+        <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}">
+          <svg viewBox="{{ nuri.vb2 }}" style="position:absolute;left:50%;top:50%;width:270px;height:270px;transform:translate(-50%,-50%);display:block"><path d="{{ nuri.d2 }}" fill="#F0532A"></path></svg>
+        </sc-if>
+        <span style="position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#F3EBDD"></span>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;dotDesktop&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1100,&quot;min&quot;:400,&quot;max&quot;:2000,&quot;step&quot;:50,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Intro Nuri&quot;},&quot;dotPhone&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:300,&quot;min&quot;:120,&quot;max&quot;:800,&quot;step&quot;:10,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Intro Nuri&quot;}}">
+const P={nf:{name:'Nature Future',cat:'web',bg:'#3A4034'},nr:{name:'Nieruchomości',cat:'web',bg:'#3B3833'},ka:{name:'Kancelaria',cat:'branding',bg:'#32363A'},kw:{name:'Kawiarnia',cat:'branding',bg:'#46372B'},tr:{name:'Tracker seriali',cat:'aplikacja mobilna',bg:'#3A3532'}};
+const CARDS=[['nf','H','01',.62,.45],['nr','V','01',.45,.36],['ka','S','01',.5,.5],['kw','V','01',.5,.6],['tr','V','01',.5,.46],['nf','S','02',.38,.42],['nr','H','02',.6,.5],['ka','V','02',.5,.4],['kw','H','02',.42,.5],['tr','S','02',.5,.48]];
+const DESK={cx:720,cy:410,R:680,J:260,sMin:.22,blur:10,rad:14,fs:14,pad:20,capGap:22,dims:{H:[600,400],S:[440,440],V:[340,450]}};
+const PHONE={cx:187.5,cy:372,R:405,J:140,sMin:.22,blur:6,rad:12,fs:12,pad:14,capGap:18,dims:{H:[262,180],S:[262,262],V:[262,350]}};
+const N=CARDS.length,STEP=360/N;
+const norm=a=>((a%360)+540)%360-180;
+
+function layout(rot,cfg,hov,live,self){
+  let fi=0,best=1e9;
+  const raw=CARDS.map(([p,sh,n,ox,oy],i)=>{
+    const a=norm(i*STEP-rot);if(Math.abs(a)<best){best=Math.abs(a);fi=i;}
+    const th=a*Math.PI/180,t=(Math.cos(th)+1)/2;
+    const [w,h]=cfg.dims[sh];
+    return {i,t,p,sh,n,ox,oy,w,h,s:cfg.sMin+(1-cfg.sMin)*t**4,x:cfg.cx+cfg.R*Math.sin(th),y:cfg.cy+(i%2?1:-1)*cfg.J*(1-t)*Math.abs(Math.sin(th)),op:Math.min(1,Math.max(0,(t-.05)/.12)),bri:.42+.58*t**3,blur:(1-t)*cfg.blur};
+  });
+  raw.forEach(c=>{if(!hov)return;if(c.i===fi)c.s*=1.05;else c.bri*=.45;});
+  const cards=raw.map(c=>{
+    const pr=P[c.p],m=Math.min(c.w,c.h);
+    let iw,ih,ir;
+    if(c.p==='tr'){iw=m*.32;ih=Math.min(iw*1.9,c.h*.72);ir='14px';}else{iw=ih=m*.5;ir='50%';}
+    const front=c.i===fi;
+    return {i:c.i,x:c.x.toFixed(2),y:c.y.toFixed(2),w:c.w,h:c.h,ml:-c.w/2,mt:-c.h/2,s:c.s.toFixed(4),zi:front?100:Math.round(c.t*90),
+      filter:`blur(${c.blur.toFixed(2)}px) brightness(${c.bri.toFixed(3)})`,op:c.op.toFixed(3),rad:cfg.rad,bg:pr.bg,
+      il:(c.ox*c.w-iw/2).toFixed(1),it:(c.oy*c.h-ih/2).toFixed(1),iw:iw.toFixed(1),ih:ih.toFixed(1),ir,pad:cfg.pad,fs:cfg.fs,
+      label:`${pr.name.toLowerCase()} · ${c.n}`,cursor:live&&front?'none':'pointer',
+      onMove:live&&front&&self?self.onHoverMove:undefined,onLeave:live&&front&&self?self.onHoverLeave:undefined};
+  });
+  const f=raw[fi],pf=P[f.p];
+  return {cards,hasCur:!!hov,cur:{x:hov?hov.x:0,y:hov?hov.y:0,name:pf.name},
+    cap:{name:pf.name,cat:pf.cat,x:(f.x-f.w*f.s/2).toFixed(1),y:(f.y+f.h*f.s/2+cfg.capGap).toFixed(1),op:hov?0:1}};
+}
+
+const bgCache={};
+function bgDots(w,h,n,seed){
+  const k=w+'x'+h;if(bgCache[k])return bgCache[k];
+  let s=seed;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;let d='';
+  for(let i=0;i<n;i++){const x=rnd()*w,y=rnd()*h,r=rnd()<.08?1.5:.55+rnd()*.7;d+=`M${(x-r).toFixed(1)} ${y.toFixed(1)}a${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(2*r).toFixed(2)} 0a${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(-2*r).toFixed(2)} 0`;}
+  return bgCache[k]=d;
+}
+
+function sampleDots(m,target){
+  const test=(x,y)=>{const gx=Math.floor(x/m.st),gy=Math.floor(y/m.st);return gx>=0&&gy>=0&&gx<m.gw&&gy<m.gh&&m.body[gy*m.gw+gx]===1;};
+  const bb=m.bb,pts=s=>{const out=[],h=s*.866;let row=0;for(let y=bb.y0+h/2;y<=bb.y1;y+=h,row++)for(let x=bb.x0+(row%2?s/2:0)+s/4;x<=bb.x1;x+=s)if(test(x,y))out.push([x,y]);return out;};
+  let best=null;for(let s=10;s<=110;s+=.25){const p=pts(s);if(!best||Math.abs(p.length-target)<Math.abs(best.p.length-target))best={s,p};}
+  const r=best.s*.45;
+  const d=best.p.map(([x,y])=>`M${(x-r).toFixed(1)} ${y.toFixed(1)}a${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(2*r).toFixed(2)} 0a${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(-2*r).toFixed(2)} 0`).join('');
+  const side=Math.max(bb.x1-bb.x0,bb.y1-bb.y0)+best.s*2,cx=(bb.x0+bb.x1)/2,cy=(bb.y0+bb.y1)/2;
+  return {d,n:best.p.length,vb:`${(cx-side/2).toFixed(1)} ${(cy-side/2).toFixed(1)} ${side.toFixed(1)} ${side.toFixed(1)}`};
+}
+
+class Component extends DCLogic {
+  state={rotA:0,rotP:0,hover:null,nuri:null};
+  deskRef=React.createRef();raf={};
+  componentDidMount(){this.loadNuri();}
+  componentWillUnmount(){Object.values(this.raf).forEach(cancelAnimationFrame);}
+  componentDidUpdate(pp){if(this.mask&&(pp.dotDesktop!==this.props.dotDesktop||pp.dotPhone!==this.props.dotPhone))this.buildDots();}
+
+  async loadNuri(){
+    const img=new Image();img.src='uploads/nuri.svg.png';
+    try{await img.decode();}catch(e){return;}
+    const W=img.naturalWidth,H=img.naturalHeight,cv=document.createElement('canvas');cv.width=W;cv.height=H;
+    const g=cv.getContext('2d');g.drawImage(img,0,0);const data=g.getImageData(0,0,W,H).data;
+    const st=3,gw=Math.floor(W/st),gh=Math.floor(H/st),M=10;
+    const fg=new Uint8Array(gw*gh),dark=new Uint8Array(gw*gh);
+    for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){
+      const px=x*st+1,py=y*st+1,o=(py*W+px)*4,r=data[o],gg=data[o+1],b=data[o+2],i=y*gw+x;
+      if(px<M||py<M||px>W-M||py>H-M)continue;
+      if((255-r)+(255-gg)+(255-b)>25)fg[i]=1;
+      if(fg[i]&&r+gg+b<300)dark[i]=1;}
+    const k=5,dirs=[[k,0],[-k,0],[0,k],[0,-k],[4,4],[-4,4],[4,-4],[-4,-4]],eye=new Uint8Array(gw*gh),R=6;
+    for(let y=k;y<gh-k;y++)for(let x=k;x<gw-k;x++){const i=y*gw+x;if(!dark[i])continue;
+      if(dirs.every(([dx,dy])=>dark[(y+dy)*gw+x+dx]))for(let dy=-R;dy<=R;dy++)for(let dx=-R;dx<=R;dx++)if(dx*dx+dy*dy<=R*R){const yy=y+dy,xx=x+dx;if(yy>=0&&xx>=0&&yy<gh&&xx<gw)eye[yy*gw+xx]=1;}}
+    const body=new Uint8Array(gw*gh);let x0=1e9,y0=1e9,x1=-1,y1=-1;
+    for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){const i=y*gw+x;if(!fg[i])continue;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;if(!eye[i])body[i]=1;}
+    const bb={x0:x0*st,y0:y0*st,x1:(x1+1)*st,y1:(y1+1)*st};
+    this.mask={body,gw,gh,st,bb};
+    // transparent cut-out of the original file (white background removed, frame cropped)
+    const so=(Math.round(H*.75)*W+Math.round(W*.5))*4,br=data[so],bg_=data[so+1],bb_=data[so+2],def=Math.max(20,(255-br)+(255-bg_)+(255-bb_));
+    const cx0=Math.max(0,bb.x0-4),cy0=Math.max(0,bb.y0-4),cw=Math.min(W,bb.x1+4)-cx0,ch=Math.min(H,bb.y1+4)-cy0;
+    const out=g.getImageData(cx0,cy0,cw,ch),od=out.data;
+    for(let y=0;y<ch;y++)for(let x=0;x<cw;x++){const o=(y*cw+x)*4,ax=x+cx0,ay=y+cy0;
+      if(ax<M||ay<M||ax>W-M||ay>H-M){od[o+3]=0;continue;}
+      const a=Math.min(1,((255-od[o])+(255-od[o+1])+(255-od[o+2]))/def);
+      if(a<1){od[o]=br;od[o+1]=bg_;od[o+2]=bb_;od[o+3]=Math.round(a*255);}}
+    const c2=document.createElement('canvas');c2.width=cw;c2.height=ch;c2.getContext('2d').putImageData(out,0,0);
+    const blob=await new Promise(r=>c2.toBlob(r,'image/png'));
+    this.cut=URL.createObjectURL(blob);
+    this.buildDots();
+  }
+  buildDots(){
+    const a=sampleDots(this.mask,this.props.dotDesktop??1100),b=sampleDots(this.mask,this.props.dotPhone??300);
+    this.setState({nuri:{src:this.cut,vb1:a.vb,d1:a.d,n1:a.n,vb2:b.vb,d2:b.d,n2:b.n}});
+  }
+
+  animTo(key,target){
+    cancelAnimationFrame(this.raf[key]);
+    const from=this.state[key],t0=performance.now(),dur=460;
+    const step=now=>{const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3);this.setState({[key]:from+(target-from)*e});if(p<1)this.raf[key]=requestAnimationFrame(step);};
+    this.raf[key]=requestAnimationFrame(step);
+  }
+  startDrag(key,k,e){
+    cancelAnimationFrame(this.raf[key]);
+    const s0=this.state[key],x0=e.clientX;let moved=false;
+    const mv=ev=>{const dx=ev.clientX-x0;if(Math.abs(dx)>4)moved=true;if(moved)this.setState({[key]:s0-dx*k,hover:null});};
+    const up=ev=>{window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up);
+      if(!moved){const el=ev.target&&ev.target.closest&&ev.target.closest('[data-idx]');
+        if(el){const i=+el.dataset.idx;this.animTo(key,s0+norm(i*STEP-s0));return;}}
+      this.animTo(key,Math.round(this.state[key]/STEP)*STEP);};
+    window.addEventListener('pointermove',mv);window.addEventListener('pointerup',up);
+  }
+  onDownA=e=>this.startDrag('rotA',.2,e);
+  onDownP=e=>this.startDrag('rotP',.4,e);
+  onHoverMove=e=>{const el=this.deskRef.current;if(!el)return;const r=el.getBoundingClientRect(),sc=r.width/1440;this.setState({hover:{x:(e.clientX-r.left)/sc,y:(e.clientY-r.top)/sc}});};
+  onHoverLeave=()=>this.setState({hover:null});
+
+  renderVals(){
+    const nuri=this.state.nuri||{};
+    return {
+      deskA:layout(this.state.rotA,DESK,this.state.hover,true,this),
+      deskB:layout(0,DESK,{x:860,y:340},false),
+      phone:layout(this.state.rotP,PHONE,null,true,this),
+      bgD:bgDots(1440,900,700,7),bgP:bgDots(375,812,190,11),
+      nuri,nuriReady:!!this.state.nuri,
+      deskRef:this.deskRef,onDownA:this.onDownA,onDownP:this.onDownP};
+  }
+}
+</script>
+</body>
+</html>

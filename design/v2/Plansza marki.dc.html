@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&amp;family=Modak&amp;family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E0C0A}a{color:#FF6B3D}a:hover{color:#F3EBDD}</style>
+</helmet>
+<div style="width:1920px;box-sizing:border-box;background-color:#15120F;background-image:radial-gradient(circle,#2B2621 1.1px,transparent 1.7px);background-size:28px 28px;color:#F3EBDD;font-family:Outfit,sans-serif;padding:64px 96px 120px;display:flex;flex-direction:column;gap:112px">
+
+  <header style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">
+      <span>Joanna Żuczkowska — UX/UI designer</span>
+      <span>Plansza marki · paleta · typografia · Nuri</span>
+      <span>v0.1 · październik 2026</span>
+    </div>
+    <h1 style="margin:0;font-family:Modak,cursive;font-weight:400;font-size:300px;line-height:.82;letter-spacing:-.01em;color:#F3EBDD">portfolio</h1>
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 640px;gap:64px;align-items:end;border-top:1px solid #2E2822;padding-top:28px">
+      <p style="margin:0;font-size:30px;line-height:1.3;font-weight:400;letter-spacing:-.01em;max-width:860px;text-wrap:pretty">Ciemna baza, kremowy tekst, jeden akcent. Wielka bąbelkowa typografia w spokojnym, edytorskim układzie.</p>
+      <p style="margin:0;font-size:18px;line-height:1.55;color:#A99E8E;text-wrap:pretty">Do wyboru: <span style="color:#F3EBDD">odcień persymony</span> (01), <span style="color:#F3EBDD">krój nagłówków</span> (02) i <span style="color:#F3EBDD">wariant Nuri</span> (03). Kliknij kartę — podgląd w sekcji 04 złoży wybór w jedną stronę.</p>
+    </div>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:grid;grid-template-columns:96px minmax(0,1fr) 640px;gap:32px;align-items:baseline">
+      <span style="font-size:20px;font-weight:500;color:#FF6B3D">01</span>
+      <h2 style="margin:0;font-size:56px;font-weight:500;letter-spacing:-.02em">Paleta</h2>
+      <p style="margin:0;font-size:17px;line-height:1.55;color:#A99E8E">Kontrast wg WCAG 2.2: tekst ≥ 4,5:1 (AA), ≥ 7:1 (AAA), duży tekst ≥ 3:1. Elementy UI i grafika ≥ 3:1 (1.4.11). Wartości liczone na żywo z HEX.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px">
+      <sc-for list="{{ base }}" as="b" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="height:120px;border-radius:20px;border:1px solid #2E2822;background:{{ b.hex }};color:{{ b.fg }};padding:16px 18px;box-sizing:border-box;display:flex;align-items:flex-end;font-size:15px;font-weight:500;font-variant-numeric:tabular-nums">{{ b.hex }}</div>
+          <div style="display:flex;justify-content:space-between;gap:12px;font-size:16px"><span style="font-weight:500">{{ b.name }}</span><span style="color:#A99E8E;font-variant-numeric:tabular-nums">{{ b.ratio }}</span></div>
+          <span style="font-size:14px;color:#A99E8E;margin-top:-6px">{{ b.use }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px">
+      <sc-for list="{{ shades }}" as="s" hint-placeholder-count="3">
+        <div onClick="{{ s.pick }}" style="cursor:pointer;background:#1E1A16;border-radius:32px;padding:24px;display:flex;flex-direction:column;gap:22px;outline:{{ s.outline }};outline-offset:6px">
+          <div style="height:200px;border-radius:20px;background:{{ s.hex }};color:#15120F;padding:20px 22px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+            <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase"><span>{{ s.code }}</span><span>{{ s.selLabel }}</span></div>
+            <span style="font-size:40px;font-weight:600;letter-spacing:-.02em">{{ s.name }}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:16px;color:#A99E8E;font-variant-numeric:tabular-nums;padding:0 4px"><span style="color:#F3EBDD;font-weight:500">{{ s.hex }}</span><span>{{ s.oklch }}</span></div>
+          <p style="margin:0;padding:0 4px;font-size:17px;line-height:1.45;color:#F3EBDD;text-wrap:pretty">{{ s.role }}</p>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #2E2822">
+            <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 72px 104px;gap:12px;align-items:center;padding:11px 4px;border-bottom:1px solid #2E2822;font-size:15px">
+                <span style="color:#A99E8E">{{ r.label }}</span>
+                <span style="text-align:right;font-variant-numeric:tabular-nums;font-weight:500">{{ r.ratio }}</span>
+                <span style="justify-self:end;font-size:12px;font-weight:600;letter-spacing:.04em;padding:4px 10px;border-radius:999px;background:{{ r.bg }};color:{{ r.fg }};border:1px solid {{ r.bd }}">{{ r.badge }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#15120F;border-radius:20px;padding:20px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+            <span style="font-size:17px;font-weight:500;color:{{ s.hex }}">Zobacz case study →</span>
+            <div style="display:flex;align-items:center;gap:14px">
+              <span style="width:36px;height:36px;border-radius:50%;border:2px solid {{ s.hex }};box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:50%;background:{{ s.hex }}"></span></span>
+              <span style="background:{{ s.hex }};color:#15120F;font-size:15px;font-weight:600;padding:11px 18px;border-radius:999px">Napisz do mnie</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:grid;grid-template-columns:96px minmax(0,1fr) 640px;gap:32px;align-items:baseline">
+      <span style="font-size:20px;font-weight:500;color:#FF6B3D">02</span>
+      <h2 style="margin:0;font-size:56px;font-weight:500;letter-spacing:-.02em">Typografia</h2>
+      <p style="margin:0;font-size:17px;line-height:1.55;color:#A99E8E">Nagłówki: Modak vs DynaPuff na tych samych słowach i rozmiarach. Tekst i UI: Outfit. Kliknij kolumnę, żeby wybrać krój.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px;grid-template-rows:auto repeat(5,auto)">
+      <div onClick="{{ pickModak }}" style="cursor:pointer;grid-column:1;grid-row:1 / 7;background:#1E1A16;border-radius:32px;outline:{{ fontM.outline }};outline-offset:6px"></div>
+      <div onClick="{{ pickDyna }}" style="cursor:pointer;grid-column:2;grid-row:1 / 7;background:#1E1A16;border-radius:32px;outline:{{ fontD.outline }};outline-offset:6px"></div>
+
+      <div style="grid-column:1;grid-row:1;pointer-events:none;position:relative;padding:32px 40px 8px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #2E2822;margin:0 40px;padding-left:0;padding-right:0">
+        <span style="font-size:28px;font-weight:500">Modak</span>
+        <span style="font-size:14px;color:#A99E8E">jedna grubość · 400 · {{ fontM.label }}</span>
+      </div>
+      <div style="grid-column:2;grid-row:1;pointer-events:none;position:relative;padding:32px 0 8px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #2E2822;margin:0 40px">
+        <span style="font-size:28px;font-weight:500">DynaPuff</span>
+        <span style="font-size:14px;color:#A99E8E">zmienna 400–700 · tu 600 · {{ fontD.label }}</span>
+      </div>
+
+      <div style="grid-column:1;grid-row:2;pointer-events:none;position:relative;padding:24px 40px 0;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">128 px</span><span style="font-family:Modak,cursive;font-size:128px;line-height:1">portfolio</span></div>
+      <div style="grid-column:2;grid-row:2;pointer-events:none;position:relative;padding:24px 40px 0;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">128 px</span><span style="font-family:DynaPuff,cursive;font-weight:600;font-size:128px;line-height:1">portfolio</span></div>
+
+      <div style="grid-column:1;grid-row:3;pointer-events:none;position:relative;padding:20px 40px 0;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">128 px · persymona</span><span style="font-family:Modak,cursive;font-size:128px;line-height:1;color:#FF6B3D">work</span></div>
+      <div style="grid-column:2;grid-row:3;pointer-events:none;position:relative;padding:20px 40px 0;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">128 px · persymona</span><span style="font-family:DynaPuff,cursive;font-weight:600;font-size:128px;line-height:1;color:#FF6B3D">work</span></div>
+
+      <div style="grid-column:1;grid-row:4;pointer-events:none;position:relative;padding:20px 40px 0;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">100 px</span><span style="font-family:Modak,cursive;font-size:100px;line-height:1.05">Żuczkowska</span></div>
+      <div style="grid-column:2;grid-row:4;pointer-events:none;position:relative;padding:20px 40px 0;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">100 px</span><span style="font-family:DynaPuff,cursive;font-weight:600;font-size:100px;line-height:1.05">Żuczkowska</span></div>
+
+      <div style="grid-column:1;grid-row:5;pointer-events:none;position:relative;padding:24px 40px 0;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">60 px</span><span style="font-family:Modak,cursive;font-size:60px;line-height:1.05">Cześć, jestem Joanna</span></div>
+      <div style="grid-column:2;grid-row:5;pointer-events:none;position:relative;padding:24px 40px 0;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">60 px</span><span style="font-family:DynaPuff,cursive;font-weight:600;font-size:60px;line-height:1.05">Cześć, jestem Joanna</span></div>
+
+      <div style="grid-column:1;grid-row:6;pointer-events:none;position:relative;padding:24px 40px 40px;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">60 px · test polskich znaków</span><span style="font-family:Modak,cursive;font-size:60px;line-height:1.1">Zażółć gęślą jaźń</span></div>
+      <div style="grid-column:2;grid-row:6;pointer-events:none;position:relative;padding:24px 40px 40px;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#A99E8E;letter-spacing:.06em">60 px · test polskich znaków</span><span style="font-family:DynaPuff,cursive;font-weight:600;font-size:60px;line-height:1.1">Zażółć gęślą jaźń</span></div>
+    </div>
+
+    <div style="background:#1E1A16;border-radius:32px;padding:16px 40px;display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding:28px 0;border-bottom:1px solid #2E2822;align-items:baseline">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:18px;font-weight:500">Wielki tytuł</span><span style="font-size:14px;color:#A99E8E;font-variant-numeric:tabular-nums">Outfit 600 · 104/100 · −3%</span></div>
+        <span style="font-size:104px;font-weight:600;line-height:1;letter-spacing:-.03em;text-wrap:balance">Projektuję interfejsy, które się dobrze używa.</span>
+      </div>
+      <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding:28px 0;border-bottom:1px solid #2E2822;align-items:baseline">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:18px;font-weight:500">Nagłówek</span><span style="font-size:14px;color:#A99E8E;font-variant-numeric:tabular-nums">Outfit 500 · 44/52 · −1,5%</span></div>
+        <span style="font-size:44px;font-weight:500;line-height:1.18;letter-spacing:-.015em">Case study: rejestracja do lekarza w trzech krokach</span>
+      </div>
+      <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding:28px 0;border-bottom:1px solid #2E2822;align-items:baseline">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:18px;font-weight:500">Akapit</span><span style="font-size:14px;color:#A99E8E;font-variant-numeric:tabular-nums">Outfit 400 · 19/30 · maks. 64 znaki</span></div>
+        <p style="margin:0;font-size:19px;line-height:1.6;max-width:64ch;color:#F3EBDD;text-wrap:pretty">Zaczęłam od rozmów z pacjentami i recepcją. Okazało się, że najwięcej rezygnacji pojawiało się przy wyborze terminu, więc tam skupiłam pierwsze testy — i tam przeprojektowanie dało największą różnicę.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding:28px 0;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:18px;font-weight:500">Etykieta nawigacji</span><span style="font-size:14px;color:#A99E8E;font-variant-numeric:tabular-nums">Outfit 500 · 14 · wersaliki · +10%</span></div>
+        <div style="display:flex;gap:36px;font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase">
+          <span style="color:#FF6B3D">Projekty</span><span>O mnie</span><span>Proces</span><span>Kontakt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:grid;grid-template-columns:96px minmax(0,1fr) 640px;gap:32px;align-items:baseline">
+      <span style="font-size:20px;font-weight:500;color:#FF6B3D">03</span>
+      <h2 style="margin:0;font-size:56px;font-weight:500;letter-spacing:-.02em">Maskotka Nuri</h2>
+      <p style="margin:0;font-size:17px;line-height:1.55;color:#A99E8E">Miękki blob z ogonkiem. Każdy wariant w 4 wersjach. Małe rozmiary mają optyczną korektę: większe oczy i grubszy ogonek, żeby przetrwały 16 px.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px">
+      <sc-for list="{{ variants }}" as="v" hint-placeholder-count="3">
+        <div onClick="{{ v.pick }}" style="cursor:pointer;background:#1E1A16;border-radius:32px;padding:28px;display:flex;flex-direction:column;gap:24px;outline:{{ v.outline }};outline-offset:6px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="width:48px;height:48px;border-radius:50%;background:#FF6B3D;color:#15120F;font-size:24px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none">{{ v.id }}</span>
+            <div style="display:flex;flex-direction:column;gap:2px;flex:1">
+              <span style="font-size:24px;font-weight:500">{{ v.name }}</span>
+              <span style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#A99E8E">{{ v.selLabel }}</span>
+            </div>
+          </div>
+          <p style="margin:-8px 0 0;font-size:16px;line-height:1.5;color:#A99E8E;text-wrap:pretty">{{ v.note }}</p>
+
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="aspect-ratio:1;background:#15120F;border-radius:20px;padding:22px;box-sizing:border-box">
+                <svg viewBox="{{ v.vb }}" style="width:100%;height:100%;display:block">
+                  <path d="{{ v.body }}" fill="#F3EBDD"></path>
+                  <path d="{{ v.ears }}" fill="#F3EBDD"></path>
+                  <path d="{{ v.tail }}" fill="none" stroke="#F3EBDD" style="stroke-width:11;stroke-linecap:round"></path>
+                  <path d="{{ v.eyesN }}" fill="#15120F"></path>
+                  <path d="{{ v.mouth }}" fill="none" stroke="#15120F" style="stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"></path>
+                  <path d="{{ v.blush }}" fill="#F0532A" style="opacity:.55"></path>
+                </svg>
+              </div>
+              <span style="font-size:14px;color:#A99E8E">Wektor · sylwetka</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="aspect-ratio:1;background:#15120F;border-radius:20px;padding:22px;box-sizing:border-box">
+                <svg viewBox="{{ v.vb }}" style="width:100%;height:100%;display:block"><path d="{{ v.dotsD }}" fill="{{ dotFill }}"></path></svg>
+              </div>
+              <span style="font-size:14px;color:#A99E8E;font-variant-numeric:tabular-nums">Kropki · {{ v.dotCount }} szt.</span>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:20px;align-items:stretch;border-top:1px solid #2E2822;padding-top:22px">
+            <div style="width:160px;height:160px;flex:none;box-sizing:content-box;border:1px solid #2E2822;background-color:#15120F;background-image:linear-gradient(#26211D 1px,transparent 1px),linear-gradient(90deg,#26211D 1px,transparent 1px);background-size:10px 10px">
+              <svg viewBox="0 0 16 16" width="160" height="160" style="display:block;shape-rendering:crispEdges"><path d="{{ v.pxD }}" fill="#F0532A"></path></svg>
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:space-between;min-width:0;flex:1">
+              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:500">Favicon 16 px</span><span style="font-size:13px;color:#A99E8E">podgląd ×10 · obok rzeczywisty rozmiar</span></div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:center;gap:8px;background:#2A2520;border-radius:10px 10px 0 0;padding:8px 12px;min-width:0">
+                  <svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;display:block;shape-rendering:crispEdges"><path d="{{ v.pxD }}" fill="#F0532A"></path></svg>
+                  <span style="font-size:12px;color:#F3EBDD;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Joanna Żuczkowska — portfolio</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;background:#ECE6DC;border-radius:10px 10px 0 0;padding:8px 12px;min-width:0">
+                  <svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;display:block;shape-rendering:crispEdges"><path d="{{ v.pxD }}" fill="#F0532A"></path></svg>
+                  <span style="font-size:12px;color:#15120F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Joanna Żuczkowska — portfolio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #2E2822;padding-top:22px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:16px;font-weight:500">Znak 24 px w nawigacji</span><span style="font-size:13px;color:#A99E8E">obok ×3</span></div>
+            <div style="display:flex;gap:14px;align-items:center">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;background:#15120F;border:1px solid #2E2822;border-radius:999px;padding:10px 18px 10px 12px">
+                <svg viewBox="{{ v.vbS }}" width="24" height="24" style="flex:none;display:block">
+                  <path d="{{ v.body }}" fill="#F3EBDD"></path>
+                  <path d="{{ v.ears }}" fill="#F3EBDD"></path>
+                  <path d="{{ v.tail }}" fill="none" stroke="#F3EBDD" style="stroke-width:20;stroke-linecap:round"></path>
+                  <path d="{{ v.eyesS }}" fill="#15120F"></path>
+                </svg>
+                <span style="font-size:15px;font-weight:500;white-space:nowrap">Joanna Ż.</span>
+                <div style="flex:1"></div>
+                <div style="display:flex;gap:14px;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap"><span style="color:#FF6B3D">Projekty</span><span>O mnie</span><span>Kontakt</span></div>
+              </div>
+              <div style="width:72px;height:72px;flex:none;background:#15120F;border:1px solid #2E2822;border-radius:16px;display:flex;align-items:center;justify-content:center">
+                <svg viewBox="{{ v.vbS }}" width="72" height="72" style="display:block">
+                  <path d="{{ v.body }}" fill="#F3EBDD"></path>
+                  <path d="{{ v.ears }}" fill="#F3EBDD"></path>
+                  <path d="{{ v.tail }}" fill="none" stroke="#F3EBDD" style="stroke-width:20;stroke-linecap:round"></path>
+                  <path d="{{ v.eyesS }}" fill="#15120F"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:grid;grid-template-columns:96px minmax(0,1fr) 640px;gap:32px;align-items:baseline">
+      <span style="font-size:20px;font-weight:500;color:#FF6B3D">04</span>
+      <h2 style="margin:0;font-size:56px;font-weight:500;letter-spacing:-.02em">Podgląd wyboru</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end">
+        <span style="font-size:15px;padding:8px 16px;border-radius:999px;border:1px solid #2E2822;background:#1E1A16">Nuri {{ pick.v }}</span>
+        <span style="font-size:15px;padding:8px 16px;border-radius:999px;border:1px solid #2E2822;background:#1E1A16">{{ pick.font }}</span>
+        <span style="font-size:15px;padding:8px 16px;border-radius:999px;border:1px solid #2E2822;background:#1E1A16">{{ pick.shadeLabel }}</span>
+      </div>
+    </div>
+
+    <div style="background:#15120F;border:1px solid #2E2822;border-radius:36px;overflow:hidden;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:14px;padding:24px 40px;border-bottom:1px solid #2E2822">
+        <svg viewBox="{{ pick.vbS }}" width="24" height="24" style="flex:none;display:block">
+          <path d="{{ pick.body }}" fill="#F3EBDD"></path>
+          <path d="{{ pick.ears }}" fill="#F3EBDD"></path>
+          <path d="{{ pick.tail }}" fill="none" stroke="#F3EBDD" style="stroke-width:20;stroke-linecap:round"></path>
+          <path d="{{ pick.eyesS }}" fill="#15120F"></path>
+        </svg>
+        <span style="font-size:17px;font-weight:500">Joanna Żuczkowska</span>
+        <div style="flex:1"></div>
+        <div style="display:flex;gap:40px;font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase"><span style="color:{{ pick.hex }}">Projekty</span><span>O mnie</span><span>Proces</span><span>Kontakt</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;padding:72px 40px 80px;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:36px">
+          <span style="font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#A99E8E">UX/UI designer · otwarta na etat</span>
+          <h3 style="margin:0;font-family:{{ pick.fontCss }};font-weight:{{ pick.fontWeight }};font-size:132px;line-height:.98;letter-spacing:-.01em;color:#F3EBDD">Cześć, jestem Joanna</h3>
+          <p style="margin:0;font-size:21px;line-height:1.55;max-width:56ch;color:#A99E8E;text-wrap:pretty">Projektuję produkty cyfrowe od badań po gotowy interfejs. Szukam zespołu, w którym dobry UX jest decyzją biznesową, nie dodatkiem.</p>
+          <div style="display:flex;gap:14px;align-items:center">
+            <span style="background:{{ pick.hex }};color:#15120F;font-size:17px;font-weight:600;padding:16px 28px;border-radius:999px">Zobacz projekty</span>
+            <span style="border:1.5px solid #F3EBDD;color:#F3EBDD;font-size:17px;font-weight:500;padding:15px 26px;border-radius:999px">Pobierz CV</span>
+          </div>
+        </div>
+        <div style="aspect-ratio:1;max-width:520px;width:100%;justify-self:center">
+          <svg viewBox="{{ pick.vb }}" style="width:100%;height:100%;display:block"><path d="{{ pick.dotsD }}" fill="{{ pick.hex }}"></path></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;dotTarget&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:300,&quot;min&quot;:120,&quot;max&quot;:600,&quot;step&quot;:10,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Nuri&quot;},&quot;dotColor&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;krem&quot;,&quot;persymona&quot;],&quot;default&quot;:&quot;krem&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Nuri&quot;}}">
+const BG='#15120F',SURF='#1E1A16',CREAM='#F3EBDD',MUTED='#A99E8E';
+const BODY='M100 46 C141 46 168 78 170 116 C172 152 146 176 104 176 C62 176 30 156 30 118 C30 80 58 46 100 46 Z';
+const EARS='M58 74 C46 52 48 28 62 24 C76 20 88 40 90 56 Z M110 54 C114 36 128 18 142 24 C156 30 152 56 144 72 Z';
+const TAIL='M152 158 C172 164 188 152 186 132';
+const ell=(cx,cy,rx,ry)=>`M${cx-rx} ${cy} a${rx} ${ry} 0 1 0 ${2*rx} 0 a${rx} ${ry} 0 1 0 ${-2*rx} 0 Z`;
+const EYES={n:[82,122,116,6.5,9.5],d:[80,124,116,9,13],s:[78,126,116,11,15]};
+const EYES_ROUND={n:[80,124,112,7.5,7.5],d:[78,126,112,11,11],s:[76,128,112,13,13]};
+const eyes=(k,round,cfg)=>{const [a,b,y,rx,ry]=(cfg||(round?EYES_ROUND:EYES))[k];return ell(a,y,rx,ry)+' '+ell(b,y,rx,ry);};
+const SLIME='M34 170 C16 170 10 156 18 146 C26 136 32 128 34 112 C36 92 44 72 56 60 C56 48 60 38 66 36 C72 34 80 42 86 48 C96 44 110 44 120 48 C126 40 134 34 140 36 C146 38 148 50 146 62 C156 76 160 92 162 106 C166 122 176 128 186 136 C196 146 194 166 178 170 C140 176 70 176 34 170 Z';
+const SLIME_TAIL='M160 112 C176 108 186 96 184 78';
+const SLIME_EYES={n:[78,122,116,5,5],d:[76,124,116,8.5,8.5],s:[72,128,114,11.5,11.5]};
+const SLIME_MOUTH='M93 117 Q96.5 123 100 118 Q103.5 123 107 117';
+const SLIME_BLUSH=ell(64,128,8,4.5)+' '+ell(136,128,8,4.5);
+const TW={n:11,d:12,s:20};
+const VARS=[
+  {id:'a',name:'Oczka + ogonek',eyes:true,ears:false,body:SLIME,tail:SLIME_TAIL,eyesCfg:SLIME_EYES,mouth:SLIME_MOUTH,blush:SLIME_BLUSH,note:'Rozlany glut z kocimi wypustkami na czubku. Kropki-oczka, pyszczek „:3” i rumieńce; ogonek wystaje z boku.'},
+  {id:'b',name:'Uszy + ogonek + okrągłe oczka',eyes:true,round:true,ears:true,note:'Uszy i ogonek z okrągłymi, szerzej rozstawionymi oczkami — łagodniejsza mina niż owalne w c.'},
+  {id:'c',name:'Oczka + uszy + ogonek',eyes:true,ears:true,note:'Pełna postać, najwięcej osobowości. Najwięcej detalu do utrzymania w 16 px.'}];
+const SHADES=[
+  {code:'P1',name:'Persymona jasna',hex:'#FF6B3D',role:'Tekst i linki — najwyższy kontrast z ciemnym tłem.'},
+  {code:'P2',name:'Persymona',hex:'#F0532A',role:'Główny akcent: przyciski, kropki, stany aktywne.'},
+  {code:'P3',name:'Persymona głęboka',hex:'#D2401C',role:'Wypełnienia i duże kształty. Za ciemna na drobny tekst.'}];
+const BASE=[
+  {name:'Tło',hex:BG,use:'baza strony, nie czysta czerń'},
+  {name:'Powierzchnia',hex:SURF,use:'karty i kafle projektów'},
+  {name:'Linia',hex:'#2E2822',use:'podziały, siatka kropek'},
+  {name:'Krem',hex:CREAM,use:'tekst główny'},
+  {name:'Krem przygaszony',hex:MUTED,use:'tekst pomocniczy, podpisy'}];
+
+const lin=h=>[1,3,5].map(i=>{const c=parseInt(h.slice(i,i+2),16)/255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4);});
+const lum=h=>{const [r,g,b]=lin(h);return .2126*r+.7152*g+.0722*b;};
+const cr=(a,b)=>{const A=lum(a),B=lum(b);return (Math.max(A,B)+.05)/(Math.min(A,B)+.05);};
+const fmt=r=>r.toFixed(2).replace('.',',')+':1';
+function oklch(hex){const [r,g,b]=lin(hex);
+  const l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b),m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b),s=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b);
+  const L=.2104542553*l+.7936177850*m-.0040720468*s,A=1.9779984951*l-2.4285922050*m+.4505937099*s,B=.0259040371*l+.7827717662*m-.8086757660*s;
+  let h=Math.atan2(B,A)*180/Math.PI;if(h<0)h+=360;
+  return `oklch(${(L*100).toFixed(1)}% ${Math.hypot(A,B).toFixed(3)} ${h.toFixed(0)})`;}
+function badge(r,mode){
+  const pass={bg:CREAM,fg:BG,bd:CREAM},part={bg:'transparent',fg:CREAM,bd:CREAM},fail={bg:'transparent',fg:MUTED,bd:'#3A332C'};
+  if(mode==='ui')return r>=3?{badge:'UI ✓',...pass}:{badge:'UI ✗',...fail};
+  if(r>=7)return {badge:'AAA',...pass};
+  if(r>=4.5)return {badge:'AA',...pass};
+  if(r>=3)return {badge:'AA duży',...part};
+  return {badge:'nie spełnia',...fail};}
+
+let ctx;const cache={};
+function tester(v,k){ctx=ctx||document.createElement('canvas').getContext('2d');
+  const body=new Path2D(v.body||BODY),ears=v.ears?new Path2D(EARS):null,tail=new Path2D(v.tail||TAIL),ey=v.eyes?new Path2D(eyes(k,v.round,v.eyesCfg)):null,tw=TW[k];
+  return (x,y)=>{if(ey&&ctx.isPointInPath(ey,x,y))return false;if(ctx.isPointInPath(body,x,y))return true;if(ears&&ctx.isPointInPath(ears,x,y))return true;ctx.lineWidth=tw;ctx.lineCap='round';return ctx.isPointInStroke(tail,x,y);};}
+function bbox(t){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;for(let y=0;y<=210;y+=1.5)for(let x=0;x<=210;x+=1.5)if(t(x,y)){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}return {x0,y0,x1,y1};}
+function square(bb,pad){const side=Math.max(bb.x1-bb.x0,bb.y1-bb.y0)+pad*2,cx=(bb.x0+bb.x1)/2,cy=(bb.y0+bb.y1)/2;return {x:cx-side/2,y:cy-side/2,side};}
+function hexPts(t,s,bb){const pts=[],h=s*.866;let row=0;for(let y=bb.y0+h/2;y<=bb.y1;y+=h,row++)for(let x=bb.x0+(row%2?s/2:0)+s/4;x<=bb.x1;x+=s)if(t(x,y))pts.push([x,y]);return pts;}
+function geometry(target){
+  if(cache[target])return cache[target];
+  const out=VARS.map(v=>{
+    const tn=tester(v,'n'),td=tester(v,'d'),ts=tester(v,'s');
+    const bn=bbox(tn),bs=bbox(ts),qn=square(bn,4),qs=square(bs,3);
+    let best=null;for(let s=5;s<=13;s+=.1){const p=hexPts(td,s,bn);if(!best||Math.abs(p.length-target)<Math.abs(best.p.length-target))best={s,p};}
+    const r=+(best.s*.34).toFixed(2);
+    const dotsD=best.p.map(([x,y])=>`M${(x-r).toFixed(2)} ${y.toFixed(2)}a${r} ${r} 0 1 0 ${2*r} 0a${r} ${r} 0 1 0 ${-2*r} 0`).join('');
+    const qp=square(bs,2),cell=qp.side/16;let pxD='';
+    for(let j=0;j<16;j++)for(let i=0;i<16;i++){let c=0;for(let a=0;a<4;a++)for(let b=0;b<4;b++)if(ts(qp.x+(i+(a+.5)/4)*cell,qp.y+(j+(b+.5)/4)*cell))c++;if(c>=8)pxD+=`M${i} ${j}h1v1h-1z`;}
+    return {id:v.id,name:v.name,note:v.note,body:v.body||BODY,ears:v.ears?EARS:'',tail:v.tail||TAIL,mouth:v.mouth||'',blush:v.blush||'',eyesN:v.eyes?eyes('n',v.round,v.eyesCfg):'',eyesS:v.eyes?eyes('s',v.round,v.eyesCfg):'',
+      vb:`${qn.x} ${qn.y} ${qn.side} ${qn.side}`,vbS:`${qs.x} ${qs.y} ${qs.side} ${qs.side}`,dotsD,dotCount:best.p.length,pxD};});
+  return cache[target]=out;}
+
+class Component extends DCLogic {
+  state={v:'a',f:'Modak',s:1};
+  renderVals(){
+    const target=this.props.dotTarget??300;
+    const dotFill=(this.props.dotColor??'krem')==='persymona'?'#F0532A':CREAM;
+    const {v,f,s}=this.state;
+    const sel='2px solid #FF6B3D',none='2px solid transparent';
+    const geo=geometry(target);
+    const base=BASE.map(b=>({...b,fg:lum(b.hex)>.3?BG:CREAM,ratio:b.hex===BG?'—':fmt(cr(b.hex,BG))}));
+    const shades=SHADES.map((x,i)=>{
+      const rows=[['Tekst na tle',cr(x.hex,BG),'text'],['Tekst na karcie',cr(x.hex,SURF),'text'],['UI na tle (ikona, obrys, focus)',cr(x.hex,BG),'ui'],['Ciemny tekst na przycisku',cr(BG,x.hex),'text'],['Kremowy tekst na przycisku',cr(CREAM,x.hex),'text']]
+        .map(([label,r,m])=>({label,ratio:fmt(r),...badge(r,m)}));
+      return {...x,oklch:oklch(x.hex),rows,pick:()=>this.setState({s:i}),outline:s===i?sel:none,selLabel:s===i?'● wybrany':''};});
+    const variants=geo.map(g=>({...g,pick:()=>this.setState({v:g.id}),outline:v===g.id?sel:none,selLabel:v===g.id?'● wybrany':'kliknij, by wybrać'}));
+    const pg=geo.find(g=>g.id===v),sh=SHADES[s];
+    return {base,shades,variants,dotFill,
+      fontM:{outline:f==='Modak'?sel:none,label:f==='Modak'?'● wybrany':'kliknij'},
+      fontD:{outline:f==='DynaPuff'?sel:none,label:f==='DynaPuff'?'● wybrany':'kliknij'},
+      pickModak:()=>this.setState({f:'Modak'}),pickDyna:()=>this.setState({f:'DynaPuff'}),
+      pick:{...pg,v,font:f,fontCss:f==='Modak'?'Modak, cursive':'DynaPuff, cursive',fontWeight:f==='Modak'?400:600,hex:sh.hex,shadeLabel:`${sh.code} ${sh.name} · ${sh.hex}`}};
+  }
+}
+</script>
+</body>
+</html>
