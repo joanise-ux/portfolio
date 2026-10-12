@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&amp;family=Modak&amp;family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<script src="./nuri-kit.js"></script>
+<style>body{margin:0;background:#0E0C0A}a{color:#F0532A;text-decoration:none}a:hover{color:#F3EBDD}input,textarea,button{font-family:Outfit,sans-serif}::placeholder{color:#8A8072;opacity:1}</style>
+</helmet>
+<div style="background:#0E0C0A;padding:80px;display:flex;flex-direction:column;gap:96px;font-family:Outfit,sans-serif;color:#F3EBDD;width:max-content">
+<header style="display:flex;flex-direction:column;gap:12px;max-width:1440px">
+  <span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Joanna Żuczkowska · portfolio · ekran 2</span>
+  <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:56px;line-height:1.05">Kontakt</h1>
+  <p style="margin:0;font-size:18px;line-height:1.5;color:#A99E8E;max-width:72ch;text-wrap:pretty">Desktop mieści się w 1440 × 900 bez przewijania. Kadr 2a jest żywy: wpisz coś, kliknij „Wyślij” z pustymi polami albo złym adresem. Fokus to obrys w persymonie z poświatą na zewnątrz; błąd to grubszy obrys w kolorze #FF7E8E, przyciemnione tło pola, ikona i komunikat tekstem. Teksty są zastępcze.</p>
+</header>
+<section style="display:flex;gap:64px;align-items:flex-start">
+<div id="2a" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#2a" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">2a</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 2 · Desktop · A. Pusty</span>
+  <span style="font-size:15px;color:#A99E8E">1440 × 900 · żywy formularz</span>
+</div>
+<div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px;flex:none;"><div style="position:absolute;left:32px;top:28px;display:flex;flex-direction:column;gap:2px;z-index:300"><span style="font-size:15px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:13px;color:#A99E8E">UX/UI designer</span></div>
+<div style="position:absolute;left:120px;right:120px;top:104px;bottom:110px;display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:120px;align-items:center">
+  <div style="display:flex;flex-direction:column;gap:32px;max-width:520px">
+    <div style="display:flex;flex-direction:column;gap:20px"><span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">kontakt</span>
+      <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:88px;line-height:1;letter-spacing:-.01em;text-wrap:balance">Napisz do mnie</h1></div>
+    <p style="margin:0;font-size:19px;line-height:1.6;max-width:44ch;text-wrap:pretty">Szukam pracy na etat jako UX/UI designer — najchętniej w zespole produktowym, w Krakowie albo zdalnie.</p>
+    <a href="mailto:hej@zuczkowska.pl" style="align-self:flex-start;padding:6px 0;font-size:44px;font-weight:500;letter-spacing:-.01em;color:#F0532A;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:10px" style-hover="color:#F3EBDD" style-active="color:#D2401C">hej@zuczkowska.pl</a>
+    <div style="display:flex;align-items:center;gap:32px"><a href="#" style="height:52px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex:none;font-size:17px;font-weight:500;color:#F0532A;" style-hover="color:#F3EBDD" style-active="color:#D2401C">LinkedIn →</a><a href="#" style="height:52px;padding:0 26px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;border:1.5px solid #F3EBDD;color:#F3EBDD;font-size:16px;font-weight:500;box-sizing:border-box;" style-hover="border-color:#F0532A;color:#F0532A" style-active="background:#D2401C;border-color:#D2401C;color:#F3EBDD">Pobierz CV</a></div>
+  </div>
+  <div>
+<sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}"><div style="background:#1E1A16;border:1px solid #2E2822;border-radius:14px;padding:36px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box;"><div style="display:flex;flex-direction:column;gap:8px"><label for="k-name" style="font-size:15px;font-weight:500;color:#F3EBDD">Imię</label>
+  <input id="k-name" type="text" value="{{ v.name }}" onChange="{{ on.name }}" onFocus="{{ fo.name }}" onBlur="{{ blur }}" placeholder="np. Marta" aria-invalid="{{ fs.name.inv }}" style="height:56px;width:100%;box-sizing:border-box;padding:0 18px;border:1.5px solid {{ fs.name.bc }};box-shadow:{{ fs.name.sh }};background:{{ fs.name.bg }};border-radius:10px;color:#F3EBDD;font-size:17px;line-height:1.5;outline:none;resize:none;transition:border-color .15s, box-shadow .15s"></input>
+  <sc-if value="{{ fs.name.has }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.4;color:#FF7E8E"><span aria-hidden="true" style="width:18px;height:18px;flex:none;margin-top:1px;border-radius:50%;background:#FF7E8E;color:#15120F;font-size:12px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">!</span><span>{{ fs.name.msg }}</span></span></sc-if></div><div style="display:flex;flex-direction:column;gap:8px"><label for="k-email" style="font-size:15px;font-weight:500;color:#F3EBDD">E-mail</label>
+  <input id="k-email" type="email" value="{{ v.email }}" onChange="{{ on.email }}" onFocus="{{ fo.email }}" onBlur="{{ blur }}" placeholder="np. marta@firma.pl" aria-invalid="{{ fs.email.inv }}" style="height:56px;width:100%;box-sizing:border-box;padding:0 18px;border:1.5px solid {{ fs.email.bc }};box-shadow:{{ fs.email.sh }};background:{{ fs.email.bg }};border-radius:10px;color:#F3EBDD;font-size:17px;line-height:1.5;outline:none;resize:none;transition:border-color .15s, box-shadow .15s"></input>
+  <sc-if value="{{ fs.email.has }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.4;color:#FF7E8E"><span aria-hidden="true" style="width:18px;height:18px;flex:none;margin-top:1px;border-radius:50%;background:#FF7E8E;color:#15120F;font-size:12px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">!</span><span>{{ fs.email.msg }}</span></span></sc-if></div><div style="display:flex;flex-direction:column;gap:8px"><label for="k-msg" style="font-size:15px;font-weight:500;color:#F3EBDD">Wiadomość</label>
+  <textarea id="k-msg" value="{{ v.msg }}" onChange="{{ on.msg }}" onFocus="{{ fo.msg }}" onBlur="{{ blur }}" placeholder="Opowiedz krótko o zespole i roli, której szukasz." aria-invalid="{{ fs.msg.inv }}" style="height:152px;width:100%;box-sizing:border-box;padding:14px 18px;border:1.5px solid {{ fs.msg.bc }};box-shadow:{{ fs.msg.sh }};background:{{ fs.msg.bg }};border-radius:10px;color:#F3EBDD;font-size:17px;line-height:1.5;outline:none;resize:none;transition:border-color .15s, box-shadow .15s"></textarea>
+  <sc-if value="{{ fs.msg.has }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.4;color:#FF7E8E"><span aria-hidden="true" style="width:18px;height:18px;flex:none;margin-top:1px;border-radius:50%;background:#FF7E8E;color:#15120F;font-size:12px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">!</span><span>{{ fs.msg.msg }}</span></span></sc-if></div><div style="display:flex;flex-direction:column;gap:14px;margin-top:8px"><button type="button" onClick="{{ submit }}" style="height:56px;width:100%;border:0;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:17px;font-weight:600;cursor:pointer" style-hover="background:#F0532A" style-active="background:#D2401C">Wyślij</button><span style="font-size:14px;color:#A99E8E;text-align:center">Odpisuję w ciągu dwóch dni roboczych.</span></div></div></sc-if>
+<sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><div style="background:#1E1A16;border:1px solid #2E2822;border-radius:14px;padding:36px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box;min-height:586px;align-items:center;justify-content:center;text-align:center;gap:24px"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><svg viewBox="{{ nuri.dots.vb }}" role="img" aria-label="Nuri z kropek" style="width:240px;height:240px;display:block"><path d="{{ nuri.dots.d }}" fill="#F0532A"></path></svg></sc-if>
+  <h2 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:40px;line-height:1.1">Dziękuję, wiadomość doszła</h2>
+  <p style="margin:0;font-size:17px;line-height:1.6;color:#A99E8E;max-width:38ch;text-wrap:pretty">Odpiszę w ciągu dwóch dni roboczych na adres {{ sentTo }}.</p>
+  <button type="button" onClick="{{ reset }}" style="height:44px;padding:0 4px;border:0;background:none;color:#F0532A;font-size:15px;font-weight:500;cursor:pointer" style-hover="color:#F3EBDD" style-active="color:#D2401C">napisz kolejną wiadomość</button></div></sc-if>
+</div>
+</div>
+<div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" aria-label="Nuri — start" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">Work</a>
+  <a href="About.dc.html" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">About</a>
+  <a href="Kontakt.dc.html" aria-current="page" style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:15px;font-weight:600" style-active="background:#D2401C">Kontakt</a>
+  <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+  <div style="display:flex;align-items:center">
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+  </div>
+</div></div>
+
+</div><div id="2b" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#2b" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">2b</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 2 · Desktop · B. Fokus na wiadomości</span>
+  <span style="font-size:15px;color:#A99E8E">wpisany tekst, kursor w polu</span>
+</div>
+<div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px;flex:none;"><div style="position:absolute;left:32px;top:28px;display:flex;flex-direction:column;gap:2px;z-index:300"><span style="font-size:15px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:13px;color:#A99E8E">UX/UI designer</span></div>
+<div style="position:absolute;left:120px;right:120px;top:104px;bottom:110px;display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:120px;align-items:center">
+  <div style="display:flex;flex-direction:column;gap:32px;max-width:520px">
+    <div style="display:flex;flex-direction:column;gap:20px"><span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">kontakt</span>
+      <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:88px;line-height:1;letter-spacing:-.01em;text-wrap:balance">Napisz do mnie</h1></div>
+    <p style="margin:0;font-size:19px;line-height:1.6;max-width:44ch;text-wrap:pretty">Szukam pracy na etat jako UX/UI designer — najchętniej w zespole produktowym, w Krakowie albo zdalnie.</p>
+    <a href="mailto:hej@zuczkowska.pl" style="align-self:flex-start;padding:6px 0;font-size:44px;font-weight:500;letter-spacing:-.01em;color:#F0532A;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:10px" style-hover="color:#F3EBDD" style-active="color:#D2401C">hej@zuczkowska.pl</a>
+    <div style="display:flex;align-items:center;gap:32px"><a href="#" style="height:52px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex:none;font-size:17px;font-weight:500;color:#F0532A;" style-hover="color:#F3EBDD" style-active="color:#D2401C">LinkedIn →</a><a href="#" style="height:52px;padding:0 26px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;border:1.5px solid #F3EBDD;color:#F3EBDD;font-size:16px;font-weight:500;box-sizing:border-box;" style-hover="border-color:#F0532A;color:#F0532A" style-active="background:#D2401C;border-color:#D2401C;color:#F3EBDD">Pobierz CV</a></div>
+  </div>
+  <div style="background:#1E1A16;border:1px solid #2E2822;border-radius:14px;padding:36px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box;"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">Imię</span>
+  <div style="height:56px;box-sizing:border-box;padding:0 18px;display:flex;align-items:center;border:1.5px solid #2E2822;box-shadow:none;background:#15120F;border-radius:10px;font-size:17px;line-height:1.5;overflow:hidden;white-space:nowrap"><span style="color:#F3EBDD">Marta</span></div>
+  </div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">E-mail</span>
+  <div style="height:56px;box-sizing:border-box;padding:0 18px;display:flex;align-items:center;border:1.5px solid #2E2822;box-shadow:none;background:#15120F;border-radius:10px;font-size:17px;line-height:1.5;overflow:hidden;white-space:nowrap"><span style="color:#F3EBDD">marta.nowak@trasa.pl</span></div>
+  </div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">Wiadomość</span>
+  <div style="height:152px;box-sizing:border-box;padding:14px 18px;border:1.5px solid #F0532A;box-shadow:0 0 0 4px rgba(240,83,42,.22);background:#15120F;border-radius:10px;font-size:17px;line-height:1.5;overflow:hidden;white-space:normal"><span style="color:#F3EBDD">Cześć Joanno, prowadzę zespół produktowy w firmie logistycznej. Szukamy osoby do projektowania aplikacji dla kierowców i Twoje portfolio bardzo nam się spodobało. Czy znajdziesz czas na rozmowę w przyszłym tygodniu?</span><span style="display:inline-block;width:2px;height:20px;background:#F0532A;vertical-align:-4px;margin-left:1px"></span></div>
+  </div><div style="display:flex;flex-direction:column;gap:14px;margin-top:8px"><a href="#" style="height:56px;padding:0 28px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:17px;font-weight:600;box-sizing:border-box;width:100%" style-hover="color:#15120F" style-active="background:#D2401C;color:#15120F">Wyślij</a><span style="font-size:14px;color:#A99E8E;text-align:center">Odpisuję w ciągu dwóch dni roboczych.</span></div></div>
+</div>
+<div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" aria-label="Nuri — start" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">Work</a>
+  <a href="About.dc.html" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">About</a>
+  <a href="Kontakt.dc.html" aria-current="page" style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:15px;font-weight:600" style-active="background:#D2401C">Kontakt</a>
+  <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+  <div style="display:flex;align-items:center">
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+  </div>
+</div></div>
+
+</div>
+</section>
+<section style="display:flex;gap:64px;align-items:flex-start">
+<div id="2c" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#2c" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">2c</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 2 · Desktop · C. Błąd walidacji</span>
+  <span style="font-size:15px;color:#A99E8E">puste imię, niepełny e-mail</span>
+</div>
+<div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px;flex:none;"><div style="position:absolute;left:32px;top:28px;display:flex;flex-direction:column;gap:2px;z-index:300"><span style="font-size:15px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:13px;color:#A99E8E">UX/UI designer</span></div>
+<div style="position:absolute;left:120px;right:120px;top:104px;bottom:110px;display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:120px;align-items:center">
+  <div style="display:flex;flex-direction:column;gap:32px;max-width:520px">
+    <div style="display:flex;flex-direction:column;gap:20px"><span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">kontakt</span>
+      <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:88px;line-height:1;letter-spacing:-.01em;text-wrap:balance">Napisz do mnie</h1></div>
+    <p style="margin:0;font-size:19px;line-height:1.6;max-width:44ch;text-wrap:pretty">Szukam pracy na etat jako UX/UI designer — najchętniej w zespole produktowym, w Krakowie albo zdalnie.</p>
+    <a href="mailto:hej@zuczkowska.pl" style="align-self:flex-start;padding:6px 0;font-size:44px;font-weight:500;letter-spacing:-.01em;color:#F0532A;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:10px" style-hover="color:#F3EBDD" style-active="color:#D2401C">hej@zuczkowska.pl</a>
+    <div style="display:flex;align-items:center;gap:32px"><a href="#" style="height:52px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex:none;font-size:17px;font-weight:500;color:#F0532A;" style-hover="color:#F3EBDD" style-active="color:#D2401C">LinkedIn →</a><a href="#" style="height:52px;padding:0 26px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;border:1.5px solid #F3EBDD;color:#F3EBDD;font-size:16px;font-weight:500;box-sizing:border-box;" style-hover="border-color:#F0532A;color:#F0532A" style-active="background:#D2401C;border-color:#D2401C;color:#F3EBDD">Pobierz CV</a></div>
+  </div>
+  <div style="background:#1E1A16;border:1px solid #2E2822;border-radius:14px;padding:36px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box;"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">Imię</span>
+  <div style="height:56px;box-sizing:border-box;padding:0 18px;display:flex;align-items:center;border:1.5px solid #FF7E8E;box-shadow:inset 0 0 0 1px #FF7E8E;background:#261B1B;border-radius:10px;font-size:17px;line-height:1.5;overflow:hidden;white-space:nowrap"><span style="color:#8A8072">np. Marta</span></div>
+  <span  style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.4;color:#FF7E8E"><span aria-hidden="true" style="width:18px;height:18px;flex:none;margin-top:1px;border-radius:50%;background:#FF7E8E;color:#15120F;font-size:12px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">!</span><span>Wpisz swoje imię.</span></span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">E-mail</span>
+  <div style="height:56px;box-sizing:border-box;padding:0 18px;display:flex;align-items:center;border:1.5px solid #FF7E8E;box-shadow:inset 0 0 0 1px #FF7E8E;background:#261B1B;border-radius:10px;font-size:17px;line-height:1.5;overflow:hidden;white-space:nowrap"><span style="color:#F3EBDD">marta.nowak@trasa</span></div>
+  <span  style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.4;color:#FF7E8E"><span aria-hidden="true" style="width:18px;height:18px;flex:none;margin-top:1px;border-radius:50%;background:#FF7E8E;color:#15120F;font-size:12px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">!</span><span>Adres jest niepełny — brakuje domeny, np. .pl lub .com.</span></span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">Wiadomość</span>
+  <div style="height:152px;box-sizing:border-box;padding:14px 18px;border:1.5px solid #2E2822;box-shadow:none;background:#15120F;border-radius:10px;font-size:17px;line-height:1.5;overflow:hidden;white-space:normal"><span style="color:#F3EBDD">Cześć Joanno, szukamy osoby do projektowania aplikacji dla kierowców. Masz czas na rozmowę w przyszłym tygodniu?</span></div>
+  </div><div style="display:flex;flex-direction:column;gap:14px;margin-top:8px"><a href="#" style="height:56px;padding:0 28px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:17px;font-weight:600;box-sizing:border-box;width:100%" style-hover="color:#15120F" style-active="background:#D2401C;color:#15120F">Wyślij</a><span style="font-size:14px;color:#A99E8E;text-align:center">Odpisuję w ciągu dwóch dni roboczych.</span></div></div>
+</div>
+<div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" aria-label="Nuri — start" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">Work</a>
+  <a href="About.dc.html" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">About</a>
+  <a href="Kontakt.dc.html" aria-current="page" style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:15px;font-weight:600" style-active="background:#D2401C">Kontakt</a>
+  <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+  <div style="display:flex;align-items:center">
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+  </div>
+</div></div>
+
+</div><div id="2d" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#2d" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">2d</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 2 · Desktop · D. Wysłany</span>
+  <span style="font-size:15px;color:#A99E8E">Nuri z {{ nuri.dots.n }} kropek</span>
+</div>
+<div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px;flex:none;"><div style="position:absolute;left:32px;top:28px;display:flex;flex-direction:column;gap:2px;z-index:300"><span style="font-size:15px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:13px;color:#A99E8E">UX/UI designer</span></div>
+<div style="position:absolute;left:120px;right:120px;top:104px;bottom:110px;display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:120px;align-items:center">
+  <div style="display:flex;flex-direction:column;gap:32px;max-width:520px">
+    <div style="display:flex;flex-direction:column;gap:20px"><span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">kontakt</span>
+      <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:88px;line-height:1;letter-spacing:-.01em;text-wrap:balance">Napisz do mnie</h1></div>
+    <p style="margin:0;font-size:19px;line-height:1.6;max-width:44ch;text-wrap:pretty">Szukam pracy na etat jako UX/UI designer — najchętniej w zespole produktowym, w Krakowie albo zdalnie.</p>
+    <a href="mailto:hej@zuczkowska.pl" style="align-self:flex-start;padding:6px 0;font-size:44px;font-weight:500;letter-spacing:-.01em;color:#F0532A;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:10px" style-hover="color:#F3EBDD" style-active="color:#D2401C">hej@zuczkowska.pl</a>
+    <div style="display:flex;align-items:center;gap:32px"><a href="#" style="height:52px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex:none;font-size:17px;font-weight:500;color:#F0532A;" style-hover="color:#F3EBDD" style-active="color:#D2401C">LinkedIn →</a><a href="#" style="height:52px;padding:0 26px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;border:1.5px solid #F3EBDD;color:#F3EBDD;font-size:16px;font-weight:500;box-sizing:border-box;" style-hover="border-color:#F0532A;color:#F0532A" style-active="background:#D2401C;border-color:#D2401C;color:#F3EBDD">Pobierz CV</a></div>
+  </div>
+  <div style="background:#1E1A16;border:1px solid #2E2822;border-radius:14px;padding:36px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box;min-height:586px;align-items:center;justify-content:center;text-align:center;gap:24px"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><svg viewBox="{{ nuri.dots.vb }}" role="img" aria-label="Nuri z kropek" style="width:240px;height:240px;display:block"><path d="{{ nuri.dots.d }}" fill="#F0532A"></path></svg></sc-if>
+  <h2 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:40px;line-height:1.1">Dziękuję, wiadomość doszła</h2>
+  <p style="margin:0;font-size:17px;line-height:1.6;color:#A99E8E;max-width:38ch;text-wrap:pretty">Odpiszę w ciągu dwóch dni roboczych na adres marta.nowak@trasa.pl.</p>
+  <a href="#" style="height:44px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex:none;font-size:15px;font-weight:500;color:#F0532A;" style-hover="color:#F3EBDD" style-active="color:#D2401C">napisz kolejną wiadomość</a></div>
+</div>
+<div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" aria-label="Nuri — start" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">Work</a>
+  <a href="About.dc.html" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">About</a>
+  <a href="Kontakt.dc.html" aria-current="page" style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:15px;font-weight:600" style-active="background:#D2401C">Kontakt</a>
+  <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+  <div style="display:flex;align-items:center">
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+  </div>
+</div></div>
+
+</div>
+</section>
+<section style="display:flex;gap:64px;align-items:flex-start">
+<div id="2e" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#2e" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">2e</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 2 · Telefon · A. Pusty</span>
+  <span style="font-size:15px;color:#A99E8E">375 px · cała długość</span>
+</div>
+<div style="width:375px;height:{{ phoneH }};overflow-x:hidden;overflow-y:auto;position:relative;background:#15120F;border:1px solid #2E2822;border-radius:48px;flex:none">
+<div style="position:sticky;top:0;height:47px;background:#15120F;z-index:60;display:flex;align-items:center;padding-left:32px"><span style="font-size:15px;font-weight:600">9:41</span></div>
+<div style="padding:13px 24px 0;display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:12px;color:#A99E8E">UX/UI designer</span></div>
+<div style="padding:56px 20px 140px;display:flex;flex-direction:column;gap:48px">
+  <div style="display:flex;flex-direction:column;gap:18px">
+    <span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">kontakt</span>
+    <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:48px;line-height:1">Napisz do mnie</h1>
+    <p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty">Szukam pracy na etat jako UX/UI designer — najchętniej w zespole produktowym, w Krakowie albo zdalnie.</p>
+    <a href="mailto:hej@zuczkowska.pl" style="align-self:flex-start;min-height:48px;display:flex;align-items:center;font-size:26px;font-weight:500;color:#F0532A;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px" style-active="color:#D2401C">hej@zuczkowska.pl</a>
+    <div style="display:flex;align-items:center;gap:24px"><a href="#" style="height:48px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex:none;font-size:16px;font-weight:500;color:#F0532A;" style-hover="color:#F3EBDD" style-active="color:#D2401C">LinkedIn →</a><a href="#" style="height:48px;padding:0 26px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;border:1.5px solid #F3EBDD;color:#F3EBDD;font-size:15px;font-weight:500;box-sizing:border-box;padding:0 20px" style-hover="border-color:#F0532A;color:#F0532A" style-active="background:#D2401C;border-color:#D2401C;color:#F3EBDD">Pobierz CV</a></div>
+  </div>
+  <div style="background:#1E1A16;border:1px solid #2E2822;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box;"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">Imię</span>
+  <div style="height:52px;box-sizing:border-box;padding:0 18px;display:flex;align-items:center;border:1.5px solid #2E2822;box-shadow:none;background:#15120F;border-radius:10px;font-size:16px;line-height:1.5;overflow:hidden;white-space:nowrap"><span style="color:#8A8072">np. Marta</span></div>
+  </div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">E-mail</span>
+  <div style="height:52px;box-sizing:border-box;padding:0 18px;display:flex;align-items:center;border:1.5px solid #2E2822;box-shadow:none;background:#15120F;border-radius:10px;font-size:16px;line-height:1.5;overflow:hidden;white-space:nowrap"><span style="color:#8A8072">np. marta@firma.pl</span></div>
+  </div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">Wiadomość</span>
+  <div style="height:168px;box-sizing:border-box;padding:14px 18px;border:1.5px solid #2E2822;box-shadow:none;background:#15120F;border-radius:10px;font-size:16px;line-height:1.5;overflow:hidden;white-space:normal"><span style="color:#8A8072">Opowiedz krótko o zespole i roli, której szukasz.</span></div>
+  </div><div style="display:flex;flex-direction:column;gap:14px;margin-top:8px"><a href="#" style="height:56px;padding:0 28px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:17px;font-weight:600;box-sizing:border-box;width:100%" style-hover="color:#15120F" style-active="background:#D2401C;color:#15120F">Wyślij</a><span style="font-size:14px;color:#A99E8E;text-align:center">Odpisuję w ciągu dwóch dni roboczych.</span></div></div>
+</div>
+<div style="position:sticky;bottom:0;height:0;z-index:50"><div style="position:absolute;left:12px;right:12px;bottom:42px;height:56px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 5px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" aria-label="Nuri — start" style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:26px;height:26px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">Work</a>
+  <a href="About.dc.html" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">About</a>
+  <a href="Kontakt.dc.html" aria-current="page" style="height:44px;padding:0 12px;display:flex;align-items:center;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:14px;font-weight:600" style-active="background:#D2401C">Kontakt</a>
+  <span aria-label="Język PL, przełącz na EN" style="height:44px;min-width:48px;display:flex;align-items:center;justify-content:center;gap:3px;font-size:13px"><span style="font-weight:600;color:#F0532A">PL</span><span style="color:#A99E8E">EN</span></span>
+</div>
+<span style="position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#F3EBDD;z-index:300"></span></div></div>
+<span style="font-size:14px;color:#A99E8E;max-width:375px;line-height:1.5;text-wrap:pretty">Najpierw nagłówek i e-mail, potem formularz. Pod przyciskiem „Wyślij” 140 px zapasu: przy przewinięciu do końca nawigacja go nie zasłania.</span>
+</div><div id="2f" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#2f" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">2f</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 2 · Telefon · C. Błąd walidacji</span>
+  <span style="font-size:15px;color:#A99E8E">375 px · cała długość</span>
+</div>
+<div style="width:375px;height:{{ phoneH }};overflow-x:hidden;overflow-y:auto;position:relative;background:#15120F;border:1px solid #2E2822;border-radius:48px;flex:none">
+<div style="position:sticky;top:0;height:47px;background:#15120F;z-index:60;display:flex;align-items:center;padding-left:32px"><span style="font-size:15px;font-weight:600">9:41</span></div>
+<div style="padding:13px 24px 0;display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:12px;color:#A99E8E">UX/UI designer</span></div>
+<div style="padding:56px 20px 140px;display:flex;flex-direction:column;gap:48px">
+  <div style="display:flex;flex-direction:column;gap:18px">
+    <span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">kontakt</span>
+    <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:48px;line-height:1">Napisz do mnie</h1>
+    <p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty">Szukam pracy na etat jako UX/UI designer — najchętniej w zespole produktowym, w Krakowie albo zdalnie.</p>
+    <a href="mailto:hej@zuczkowska.pl" style="align-self:flex-start;min-height:48px;display:flex;align-items:center;font-size:26px;font-weight:500;color:#F0532A;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px" style-active="color:#D2401C">hej@zuczkowska.pl</a>
+    <div style="display:flex;align-items:center;gap:24px"><a href="#" style="height:48px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex:none;font-size:16px;font-weight:500;color:#F0532A;" style-hover="color:#F3EBDD" style-active="color:#D2401C">LinkedIn →</a><a href="#" style="height:48px;padding:0 26px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;border:1.5px solid #F3EBDD;color:#F3EBDD;font-size:15px;font-weight:500;box-sizing:border-box;padding:0 20px" style-hover="border-color:#F0532A;color:#F0532A" style-active="background:#D2401C;border-color:#D2401C;color:#F3EBDD">Pobierz CV</a></div>
+  </div>
+  <div style="background:#1E1A16;border:1px solid #2E2822;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box;"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">Imię</span>
+  <div style="height:52px;box-sizing:border-box;padding:0 18px;display:flex;align-items:center;border:1.5px solid #FF7E8E;box-shadow:inset 0 0 0 1px #FF7E8E;background:#261B1B;border-radius:10px;font-size:16px;line-height:1.5;overflow:hidden;white-space:nowrap"><span style="color:#8A8072">np. Marta</span></div>
+  <span  style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.4;color:#FF7E8E"><span aria-hidden="true" style="width:18px;height:18px;flex:none;margin-top:1px;border-radius:50%;background:#FF7E8E;color:#15120F;font-size:12px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">!</span><span>Wpisz swoje imię.</span></span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">E-mail</span>
+  <div style="height:52px;box-sizing:border-box;padding:0 18px;display:flex;align-items:center;border:1.5px solid #FF7E8E;box-shadow:inset 0 0 0 1px #FF7E8E;background:#261B1B;border-radius:10px;font-size:16px;line-height:1.5;overflow:hidden;white-space:nowrap"><span style="color:#F3EBDD">marta.nowak@trasa</span></div>
+  <span  style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.4;color:#FF7E8E"><span aria-hidden="true" style="width:18px;height:18px;flex:none;margin-top:1px;border-radius:50%;background:#FF7E8E;color:#15120F;font-size:12px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">!</span><span>Adres jest niepełny — brakuje domeny, np. .pl lub .com.</span></span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500;color:#F3EBDD">Wiadomość</span>
+  <div style="height:168px;box-sizing:border-box;padding:14px 18px;border:1.5px solid #2E2822;box-shadow:none;background:#15120F;border-radius:10px;font-size:16px;line-height:1.5;overflow:hidden;white-space:normal"><span style="color:#F3EBDD">Cześć Joanno, szukamy osoby do projektowania aplikacji dla kierowców. Masz czas na rozmowę w przyszłym tygodniu?</span></div>
+  </div><div style="display:flex;flex-direction:column;gap:14px;margin-top:8px"><a href="#" style="height:56px;padding:0 28px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:17px;font-weight:600;box-sizing:border-box;width:100%" style-hover="color:#15120F" style-active="background:#D2401C;color:#15120F">Wyślij</a><span style="font-size:14px;color:#A99E8E;text-align:center">Odpisuję w ciągu dwóch dni roboczych.</span></div></div>
+</div>
+<div style="position:sticky;bottom:0;height:0;z-index:50"><div style="position:absolute;left:12px;right:12px;bottom:42px;height:56px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 5px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" aria-label="Nuri — start" style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:26px;height:26px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="Strona%20g%C5%82%C3%B3wna.dc.html" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">Work</a>
+  <a href="About.dc.html" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">About</a>
+  <a href="Kontakt.dc.html" aria-current="page" style="height:44px;padding:0 12px;display:flex;align-items:center;border-radius:999px;white-space:nowrap;flex:none;background:#F0532A;color:#15120F;font-size:14px;font-weight:600" style-active="background:#D2401C">Kontakt</a>
+  <span aria-label="Język PL, przełącz na EN" style="height:44px;min-width:48px;display:flex;align-items:center;justify-content:center;gap:3px;font-size:13px"><span style="font-weight:600;color:#F0532A">PL</span><span style="color:#A99E8E">EN</span></span>
+</div>
+<span style="position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#F3EBDD;z-index:300"></span></div></div>
+<span style="font-size:14px;color:#A99E8E;max-width:375px;line-height:1.5;text-wrap:pretty">W Tweaks „jeden ekran” pokazuje telefon z przyklejoną nawigacją — przewiń do przycisku.</span>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;kadr&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cała strona&quot;,&quot;jeden ekran&quot;],&quot;default&quot;:&quot;cała strona&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Podgląd telefonu&quot;}}">
+const EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const ERR='#FF7E8E';
+const KEYS=['name','email','msg'];
+class Component extends DCLogic {
+  state={nuri:null,v:{name:'',email:'',msg:''},focus:null,err:{},sent:false};
+  componentDidMount(){this.loadN();}
+  loadN(){const go=()=>window.NuriKit?window.NuriKit.load().then(n=>this.onNuri?this.onNuri(n):this.setState({nuri:n}),()=>{}):setTimeout(go,40);go();}
+  onNuri(n){this.setState({nuri:Object.assign({},n,{dots:window.NuriKit.dots(n.mask,300)})});}
+  setV(k){return e=>{const val=e.target.value;this.setState(s=>{const err=Object.assign({},s.err);delete err[k];return {v:Object.assign({},s.v,{[k]:val}),err};});};}
+  submit=()=>{
+    const v=this.state.v,err={};
+    if(!v.name.trim())err.name='Wpisz swoje imię.';
+    if(!v.email.trim())err.email='Podaj adres e-mail, żebym mogła odpisać.';
+    else if(!EMAIL_RE.test(v.email.trim()))err.email='Adres jest niepełny — brakuje domeny, np. .pl lub .com.';
+    if(!v.msg.trim())err.msg='Napisz kilka słów o tym, czego szukasz.';
+    if(Object.keys(err).length){this.setState({err});const k=KEYS.find(x=>err[x]);const el=document.getElementById('k-'+k);if(el)el.focus();return;}
+    this.setState({sent:true,err:{},focus:null});
+  };
+  fs(k){
+    const e=this.state.err[k],f=this.state.focus===k;
+    const s=e?{bc:ERR,sh:'inset 0 0 0 1px '+ERR,bg:'#261B1B'}:f?{bc:'#F0532A',sh:'0 0 0 4px rgba(240,83,42,.22)',bg:'#15120F'}:{bc:'#2E2822',sh:'none',bg:'#15120F'};
+    return Object.assign(s,{has:!!e,msg:e||'',inv:!!e});
+  }
+  renderVals(){
+    const on={},fo={},fs={};
+    KEYS.forEach(k=>{on[k]=this.setV(k);fo[k]=()=>this.setState({focus:k});fs[k]=this.fs(k);});
+    const one=(this.props.kadr??'cała strona')==='jeden ekran';
+    return {nuri:this.state.nuri||{},nuriReady:!!this.state.nuri,phoneH:one?'812px':'auto',
+      v:this.state.v,on,fo,fs,blur:()=>this.setState({focus:null}),submit:this.submit,
+      sent:this.state.sent,notSent:!this.state.sent,sentTo:this.state.v.email.trim(),
+      reset:()=>this.setState({sent:false,v:{name:'',email:'',msg:''},err:{}})};
+  }
+}
+</script>
+</body>
+</html>

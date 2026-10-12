@@ -8,6 +8,7 @@
    corner, so the way out is there at any scroll depth. */
 
 import { caseFor } from "./cases.js";
+import { UI } from "./i18n.js";
 import { FILL, EYES } from "./nuri.js";
 import { cardStyle, cardSpot } from "./tiles.js";
 
@@ -27,7 +28,7 @@ function markup(s, next) {
   const p = s.project;
   const c = caseFor(p);
   return `
-    <button class="case__back" type="button" data-back>← wróć</button>
+    <button class="case__back" type="button" data-back>${UI.back}</button>
     <header class="case__top">
       <div class="case__hero" ${cardStyle(s)}>
         ${cardSpot(s)}
@@ -48,8 +49,8 @@ function markup(s, next) {
       <p class="case__lead">${c.lead}</p>
 
       <section class="case__split">
-        <div class="case__text">
-          <span class="case__eyebrow">problem</span>
+        <div class="prose">
+          <span class="eyebrow">${UI.problem}</span>
           <h2>${c.problem.title}</h2>
           ${c.problem.text.map((t) => `<p>${t}</p>`).join("")}
         </div>
@@ -57,8 +58,8 @@ function markup(s, next) {
       </section>
 
       <section class="case__process">
-        <div class="case__text">
-          <span class="case__eyebrow">proces</span>
+        <div class="prose">
+          <span class="eyebrow">${UI.process}</span>
           <h2>${c.process.title}</h2>
         </div>
         <ol>
@@ -66,8 +67,8 @@ function markup(s, next) {
             .map(
               (step, i) => `<li class="case__step">
                 ${shot(step.image, "wide")}
-                <div class="case__text">
-                  <span class="case__num">0${i + 1}</span>
+                <div class="prose">
+                  <span class="num">0${i + 1}</span>
                   <h3>${step.title}</h3>
                   <p>${step.text}</p>
                 </div>
@@ -78,10 +79,10 @@ function markup(s, next) {
       </section>
 
       <section class="case__gallery">
-        <span class="case__eyebrow">galeria</span>
+        <span class="eyebrow">${UI.gallery}</span>
         <div class="case__grid">
           <figure class="case__shot case__shot--video" data-reveal>
-            <span class="case__play" role="img" aria-label="Odtwórz wideo"></span>
+            <span class="case__play" role="img" aria-label="${UI.aria.play}"></span>
             <figcaption>${c.gallery.video}</figcaption>
           </figure>
           ${c.gallery.phones.map((label) => shot(label, "tall")).join("")}
@@ -91,8 +92,8 @@ function markup(s, next) {
       </section>
 
       <section class="case__result">
-        <div class="case__text">
-          <span class="case__eyebrow">rezultat</span>
+        <div class="prose">
+          <span class="eyebrow">${UI.result}</span>
           <h2>${c.result.title}</h2>
           <p>${c.result.text}</p>
         </div>
@@ -107,7 +108,7 @@ function markup(s, next) {
       <a class="case__next-card" href="#" data-next ${cardStyle(next)}>
         ${cardSpot(next)}
         <span class="case__next-text">
-          <span class="case__eyebrow">następny projekt</span>
+          <span class="eyebrow">${UI.next}</span>
           <span class="case__next-name" data-fit>${next.project.name}</span>
         </span>
         <span class="case__next-arrow" aria-hidden="true">→</span>

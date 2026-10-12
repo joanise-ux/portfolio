@@ -40,7 +40,7 @@ const polaroid = (caption, slug, opens) => ({
 
 export const DATA = {
   name: "Joanna Żuczkowska",
-  email: "joanna@neon-os.pl",
+  email: "zuczkowskaj@gmail.com",
   linkedin: "https://www.linkedin.com/in/joannazuczkowska",
   city: "wrocław",
   careerStart: "2022-06", // start własnej działalności (RRRR-MM)
