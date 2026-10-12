@@ -1,4 +1,4 @@
-/* Placeholder content for the motion lab: flat-colour cards standing in for
+/* Placeholder content for the project wall: flat-colour cards standing in for
    the five planned projects, as drawn in design/v2/Strona główna.dc.html.
    Real shots replace `makeTexture` later — the layouts only care about
    `aspect` and a texture. */
@@ -7,11 +7,11 @@ import * as THREE from "three";
 import { tr } from "./i18n.js";
 
 export const PROJECTS = [
-  { key: "nf", name: "Nature Future", cat: "web", year: 2025, bg: "#3a4034" },
-  { key: "nr", name: tr({ pl: "Nieruchomości", en: "Real Estate" }), cat: "web", year: 2025, bg: "#3b3833" },
+  { key: "nf", name: "Nature Future", cat: "web", year: 2026, bg: "#3a4034" },
+  { key: "nr", name: tr({ pl: "Nieruchomości", en: "Real Estate" }), cat: "web", year: 2026, bg: "#3b3833" },
   { key: "ka", name: tr({ pl: "Kancelaria", en: "Law Firm" }), cat: "branding", year: 2024, bg: "#32363a" },
-  { key: "kw", name: tr({ pl: "Kawiarnia", en: "Café" }), cat: "branding", year: 2024, bg: "#46372b" },
-  { key: "tr", name: tr({ pl: "Tracker seriali", en: "Series Tracker" }), cat: tr({ pl: "aplikacja mobilna", en: "mobile app" }), year: 2023, bg: "#3a3532" },
+  { key: "kw", name: tr({ pl: "Kawiarnia", en: "Café" }), cat: "rebranding", year: 2024, bg: "#46372b" },
+  { key: "tr", name: tr({ pl: "Tracker seriali", en: "Series Tracker" }), cat: tr({ pl: "aplikacja mobilna", en: "mobile app" }), year: 2026, bg: "#3a3532" },
 ];
 
 /* Card formats from the design, in px on the 1440×900 frame. */

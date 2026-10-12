@@ -1,25 +1,25 @@
-/* Copy for About and Kontakt (design/v2/About.dc.html, Kontakt.dc.html),
-   in both languages.
+/* Copy and contact details for About and Kontakt (design/v2/About.dc.html,
+   Kontakt.dc.html), in both languages.
 
-   The facts come from the current site (src/content) and from Joanna: the
-   bio, the work history, the stack, the city, the address, LinkedIn, the CV
-   files and the portrait. The intro line and the four services are still the
-   design's placeholder copy. */
+   The bio, work history, stack, city, address, LinkedIn, CV files and the
+   portrait are Joanna's own. The intro line and the four services are still
+   the design's placeholder copy. */
 
-import { DATA } from "../content/data.js";
-import { LANG, tr } from "./i18n.js";
+import { tr } from "./i18n.js";
 
 export const CONTACT = {
-  email: DATA.email,
-  linkedin: DATA.linkedin,
-  cv: { href: `/${DATA.cv.dir}${DATA.cv[LANG].file}`, download: DATA.cv[LANG].download },
+  email: "zuczkowskaj@gmail.com",
+  linkedin: "https://www.linkedin.com/in/joannazuczkowska",
+  cv: tr({
+    pl: { href: "/assets/cv_2026_pl.pdf", download: "Joanna_Zuczkowska_CV_PL.pdf" },
+    en: { href: "/assets/cv_2026_en.pdf", download: "Joanna_Zuczkowska_CV_EN.pdf" },
+  }),
   /* Where the form posts JSON { name, email, message } (Formspree and the
      like). While this is empty there is no backend, so the form hands the
      message to the visitor's own mail program instead of pretending. */
   formEndpoint: "",
 };
 
-// DATA.stack, spelled with capitals
 const TOOLS = ["Figma", "Adobe Suite", "Canva", "HTML / CSS", "JavaScript", "React", "SQL", "Supabase", "Vercel", "Claude Code", "Claude Design", "Figma Make"];
 
 export const ABOUT = tr({
