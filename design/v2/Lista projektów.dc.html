@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&amp;family=Modak&amp;family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<script src="./nuri-kit.js"></script>
+<style>body{margin:0;background:#0E0C0A}a{color:#F0532A;text-decoration:none}a:hover{color:#F3EBDD}input,textarea,button{font-family:Outfit,sans-serif}</style>
+</helmet>
+<div style="background:#0E0C0A;padding:80px;display:flex;flex-direction:column;gap:96px;font-family:Outfit,sans-serif;color:#F3EBDD;width:max-content">
+<header style="display:flex;flex-direction:column;gap:12px;max-width:1440px">
+  <span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Joanna Żuczkowska · portfolio · ekran 1</span>
+  <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:56px;line-height:1.05">Ekran 1 — widok listy</h1>
+  <p style="margin:0;font-size:18px;line-height:1.5;color:#A99E8E;max-width:72ch;text-wrap:pretty">Ta sama strona główna po przełączeniu z orbity na listę. Kadr 1a jest żywy: najedź na wiersz. Lista czyta się w całości bez ruchu — miniatura to tylko dodatek. W Tweaks przełącz „ruch” na ograniczony, żeby zobaczyć wersję bez animacji.</p>
+</header>
+<section style="display:flex;gap:64px;align-items:flex-start">
+<div id="1a" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#1a" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1a</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 1 · desktop · spoczynek</span>
+  <span style="font-size:15px;color:#A99E8E">1440 × 900 · interaktywny</span>
+</div>
+<div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px;flex:none;"><div style="position:absolute;left:32px;top:28px;display:flex;flex-direction:column;gap:2px;z-index:300"><span style="font-size:15px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:13px;color:#A99E8E">UX/UI designer</span></div>
+<div style="position:absolute;left:64px;right:64px;top:136px;display:flex;flex-direction:column;border-top:1px solid #2E2822">
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+<a href="#" onMouseEnter="{{ r.enter }}" onMouseLeave="{{ r.leave }}" onFocus="{{ r.enter }}" onBlur="{{ r.leave }}" style="height:120px;display:grid;grid-template-columns:96px minmax(0,1fr) 280px;align-items:center;border-bottom:1px solid #2E2822;color:#F3EBDD" style-hover="color:#F3EBDD">
+  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">{{ r.num }}</span>
+  <span style="display:flex;align-items:center;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;letter-spacing:-.01em;white-space:nowrap;color:{{ r.nameColor }};transition:{{ r.trC }}">{{ r.name }}</span>
+    <span style="flex:none;width:{{ r.tw }}px;height:96px;overflow:hidden;transition:{{ r.trW }}">
+      <span style="display:block;margin-left:32px;width:152px;height:96px;border-radius:10px;position:relative;overflow:hidden;background:{{ r.bg }};opacity:{{ r.op }};transform:translateX({{ r.tx }}px);transition:{{ r.trT }}">
+        <span style="position:absolute;left:{{ r.il }};top:{{ r.it }};width:{{ r.iw }}px;height:{{ r.ih }}px;transform:translate(-50%,-50%);border-radius:{{ r.ir }};background:rgba(243,235,221,.08)"></span>
+      </span>
+    </span>
+  </span>
+  <span style="justify-self:end;display:flex;gap:24px;font-size:15px;color:{{ r.metaColor }};transition:{{ r.trC }}"><span>{{ r.cat }}</span><span style="font-variant-numeric:tabular-nums">{{ r.year }}</span></span>
+</a>
+</sc-for>
+</div>
+<div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="#" aria-label="Nuri — start" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="#" aria-current="page" style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:15px;font-weight:600" style-active="background:#D2401C">Work</a>
+  <a href="#" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">About</a>
+  <a href="#" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">Kontakt</a>
+  <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+  <div style="display:flex;align-items:center">
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+  </div>
+  <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+  <div style="display:flex;align-items:center">
+    <span aria-label="Widok orbita" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#A99E8E"><span style="width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:4px;height:4px;border-radius:50%;background:currentColor"></span></span></span>
+    <span aria-label="Widok lista" style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#F0532A"><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span></span>
+  </div>
+</div></div>
+
+</div>
+<div id="1b" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#1b" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1b</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 1 · desktop · hover na wierszu</span>
+  <span style="font-size:15px;color:#A99E8E">nazwa w persymonie · obok wysuwa się miniatura</span>
+</div>
+<div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px;flex:none;"><div style="position:absolute;left:32px;top:28px;display:flex;flex-direction:column;gap:2px;z-index:300"><span style="font-size:15px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:13px;color:#A99E8E">UX/UI designer</span></div>
+<div style="position:absolute;left:64px;right:64px;top:136px;display:flex;flex-direction:column;border-top:1px solid #2E2822">
+<a href="#" style="height:120px;display:grid;grid-template-columns:96px minmax(0,1fr) 280px;align-items:center;border-bottom:1px solid #2E2822;color:#F3EBDD">
+  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">01</span>
+  <span style="display:flex;align-items:center;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;letter-spacing:-.01em;white-space:nowrap;color:#F3EBDD">Nature Future</span>
+    
+  </span>
+  <span style="justify-self:end;display:flex;gap:24px;font-size:15px;color:#A99E8E"><span>web</span><span style="font-variant-numeric:tabular-nums">2025</span></span>
+</a>
+<a href="#" style="height:120px;display:grid;grid-template-columns:96px minmax(0,1fr) 280px;align-items:center;border-bottom:1px solid #2E2822;color:#F3EBDD">
+  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">02</span>
+  <span style="display:flex;align-items:center;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;letter-spacing:-.01em;white-space:nowrap;color:#F0532A">Nieruchomości</span>
+    <span style="flex:none;margin-left:32px;width:152px;height:96px;border-radius:10px;position:relative;overflow:hidden;background:#3B3833"><span style="position:absolute;left:58%;top:46%;width:48px;height:48px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(243,235,221,.08)"></span></span>
+  </span>
+  <span style="justify-self:end;display:flex;gap:24px;font-size:15px;color:#F3EBDD"><span>web</span><span style="font-variant-numeric:tabular-nums">2025</span></span>
+</a>
+<a href="#" style="height:120px;display:grid;grid-template-columns:96px minmax(0,1fr) 280px;align-items:center;border-bottom:1px solid #2E2822;color:#F3EBDD">
+  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">03</span>
+  <span style="display:flex;align-items:center;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;letter-spacing:-.01em;white-space:nowrap;color:#F3EBDD">Kancelaria</span>
+    
+  </span>
+  <span style="justify-self:end;display:flex;gap:24px;font-size:15px;color:#A99E8E"><span>branding</span><span style="font-variant-numeric:tabular-nums">2024</span></span>
+</a>
+<a href="#" style="height:120px;display:grid;grid-template-columns:96px minmax(0,1fr) 280px;align-items:center;border-bottom:1px solid #2E2822;color:#F3EBDD">
+  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">04</span>
+  <span style="display:flex;align-items:center;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;letter-spacing:-.01em;white-space:nowrap;color:#F3EBDD">Kawiarnia</span>
+    
+  </span>
+  <span style="justify-self:end;display:flex;gap:24px;font-size:15px;color:#A99E8E"><span>branding</span><span style="font-variant-numeric:tabular-nums">2024</span></span>
+</a>
+<a href="#" style="height:120px;display:grid;grid-template-columns:96px minmax(0,1fr) 280px;align-items:center;border-bottom:1px solid #2E2822;color:#F3EBDD">
+  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">05</span>
+  <span style="display:flex;align-items:center;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;letter-spacing:-.01em;white-space:nowrap;color:#F3EBDD">Tracker seriali</span>
+    
+  </span>
+  <span style="justify-self:end;display:flex;gap:24px;font-size:15px;color:#A99E8E"><span>aplikacja mobilna</span><span style="font-variant-numeric:tabular-nums">2023</span></span>
+</a>
+</div>
+<div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="#" aria-label="Nuri — start" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="#" aria-current="page" style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:15px;font-weight:600" style-active="background:#D2401C">Work</a>
+  <a href="#" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">About</a>
+  <a href="#" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">Kontakt</a>
+  <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+  <div style="display:flex;align-items:center">
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+    <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+  </div>
+  <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+  <div style="display:flex;align-items:center">
+    <span aria-label="Widok orbita" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#A99E8E"><span style="width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:4px;height:4px;border-radius:50%;background:currentColor"></span></span></span>
+    <span aria-label="Widok lista" style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#F0532A"><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span></span>
+  </div>
+</div></div>
+<span style="font-size:14px;color:#A99E8E;max-width:1440px;line-height:1.5;text-wrap:pretty">Hover i fokus z klawiatury wyglądają tak samo. Miniatura: 0 → 152 px szerokości, 280 ms, ease-out. Przy ograniczonym ruchu pojawia się od razu, bez przesuwu. Kategoria i rok rozjaśniają się do kremu.</span>
+</div>
+</section>
+<section style="display:flex;gap:64px;align-items:flex-start">
+<div id="1c" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:14px">
+  <a href="#1c" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1c</a>
+  <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Ekran 1 · telefon · lista</span>
+  <span style="font-size:15px;color:#A99E8E">375 × 812</span>
+</div>
+<div style="width:375px;height:812px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:48px;flex:none;"><span style="position:absolute;left:32px;top:16px;font-size:15px;font-weight:600;z-index:300">9:41</span><div style="position:absolute;left:24px;top:60px;display:flex;flex-direction:column;gap:2px;z-index:300"><span style="font-size:14px;font-weight:500">Joanna Żuczkowska</span><span style="font-size:12px;color:#A99E8E">UX/UI designer</span></div>
+<div style="position:absolute;left:20px;right:20px;top:124px;display:flex;flex-direction:column;border-top:1px solid #2E2822">
+<a href="#" style="display:grid;grid-template-columns:28px minmax(0,1fr) 64px;gap:12px;align-items:center;padding:16px 0;border-bottom:1px solid #2E2822;color:#F3EBDD" style-active="color:#F0532A">
+  <span style="align-self:start;padding-top:6px;font-size:14px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">01</span>
+  <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:26px;line-height:1.1">Nature Future</span>
+    <span style="font-size:13px;color:#A99E8E">web · 2025</span>
+  </span>
+  <span style="width:64px;height:64px;border-radius:10px;position:relative;overflow:hidden;background:#3A4034"><span style="position:absolute;left:58%;top:46%;width:32px;height:32px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(243,235,221,.08)"></span></span>
+</a>
+<a href="#" style="display:grid;grid-template-columns:28px minmax(0,1fr) 64px;gap:12px;align-items:center;padding:16px 0;border-bottom:1px solid #2E2822;color:#F3EBDD" style-active="color:#F0532A">
+  <span style="align-self:start;padding-top:6px;font-size:14px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">02</span>
+  <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:26px;line-height:1.1">Nieruchomości</span>
+    <span style="font-size:13px;color:#A99E8E">web · 2025</span>
+  </span>
+  <span style="width:64px;height:64px;border-radius:10px;position:relative;overflow:hidden;background:#3B3833"><span style="position:absolute;left:58%;top:46%;width:32px;height:32px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(243,235,221,.08)"></span></span>
+</a>
+<a href="#" style="display:grid;grid-template-columns:28px minmax(0,1fr) 64px;gap:12px;align-items:center;padding:16px 0;border-bottom:1px solid #2E2822;color:#F3EBDD" style-active="color:#F0532A">
+  <span style="align-self:start;padding-top:6px;font-size:14px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">03</span>
+  <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:26px;line-height:1.1">Kancelaria</span>
+    <span style="font-size:13px;color:#A99E8E">branding · 2024</span>
+  </span>
+  <span style="width:64px;height:64px;border-radius:10px;position:relative;overflow:hidden;background:#32363A"><span style="position:absolute;left:58%;top:46%;width:32px;height:32px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(243,235,221,.08)"></span></span>
+</a>
+<a href="#" style="display:grid;grid-template-columns:28px minmax(0,1fr) 64px;gap:12px;align-items:center;padding:16px 0;border-bottom:1px solid #2E2822;color:#F3EBDD" style-active="color:#F0532A">
+  <span style="align-self:start;padding-top:6px;font-size:14px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">04</span>
+  <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:26px;line-height:1.1">Kawiarnia</span>
+    <span style="font-size:13px;color:#A99E8E">branding · 2024</span>
+  </span>
+  <span style="width:64px;height:64px;border-radius:10px;position:relative;overflow:hidden;background:#46372B"><span style="position:absolute;left:58%;top:46%;width:32px;height:32px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(243,235,221,.08)"></span></span>
+</a>
+<a href="#" style="display:grid;grid-template-columns:28px minmax(0,1fr) 64px;gap:12px;align-items:center;padding:16px 0;border-bottom:1px solid #2E2822;color:#F3EBDD" style-active="color:#F0532A">
+  <span style="align-self:start;padding-top:6px;font-size:14px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">05</span>
+  <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+    <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:26px;line-height:1.1">Tracker seriali</span>
+    <span style="font-size:13px;color:#A99E8E">aplikacja mobilna · 2023</span>
+  </span>
+  <span style="width:64px;height:64px;border-radius:10px;position:relative;overflow:hidden;background:#3A3532"><span style="position:absolute;left:50%;top:50%;width:21.76px;height:39.68px;transform:translate(-50%,-50%);border-radius:5.12px;background:rgba(243,235,221,.08)"></span></span>
+</a>
+</div>
+<div style="position:absolute;left:12px;right:12px;bottom:42px;height:56px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 5px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:300">
+  <a href="#" aria-label="Nuri — start" style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:50%"><sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:26px;height:26px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center;"></span></sc-if></a>
+  <a href="#" aria-current="page" style="height:44px;padding:0 12px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:14px;font-weight:600" style-active="background:#D2401C">Work</a>
+  <a href="#" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">About</a>
+  <a href="#" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">Kontakt</a>
+  <span aria-label="Język PL, przełącz na EN" style="height:44px;min-width:48px;display:flex;align-items:center;justify-content:center;gap:3px;font-size:13px"><span style="font-weight:600;color:#F0532A">PL</span><span style="color:#A99E8E">EN</span></span>
+  <span aria-label="Widok lista, przełącz na orbitę" style="width:44px;height:44px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#F0532A"><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span></span>
+</div>
+<span style="position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#F3EBDD;z-index:300"></span></div>
+<span style="font-size:14px;color:#A99E8E;max-width:375px;line-height:1.5;text-wrap:pretty">Nazwa, pod nią kategoria i rok. Miniatura 64 px zawsze widoczna. Cały wiersz to cel dotyku (96 px). W nawigacji aktywny przełącznik „lista”.</span>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;ruch&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pełny&quot;,&quot;ograniczony&quot;],&quot;default&quot;:&quot;pełny&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Podgląd&quot;}}">
+const ROWS=[["01","Nature Future","web","2025","#3A4034"],["02","Nieruchomości","web","2025","#3B3833"],["03","Kancelaria","branding","2024","#32363A"],["04","Kawiarnia","branding","2024","#46372B"],["05","Tracker seriali","aplikacja mobilna","2023","#3A3532"]];
+const EASE='cubic-bezier(.2,.7,.2,1)';
+class Component extends DCLogic {
+  state={hov:null,nuri:null,sysReduce:false};
+  componentDidMount(){this.loadN();const mq=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)');if(mq)this.setState({sysReduce:mq.matches});}
+  loadN(){const go=()=>window.NuriKit?window.NuriKit.load().then(n=>this.onNuri?this.onNuri(n):this.setState({nuri:n}),()=>{}):setTimeout(go,40);go();}
+  renderVals(){
+    const reduce=this.state.sysReduce||(this.props.ruch??'pełny')==='ograniczony';
+    const h=this.state.hov;
+    const rows=ROWS.map(([num,name,cat,year,bg],i)=>{const on=h===i,tr=i===4;
+      return {num,name,cat,year,bg,
+        nameColor:on?'#F0532A':'#F3EBDD',metaColor:on?'#F3EBDD':'#A99E8E',
+        tw:on?184:0,op:on?1:0,tx:on||reduce?0:-24,
+        il:tr?'50%':'58%',it:tr?'50%':'46%',iw:tr?33:48,ih:tr?60:48,ir:tr?'8px':'50%',
+        trC:reduce?'none':'color .2s',trW:reduce?'none':'width .28s '+EASE,trT:reduce?'none':'opacity .22s, transform .32s '+EASE,
+        enter:()=>this.setState({hov:i}),leave:()=>this.setState(s=>s.hov===i?{hov:null}:null)};});
+    return {rows,nuri:this.state.nuri||{},nuriReady:!!this.state.nuri};
+  }
+}
+</script>
+</body>
+</html>

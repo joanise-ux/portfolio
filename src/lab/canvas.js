@@ -93,6 +93,7 @@ export class InfiniteCanvas {
     this.hovered = null;
     this.opened = null;
     this.locked = false;
+    this.cover = null; // where an opened tile lands: { x, y, w, h, r }; the whole screen if unset
     this.reveal = 0; // 0 → tiles hidden (intro), 1 → visible
   }
 
@@ -198,6 +199,23 @@ export class InfiniteCanvas {
     gsap.to(tile, { open: 1, duration: 0.9, ease: "expo.inOut", onComplete: onDone });
   }
 
+  /* Hand the open state to another tile with no animation (next project,
+     resize) and pan the wall so that tile is in the middle when it closes. */
+  swapOpened(tile) {
+    if (this.opened) {
+      this.opened.open = 0;
+      this.opened.mesh.position.z = 0;
+    }
+    this.opened = tile;
+    this.locked = true;
+    this.hovered = null;
+    tile.open = 1;
+    tile.mesh.position.z = 2;
+    this.target.set(-tile.baseX, -tile.baseY);
+    this.offset.copy(this.target);
+    this.prev.copy(this.target);
+  }
+
   close(onDone) {
     const tile = this.opened;
     if (!tile) return;
@@ -234,6 +252,7 @@ export class InfiniteCanvas {
 
     const anyHover = !!this.hovered && !this.opened;
     const hk = 1 - Math.pow(0.86, dt * 60);
+    const c = this.cover || { x: 0, y: 0, w: this.vw, h: this.vh, r: 0 };
 
     for (const t of this.tiles) {
       // wrapped grid position
@@ -248,15 +267,13 @@ export class InfiniteCanvas {
       const rv = THREE.MathUtils.clamp((this.reveal * 1.6 - t.delay * 0.6), 0, 1);
       const rvE = 1 - Math.pow(1 - rv, 3);
 
-      // expanded tile goes to the centre and covers the viewport
+      // expanded tile goes to the cover rect (the case study hero)
       const o = t.open;
-      const coverW = this.vw;
-      const coverH = this.vh;
       const scale = 1 + t.hover * (s.hoverScale - 1);
-      const w = lerp(t.w * scale, coverW, o);
-      const h = lerp(t.h * scale, coverH, o);
-      const x = lerp(gx, 0, o);
-      const y = lerp(gy - (1 - rvE) * 40, 0, o);
+      const w = lerp(t.w * scale, c.w, o);
+      const h = lerp(t.h * scale, c.h, o);
+      const x = lerp(gx, c.x, o);
+      const y = lerp(gy - (1 - rvE) * 40, c.y, o);
 
       t.mesh.position.x = x;
       t.mesh.position.y = y;
@@ -265,7 +282,7 @@ export class InfiniteCanvas {
       const u = t.mesh.material.uniforms;
       u.uPlane.value.set(w, h);
       u.uDim.value = t.dim;
-      u.uRadius.value = lerp(Math.max(6, t.w * 0.035), 0, o);
+      u.uRadius.value = lerp(Math.max(6, t.w * 0.035), c.r, o);
       const fadeOthers = this.opened && this.opened !== t ? 1 - this.opened.open : 1;
       u.uAlpha.value = rvE * Math.min(fadeOthers, 1);
       t.x = x;

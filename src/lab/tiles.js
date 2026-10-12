@@ -6,11 +6,11 @@
 import * as THREE from "three";
 
 export const PROJECTS = [
-  { key: "nf", name: "Nature Future", cat: "web", bg: "#3a4034" },
-  { key: "nr", name: "Nieruchomości", cat: "web", bg: "#3b3833" },
-  { key: "ka", name: "Kancelaria", cat: "branding", bg: "#32363a" },
-  { key: "kw", name: "Kawiarnia", cat: "branding", bg: "#46372b" },
-  { key: "tr", name: "Tracker seriali", cat: "aplikacja mobilna", bg: "#3a3532" },
+  { key: "nf", name: "Nature Future", cat: "web", year: 2025, bg: "#3a4034" },
+  { key: "nr", name: "Nieruchomości", cat: "web", year: 2025, bg: "#3b3833" },
+  { key: "ka", name: "Kancelaria", cat: "branding", year: 2024, bg: "#32363a" },
+  { key: "kw", name: "Kawiarnia", cat: "branding", year: 2024, bg: "#46372b" },
+  { key: "tr", name: "Tracker seriali", cat: "aplikacja mobilna", year: 2023, bg: "#3a3532" },
 ];
 
 /* Card formats from the design, in px on the 1440×900 frame. */
@@ -64,18 +64,24 @@ function makeTexture(project, index, [shape, ox, oy]) {
   return tex;
 }
 
-/* One entry per shot: { project, shape, aspect, texture }, grouped by project
-   in the order above. */
+/* One entry per shot: { project, shape, spot, aspect, texture }, grouped by
+   project in the order above. `spot` is where the soft shape sits, so the
+   case study hero can draw the same card in CSS. */
 export function buildShots() {
   const shots = [];
   PROJECTS.forEach((p) => {
     SHOTS[p.key].forEach((spec, i) => {
       const [dw, dh] = SHAPES[spec[0]];
-      shots.push({ project: p, shape: spec[0], aspect: dw / dh, texture: makeTexture(p, i, spec) });
+      shots.push({ project: p, shape: spec[0], spot: [spec[1], spec[2]], aspect: dw / dh, texture: makeTexture(p, i, spec) });
     });
   });
   return shots;
 }
+
+/* The same card drawn in the DOM (case study hero, list thumbnail): the
+   style goes on a box with `container-type: size`, the spot inside it. */
+export const cardStyle = (s) => `style="--card:${s.project.bg};--spot-x:${s.spot[0] * 100}%;--spot-y:${s.spot[1] * 100}%"`;
+export const cardSpot = (s) => `<i class="card-spot${s.project.key === "tr" ? " card-spot--phone" : ""}"></i>`;
 
 /* Deterministic shuffle, so the wall never puts a project's shots side by
    side and still looks the same on every load. */

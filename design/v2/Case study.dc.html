@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&amp;family=Modak&amp;family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E0C0A}a{color:#F0532A;text-decoration:none}a:hover{color:#F3EBDD}</style>
+</helmet>
+<div style="background:#0E0C0A;padding:80px;display:flex;flex-direction:column;gap:96px;font-family:Outfit,sans-serif;color:#F3EBDD;width:max-content">
+
+  <header style="display:flex;flex-direction:column;gap:12px;max-width:1440px">
+    <span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Joanna Żuczkowska · portfolio · case study</span>
+    <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:56px;line-height:1.05">Strona projektu — Nature Future</h1>
+    <p style="margin:0;font-size:18px;line-height:1.5;color:#A99E8E;max-width:72ch;text-wrap:pretty">Kadry 1a i 1b pokazują pełną długość strony, więc nawigacja leży na jej dole. W Tweaks przełącz kadr na „jeden ekran”, żeby przewijać z przyklejoną nawigacją i zobaczyć, jak wchodzą obrazy. Teksty i obrazy są zastępcze.</p>
+  </header>
+
+  <section style="display:flex;gap:64px;align-items:flex-start">
+    <div id="1a" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <a href="#1a" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1a</a>
+        <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Desktop · case study</span>
+        <span style="font-size:15px;color:#A99E8E">1440 px · cała długość strony</span>
+      </div>
+      <div ref="{{ deskRef }}" style="width:1440px;height:{{ deskH }};overflow-x:hidden;overflow-y:auto;position:relative;background:#15120F;border:1px solid #2E2822;border-radius:12px">
+
+        <div style="padding:16px 16px 0">
+          <div style="position:relative;height:750px;border-radius:14px;background:#3A4034;overflow:hidden">
+            <div style="position:absolute;left:62%;top:45%;width:375px;height:375px;margin:-187px 0 0 -187px;border-radius:50%;background:rgba(243,235,221,.08)"></div>
+            <a href="#" style="position:absolute;left:24px;top:24px;height:44px;padding:0 20px 0 16px;display:flex;align-items:center;gap:8px;border-radius:999px;background:#1E1A16;border:1px solid #2E2822;color:#F3EBDD;font-size:15px;font-weight:500" style-hover="color:#F3EBDD;border-color:#F0532A" style-active="background:#D2401C;border-color:#D2401C">← wróć</a>
+            <span style="position:absolute;right:28px;top:36px;font-size:14px;font-weight:500;color:#F3EBDD">hero: strona główna · ta sama grafika co karta na orbicie</span>
+            <div style="position:absolute;left:48px;right:48px;bottom:44px;display:flex;flex-direction:column;align-items:flex-start;gap:20px">
+              <span style="font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#F0532A;background:#15120F;padding:8px 14px;border-radius:999px">web</span>
+              <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:128px;line-height:.95;letter-spacing:-.01em;color:#F3EBDD">Nature Future</h1>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:72px 120px 0;display:flex;flex-direction:column;gap:160px">
+
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:32px;align-items:center;padding:28px 0;border-top:1px solid #2E2822;border-bottom:1px solid #2E2822">
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Rola</span><span style="font-size:17px;line-height:1.4">UX/UI designer, research</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Rok</span><span style="font-size:17px;line-height:1.4">2025</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Zakres</span><span style="font-size:17px;line-height:1.4">Strona www, design system</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Narzędzia</span><span style="font-size:17px;line-height:1.4">Figma, Maze, Webflow</span></div>
+            <a href="#" style="height:44px;display:flex;align-items:center;font-size:17px;font-weight:500;color:#F0532A;white-space:nowrap" style-hover="color:#F3EBDD" style-active="color:#D2401C">zobacz stronę →</a>
+          </div>
+
+          <p style="margin:0;max-width:760px;font-size:32px;line-height:1.35;font-weight:400;letter-spacing:-.01em;text-wrap:pretty">Strona fundacji klimatycznej, która zamienia długie raporty w krótkie historie, przez które chce się przewinąć do końca.</p>
+
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:96px;align-items:center">
+            <div style="display:flex;flex-direction:column;gap:24px;max-width:560px">
+              <span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">problem</span>
+              <h2 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:56px;line-height:1.05">Raporty, których nikt nie czytał</h2>
+              <p style="margin:0;font-size:19px;line-height:1.6;max-width:64ch;text-wrap:pretty">Fundacja co kwartał publikowała raport w PDF-ie liczący kilkadziesiąt stron. Strona była tylko miejscem, z którego się go pobierało, a większość odwiedzających wychodziła po kilku sekundach.</p>
+              <p style="margin:0;font-size:19px;line-height:1.6;max-width:64ch;text-wrap:pretty">Zespół chciał, żeby wyniki badań trafiały do osób spoza branży: nauczycieli, dziennikarzy i lokalnych samorządów. Bez zmiany formy treści nie dało się tego osiągnąć.</p>
+            </div>
+            <div data-reveal="1" style="position:relative;width:600px;height:750px;border-radius:14px;background:#3A4034"><span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">obraz: stara strona, audyt</span></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:96px">
+            <div style="display:flex;flex-direction:column;gap:24px;max-width:640px">
+              <span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">proces</span>
+              <h2 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:56px;line-height:1.05">Od arkusza do opowieści</h2>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:120px">
+              <div style="display:grid;grid-template-columns:600px minmax(0,1fr);gap:96px;align-items:center">
+                <div data-reveal="1" style="position:relative;width:600px;height:450px;border-radius:14px;background:#3A4034"><span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">obraz: mapa treści z warsztatu</span></div>
+                <div style="display:flex;flex-direction:column;gap:16px;max-width:440px">
+                  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">01</span>
+                  <h3 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:36px;line-height:1.1">Mapa treści</h3>
+                  <p style="margin:0;font-size:19px;line-height:1.6;text-wrap:pretty">Przejrzałam trzy ostatnie raporty i wypisałam pytania, na które odpowiadają. Z warsztatu z zespołem wyszło siedem tematów, które wracają co kwartał.</p>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:96px;align-items:center">
+                <div style="display:flex;flex-direction:column;gap:16px;max-width:440px;justify-self:end">
+                  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">02</span>
+                  <h3 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:36px;line-height:1.1">Makiety i testy</h3>
+                  <p style="margin:0;font-size:19px;line-height:1.6;text-wrap:pretty">Zbudowałam dwa warianty strony tematu i sprawdziłam je z ośmioma osobami. Wygrała wersja, w której dane pojawiają się dopiero po krótkim wstępie.</p>
+                </div>
+                <div data-reveal="1" style="position:relative;width:600px;height:450px;border-radius:14px;background:#3A4034"><span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">obraz: makiety w Figmie</span></div>
+              </div>
+              <div style="display:grid;grid-template-columns:600px minmax(0,1fr);gap:96px;align-items:center">
+                <div data-reveal="1" style="position:relative;width:600px;height:450px;border-radius:14px;background:#3A4034"><span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">obraz: biblioteka komponentów</span></div>
+                <div style="display:flex;flex-direction:column;gap:16px;max-width:440px">
+                  <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">03</span>
+                  <h3 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:36px;line-height:1.1">System komponentów</h3>
+                  <p style="margin:0;font-size:19px;line-height:1.6;text-wrap:pretty">Ułożyłam bibliotekę bloków, z których redakcja składa nowe historie bez pomocy programisty. Każdy blok ma wersję na telefon i krótki opis użycia.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:32px">
+            <span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">galeria</span>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px">
+              <div data-reveal="1" style="grid-column:1 / 3;position:relative;height:675px;border-radius:14px;background:#3A4034;display:flex;align-items:center;justify-content:center">
+                <span aria-label="Odtwórz wideo" style="width:88px;height:88px;border-radius:50%;background:#15120F;display:flex;align-items:center;justify-content:center"><span style="width:0;height:0;border-left:26px solid #F3EBDD;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:6px"></span></span>
+                <span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">wideo: przewijanie strony tematu · 0:42</span>
+              </div>
+              <div data-reveal="1" style="position:relative;height:735px;border-radius:14px;background:#3A4034"><span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">telefon: menu tematów</span></div>
+              <div data-reveal="1" style="position:relative;height:735px;border-radius:14px;background:#3A4034"><span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">telefon: artykuł</span></div>
+              <div data-reveal="1" style="position:relative;aspect-ratio:1;border-radius:14px;background:#3A4034"><span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">detal: nawigacja</span></div>
+              <p style="margin:0;align-self:end;max-width:36ch;font-size:17px;line-height:1.5;color:#A99E8E;text-wrap:pretty">Nawigacja tematów w trzech stanach: spoczynek, hover i aktywny.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:56px">
+            <div style="display:flex;flex-direction:column;gap:24px;max-width:640px">
+              <span style="font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">rezultat</span>
+              <h2 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:56px;line-height:1.05">Co się zmieniło</h2>
+              <p style="margin:0;font-size:19px;line-height:1.6;max-width:64ch;text-wrap:pretty">Po trzech miesiącach od startu strona przestała być miejscem do pobrania pliku. Ludzie czytają historie do końca i wracają do kolejnych tematów, a redakcja publikuje nowe treści sama, bez kolejki do programisty.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px">
+              <div style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #2E2822;padding-top:28px"><span style="font-family:DynaPuff,cursive;font-weight:500;font-size:112px;line-height:1;color:#F0532A">+00%</span><span style="font-size:17px;line-height:1.5;color:#A99E8E;max-width:26ch">czasu spędzanego na stronie tematu</span></div>
+              <div style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #2E2822;padding-top:28px"><span style="font-family:DynaPuff,cursive;font-weight:500;font-size:112px;line-height:1;color:#F0532A">−00%</span><span style="font-size:17px;line-height:1.5;color:#A99E8E;max-width:26ch">odejść z pierwszego ekranu</span></div>
+              <div style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #2E2822;padding-top:28px"><span style="font-family:DynaPuff,cursive;font-weight:500;font-size:112px;line-height:1;color:#F0532A">00</span><span style="font-size:17px;line-height:1.5;color:#A99E8E;max-width:26ch">historii opublikowanych samodzielnie przez redakcję</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:relative;padding:200px 16px 160px">
+          <div style="position:absolute;right:140px;top:200px;width:160px;transform:translateY(-64%);z-index:1">
+            <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="display:block;width:160px;height:132px;background-image:url({{ nuri.peach }});background-size:contain;background-repeat:no-repeat;background-position:center;transform:translateY({{ liftD }}px);transition:transform .35s cubic-bezier(.2,.7,.2,1)"></span></sc-if>
+          </div>
+          <a href="#" onMouseEnter="{{ onNextIn }}" onMouseLeave="{{ onNextOut }}" style="position:relative;z-index:2;display:block;height:480px;border-radius:14px;background:#3A4034;overflow:hidden;color:#F3EBDD" style-hover="color:#F3EBDD" style-active="color:#F3EBDD">
+            <span style="position:absolute;inset:0;background:rgba(21,18,15,.62);opacity:{{ dimD }};transition:opacity .35s"></span>
+            <span style="position:absolute;left:28px;top:28px;font-size:14px;font-weight:500;color:#A99E8E">tło: hero Nieruchomości, przygaszone</span>
+            <span style="position:absolute;left:48px;right:48px;bottom:44px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px">
+              <span style="display:flex;flex-direction:column;gap:16px">
+                <span style="font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">następny projekt</span>
+                <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:128px;line-height:.95;letter-spacing:-.01em">Nieruchomości</span>
+              </span>
+              <span style="width:88px;height:88px;flex:none;border-radius:50%;border:1.5px solid #F3EBDD;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:32px">→</span>
+            </span>
+          </a>
+        </div>
+
+        <div style="position:sticky;bottom:0;height:0;z-index:50">
+          <div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px">
+            <a href="#" aria-label="Nuri — start" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%">
+              <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center"></span></sc-if>
+            </a>
+            <a href="#" style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:15px;font-weight:600" style-active="background:#D2401C">Work</a>
+            <a href="#" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">About</a>
+            <a href="#" style="height:44px;padding:0 18px;display:flex;align-items:center;border-radius:999px;color:#F3EBDD;font-size:15px;font-weight:500">Kontakt</a>
+            <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+            <div style="display:flex;align-items:center">
+              <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+              <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+            </div>
+            <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+            <div style="display:flex;align-items:center">
+              <span aria-label="Widok orbita" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#F0532A"><span style="width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:4px;height:4px;border-radius:50%;background:currentColor"></span></span></span>
+              <span aria-label="Widok lista" style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#A99E8E"><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1b" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <a href="#1b" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1b</a>
+        <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Telefon · case study</span>
+        <span style="font-size:15px;color:#A99E8E">375 px · cała długość</span>
+      </div>
+      <div ref="{{ phoneRef }}" style="width:375px;height:{{ phoneH }};overflow-x:hidden;overflow-y:auto;position:relative;background:#15120F;border:1px solid #2E2822;border-radius:48px">
+        <div style="position:sticky;top:0;height:47px;background:#15120F;z-index:50;display:flex;align-items:center;padding-left:32px"><span style="font-size:15px;font-weight:600">9:41</span></div>
+
+        <div style="padding:4px 16px 0">
+          <div style="position:relative;height:640px;border-radius:12px;background:#3A4034;overflow:hidden">
+            <div style="position:absolute;left:62%;top:40%;width:172px;height:172px;margin:-86px 0 0 -86px;border-radius:50%;background:rgba(243,235,221,.08)"></div>
+            <a href="#" style="position:absolute;left:12px;top:12px;height:44px;padding:0 18px 0 14px;display:flex;align-items:center;gap:6px;border-radius:999px;background:#1E1A16;border:1px solid #2E2822;color:#F3EBDD;font-size:15px;font-weight:500" style-active="background:#D2401C;border-color:#D2401C">← wróć</a>
+            <span style="position:absolute;right:16px;top:26px;font-size:12px;font-weight:500;color:#F3EBDD">hero: strona główna</span>
+            <div style="position:absolute;left:20px;right:20px;bottom:24px;display:flex;flex-direction:column;align-items:flex-start;gap:14px">
+              <span style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#F0532A;background:#15120F;padding:7px 12px;border-radius:999px">web</span>
+              <h1 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:54px;line-height:.98;color:#F3EBDD">Nature Future</h1>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:40px 0 0;display:flex;flex-direction:column;gap:96px">
+          <div style="padding:0 20px;display:flex;flex-direction:column">
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 16px;padding:20px 0;border-top:1px solid #2E2822;border-bottom:1px solid #2E2822">
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Rola</span><span style="font-size:15px;line-height:1.4">UX/UI designer, research</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Rok</span><span style="font-size:15px;line-height:1.4">2025</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Zakres</span><span style="font-size:15px;line-height:1.4">Strona www, design system</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Narzędzia</span><span style="font-size:15px;line-height:1.4">Figma, Maze, Webflow</span></div>
+            </div>
+            <a href="#" style="height:52px;display:flex;align-items:center;justify-content:space-between;font-size:16px;font-weight:500;color:#F0532A;border-bottom:1px solid #2E2822" style-active="color:#D2401C"><span>zobacz stronę</span><span>→</span></a>
+          </div>
+
+          <p style="margin:0;padding:0 20px;font-size:24px;line-height:1.35;letter-spacing:-.01em;text-wrap:pretty">Strona fundacji klimatycznej, która zamienia długie raporty w krótkie historie, przez które chce się przewinąć do końca.</p>
+
+          <div style="display:flex;flex-direction:column;gap:32px">
+            <div style="padding:0 20px;display:flex;flex-direction:column;gap:18px">
+              <span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">problem</span>
+              <h2 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:34px;line-height:1.1">Raporty, których nikt nie czytał</h2>
+              <p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty">Fundacja co kwartał publikowała raport w PDF-ie liczący kilkadziesiąt stron. Strona była tylko miejscem, z którego się go pobierało, a większość odwiedzających wychodziła po kilku sekundach.</p>
+              <p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty">Zespół chciał, żeby wyniki badań trafiały do osób spoza branży: nauczycieli, dziennikarzy i lokalnych samorządów. Bez zmiany formy treści nie dało się tego osiągnąć.</p>
+            </div>
+            <div data-reveal="1" style="position:relative;margin:0 16px;height:429px;border-radius:12px;background:#3A4034"><span style="position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:500;color:#F3EBDD">obraz: stara strona, audyt</span></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:40px">
+            <div style="padding:0 20px;display:flex;flex-direction:column;gap:18px">
+              <span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">proces</span>
+              <h2 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:34px;line-height:1.1">Od arkusza do opowieści</h2>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:56px">
+              <div style="display:flex;flex-direction:column;gap:20px">
+                <div data-reveal="1" style="position:relative;margin:0 16px;height:257px;border-radius:12px;background:#3A4034"><span style="position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:500;color:#F3EBDD">obraz: mapa treści z warsztatu</span></div>
+                <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
+                  <span style="font-size:17px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">01</span>
+                  <h3 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:24px;line-height:1.15">Mapa treści</h3>
+                  <p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty">Przejrzałam trzy ostatnie raporty i wypisałam pytania, na które odpowiadają. Z warsztatu z zespołem wyszło siedem tematów, które wracają co kwartał.</p>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:20px">
+                <div data-reveal="1" style="position:relative;margin:0 16px;height:257px;border-radius:12px;background:#3A4034"><span style="position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:500;color:#F3EBDD">obraz: makiety w Figmie</span></div>
+                <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
+                  <span style="font-size:17px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">02</span>
+                  <h3 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:24px;line-height:1.15">Makiety i testy</h3>
+                  <p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty">Zbudowałam dwa warianty strony tematu i sprawdziłam je z ośmioma osobami. Wygrała wersja, w której dane pojawiają się dopiero po krótkim wstępie.</p>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:20px">
+                <div data-reveal="1" style="position:relative;margin:0 16px;height:257px;border-radius:12px;background:#3A4034"><span style="position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:500;color:#F3EBDD">obraz: biblioteka komponentów</span></div>
+                <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
+                  <span style="font-size:17px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">03</span>
+                  <h3 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:24px;line-height:1.15">System komponentów</h3>
+                  <p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty">Ułożyłam bibliotekę bloków, z których redakcja składa nowe historie bez pomocy programisty. Każdy blok ma wersję na telefon i krótki opis użycia.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <span style="padding:0 20px;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">galeria</span>
+            <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px">
+              <div data-reveal="1" style="position:relative;height:193px;border-radius:12px;background:#3A4034;display:flex;align-items:center;justify-content:center">
+                <span aria-label="Odtwórz wideo" style="width:56px;height:56px;border-radius:50%;background:#15120F;display:flex;align-items:center;justify-content:center"><span style="width:0;height:0;border-left:17px solid #F3EBDD;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px"></span></span>
+                <span style="position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:500;color:#F3EBDD">wideo: przewijanie · 0:42</span>
+              </div>
+              <div data-reveal="1" style="position:relative;height:429px;border-radius:12px;background:#3A4034"><span style="position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:500;color:#F3EBDD">telefon: menu tematów</span></div>
+              <div data-reveal="1" style="position:relative;height:429px;border-radius:12px;background:#3A4034"><span style="position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:500;color:#F3EBDD">telefon: artykuł</span></div>
+              <div data-reveal="1" style="position:relative;aspect-ratio:1;border-radius:12px;background:#3A4034"><span style="position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:500;color:#F3EBDD">detal: nawigacja</span></div>
+            </div>
+            <p style="margin:0;padding:0 20px;font-size:15px;line-height:1.5;color:#A99E8E;text-wrap:pretty">Nawigacja tematów w trzech stanach: spoczynek, hover i aktywny.</p>
+          </div>
+
+          <div style="padding:0 20px;display:flex;flex-direction:column;gap:40px">
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <span style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">rezultat</span>
+              <h2 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:34px;line-height:1.1">Co się zmieniło</h2>
+              <p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty">Po trzech miesiącach od startu strona przestała być miejscem do pobrania pliku. Ludzie czytają historie do końca i wracają do kolejnych tematów, a redakcja publikuje nowe treści sama, bez kolejki do programisty.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:28px">
+              <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #2E2822;padding-top:20px"><span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;color:#F0532A">+00%</span><span style="font-size:15px;line-height:1.5;color:#A99E8E">czasu spędzanego na stronie tematu</span></div>
+              <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #2E2822;padding-top:20px"><span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;color:#F0532A">−00%</span><span style="font-size:15px;line-height:1.5;color:#A99E8E">odejść z pierwszego ekranu</span></div>
+              <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #2E2822;padding-top:20px"><span style="font-family:DynaPuff,cursive;font-weight:500;font-size:72px;line-height:1;color:#F0532A">00</span><span style="font-size:15px;line-height:1.5;color:#A99E8E">historii opublikowanych samodzielnie przez redakcję</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:relative;padding:136px 16px 140px">
+          <div style="position:absolute;right:40px;top:136px;width:96px;transform:translateY(-64%);z-index:1">
+            <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="display:block;width:96px;height:79px;background-image:url({{ nuri.peach }});background-size:contain;background-repeat:no-repeat;background-position:center"></span></sc-if>
+          </div>
+          <a href="#" style="position:relative;z-index:2;display:block;height:360px;border-radius:12px;background:#3A4034;overflow:hidden;color:#F3EBDD" style-hover="color:#F3EBDD" style-active="color:#F3EBDD">
+            <span style="position:absolute;inset:0;background:rgba(21,18,15,.62)"></span>
+            <span style="position:absolute;left:16px;top:16px;font-size:12px;font-weight:500;color:#A99E8E">tło: hero Nieruchomości, przygaszone</span>
+            <span style="position:absolute;left:20px;right:20px;bottom:22px;display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#F0532A">następny projekt</span>
+              <span style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+                <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:34px;line-height:1.05">Nieruchomości</span>
+                <span style="width:48px;height:48px;flex:none;border-radius:50%;border:1.5px solid #F3EBDD;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:20px">→</span>
+              </span>
+            </span>
+          </a>
+        </div>
+
+        <div style="position:sticky;bottom:0;height:0;z-index:50">
+          <div style="position:absolute;left:12px;right:12px;bottom:42px;height:56px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 5px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px">
+            <a href="#" aria-label="Nuri — start" style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:50%">
+              <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:26px;height:26px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center"></span></sc-if>
+            </a>
+            <a href="#" style="height:44px;padding:0 12px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:14px;font-weight:600" style-active="background:#D2401C">Work</a>
+            <a href="#" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">About</a>
+            <a href="#" style="height:44px;padding:0 8px;display:flex;align-items:center;color:#F3EBDD;font-size:14px;font-weight:500">Kontakt</a>
+            <span aria-label="Język PL, przełącz na EN" style="height:44px;min-width:48px;display:flex;align-items:center;justify-content:center;gap:3px;font-size:13px"><span style="font-weight:600;color:#F0532A">PL</span><span style="color:#A99E8E">EN</span></span>
+            <span aria-label="Widok orbita, przełącz na listę" style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;color:#F0532A"><span style="width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:4px;height:4px;border-radius:50%;background:currentColor"></span></span></span>
+          </div>
+          <span style="position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#F3EBDD"></span>
+        </div>
+      </div>
+      <span style="font-size:14px;color:#A99E8E;max-width:375px;line-height:1.5">Jedna kolumna, obrazy z marginesem 16 px. Nawigacja jak na stronie głównej: 34 px safe-area + 8 px, cele 44 px.</span>
+    </div>
+  </section>
+
+  <section style="display:flex;gap:64px;align-items:flex-start">
+    <div id="1c" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <a href="#1c" style="font-size:14px;font-weight:600;color:#15120F;background:#F0532A;padding:4px 10px;border-radius:999px">1c</a>
+        <span style="font-family:DynaPuff,cursive;font-weight:500;font-size:24px">Desktop · w trakcie przewijania</span>
+        <span style="font-size:15px;color:#A99E8E">1440 × 900 · sekcja Proces, krok 02 się odsłania</span>
+      </div>
+      <div style="display:flex;gap:48px;align-items:flex-start">
+        <div style="width:1440px;height:900px;position:relative;overflow:hidden;background:#15120F;border:1px solid #2E2822;border-radius:12px;flex:none">
+          <div style="position:absolute;left:120px;right:120px;top:60px;display:grid;grid-template-columns:600px minmax(0,1fr);gap:96px;align-items:center">
+            <div style="position:relative;width:600px;height:450px;border-radius:14px;background:#3A4034"><span style="position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;color:#F3EBDD">obraz: mapa treści z warsztatu</span></div>
+            <div style="display:flex;flex-direction:column;gap:16px;max-width:440px">
+              <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">01</span>
+              <h3 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:36px;line-height:1.1">Mapa treści</h3>
+              <p style="margin:0;font-size:19px;line-height:1.6;text-wrap:pretty">Przejrzałam trzy ostatnie raporty i wypisałam pytania, na które odpowiadają. Z warsztatu z zespołem wyszło siedem tematów, które wracają co kwartał.</p>
+            </div>
+          </div>
+          <div style="position:absolute;left:120px;right:120px;top:630px;display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:96px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:16px;max-width:440px;justify-self:end;padding-top:116px">
+              <span style="font-size:20px;font-weight:500;color:#F0532A;font-variant-numeric:tabular-nums">02</span>
+              <h3 style="margin:0;font-family:DynaPuff,cursive;font-weight:500;font-size:36px;line-height:1.1">Makiety i testy</h3>
+            </div>
+            <div style="position:relative;width:600px;height:450px;border-radius:14px;background:#3A4034;transform:translateY(48px);opacity:.35"><span style="position:absolute;left:20px;top:20px;font-size:14px;font-weight:500;color:#F3EBDD">obraz: makiety w Figmie</span></div>
+          </div>
+          <div style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;background:#1E1A16;border:1px solid #2E2822;border-radius:999px;z-index:10">
+            <span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center">
+              <sc-if value="{{ nuriReady }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Nuri" style="width:30px;height:30px;display:block;background-image:url({{ nuri.cream }});background-size:contain;background-repeat:no-repeat;background-position:center"></span></sc-if>
+            </span>
+            <span style="height:44px;padding:0 20px;display:flex;align-items:center;border-radius:999px;background:#F0532A;color:#15120F;font-size:15px;font-weight:600">Work</span>
+            <span style="height:44px;padding:0 18px;display:flex;align-items:center;font-size:15px;font-weight:500">About</span>
+            <span style="height:44px;padding:0 18px;display:flex;align-items:center;font-size:15px;font-weight:500">Kontakt</span>
+            <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+            <div style="display:flex;align-items:center">
+              <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#F0532A">PL</span>
+              <span style="width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#A99E8E">EN</span>
+            </div>
+            <span style="width:1px;height:24px;background:#2E2822;margin:0 6px"></span>
+            <div style="display:flex;align-items:center">
+              <span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#F0532A"><span style="width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:4px;height:4px;border-radius:50%;background:currentColor"></span></span></span>
+              <span style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#A99E8E"><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span><span style="width:15px;height:2px;border-radius:1px;background:currentColor"></span></span>
+            </div>
+          </div>
+        </div>
+        <div style="width:360px;display:flex;flex-direction:column;gap:20px;padding-top:8px">
+          <span style="font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#A99E8E">Jak wchodzą obrazy</span>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #2E2822">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid #2E2822"><span style="font-size:15px;font-weight:500">Wyzwalacz</span><span style="font-size:15px;line-height:1.5;color:#A99E8E">górna krawędź obrazu mija 90% wysokości ekranu</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid #2E2822"><span style="font-size:15px;font-weight:500">Ruch</span><span style="font-size:15px;line-height:1.5;color:#A99E8E">z 72 px niżej do pozycji, krycie 0 → 1</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid #2E2822"><span style="font-size:15px;font-weight:500">Czas</span><span style="font-size:15px;line-height:1.5;color:#A99E8E">700 ms, ease-out, raz — bez powrotu przy scrollu w górę</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid #2E2822"><span style="font-size:15px;font-weight:500">Tekst</span><span style="font-size:15px;line-height:1.5;color:#A99E8E">nie animuje się, czyta się od razu</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid #2E2822"><span style="font-size:15px;font-weight:500">Ograniczony ruch</span><span style="font-size:15px;line-height:1.5;color:#A99E8E">przy prefers-reduced-motion obrazy są widoczne od początku</span></div>
+          </div>
+          <span style="font-size:14px;line-height:1.5;color:#A99E8E">Kadr: ok. 200 ms po wejściu kroku 02 — przesunięcie 48 px, krycie 0,35.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;kadr&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cała strona&quot;,&quot;jeden ekran&quot;],&quot;default&quot;:&quot;cała strona&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Podgląd&quot;},&quot;przesuniecie&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0,&quot;max&quot;:160,&quot;step&quot;:8,&quot;unit&quot;:&quot;px&quot;,&quot;default&quot;:72,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Wchodzenie obrazów&quot;}}">
+const PERS=[240,83,42],DEEP=[210,64,28],DARK=[21,18,15];
+const mix=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];
+const cl=v=>Math.max(0,Math.min(1,v));
+const EASE='cubic-bezier(.2,.7,.2,1)';
+
+class Component extends DCLogic {
+  state={nuri:null,hov:false};
+  deskRef=React.createRef();phoneRef=React.createRef();
+  componentDidMount(){this.loadNuri();requestAnimationFrame(()=>this.setupReveal());}
+  componentDidUpdate(pp){if(pp.kadr!==this.props.kadr||pp.przesuniecie!==this.props.przesuniecie)requestAnimationFrame(()=>this.setupReveal());}
+  componentWillUnmount(){[this.deskRef.current,this.phoneRef.current].forEach(r=>r&&r._h&&r.removeEventListener('scroll',r._h));}
+
+  setupReveal(){
+    const live=(this.props.kadr??'cała strona')==='jeden ekran';
+    const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shift=this.props.przesuniecie??72;
+    [this.deskRef.current,this.phoneRef.current].forEach(root=>{
+      if(!root)return;
+      if(root._h)root.removeEventListener('scroll',root._h);
+      root.scrollTop=0;
+      const els=[...root.querySelectorAll('[data-reveal]')];
+      els.forEach(e=>{e.style.transition='none';e.style.transform='';e.style.opacity='';e._shown=true;});
+      if(!live||reduce)return;
+      els.forEach(e=>{e.style.transform=`translateY(${shift}px)`;e.style.opacity='0';e._shown=false;});
+      const check=()=>{
+        const rb=root.getBoundingClientRect();
+        els.forEach(e=>{if(e._shown)return;const eb=e.getBoundingClientRect();
+          if((eb.top-rb.top-shift*rb.height/root.clientHeight)/rb.height<.9){e._shown=true;
+            e.style.transition=`transform .7s ${EASE}, opacity .7s ${EASE}`;e.style.transform='none';e.style.opacity='1';}});
+      };
+      root._h=check;root.addEventListener('scroll',check,{passive:true});check();
+    });
+  }
+
+  async loadNuri(){
+    const img=new Image();img.src='uploads/nuri.svg.png';
+    try{await img.decode();}catch(e){return;}
+    const W=img.naturalWidth,H=img.naturalHeight,cv=document.createElement('canvas');cv.width=W;cv.height=H;
+    const g=cv.getContext('2d');g.drawImage(img,0,0);const data=g.getImageData(0,0,W,H).data,M=10;
+    let x0=1e9,y0=1e9,x1=-1,y1=-1;
+    for(let y=M;y<H-M;y+=2)for(let x=M;x<W-M;x+=2){const o=(y*W+x)*4;if(765-data[o]-data[o+1]-data[o+2]>25){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}}
+    const so=(Math.round(H*.75)*W+Math.round(W*.5))*4,cr=[data[so],data[so+1],data[so+2]],csum=cr[0]+cr[1]+cr[2],def=Math.max(20,765-csum),cL=csum/3,cRed=cr[0]-cr[2];
+    const cx0=Math.max(0,x0-4),cy0=Math.max(0,y0-4),cw=Math.min(W,x1+5)-cx0,ch=Math.min(H,y1+5)-cy0;
+    const a=g.getImageData(cx0,cy0,cw,ch),b=g.getImageData(cx0,cy0,cw,ch),ad=a.data,bd=b.data;
+    for(let y=0;y<ch;y++)for(let x=0;x<cw;x++){
+      const o=(y*cw+x)*4,ax=x+cx0,ay=y+cy0;
+      if(ax<M||ay<M||ax>W-M||ay>H-M){ad[o+3]=0;bd[o+3]=0;continue;}
+      const r=ad[o],gg=ad[o+1],bb=ad[o+2],sum=r+gg+bb,al=Math.min(1,(765-sum)/def);
+      if(al<1){ad[o]=cr[0];ad[o+1]=cr[1];ad[o+2]=cr[2];ad[o+3]=Math.round(al*255);
+        bd[o]=PERS[0];bd[o+1]=PERS[1];bd[o+2]=PERS[2];bd[o+3]=Math.round(al*255);continue;}
+      const t=cl((sum/3-30)/(cL-30)),red=cl(((r-bb)-cRed)/90);
+      const c=mix(mix(DARK,PERS,t),DEEP,red);bd[o]=c[0];bd[o+1]=c[1];bd[o+2]=c[2];bd[o+3]=255;
+    }
+    const toUrl=async id=>{const c=document.createElement('canvas');c.width=cw;c.height=ch;c.getContext('2d').putImageData(id,0,0);
+      const blob=await new Promise(res=>c.toBlob(res,'image/png'));return URL.createObjectURL(blob);};
+    this.setState({nuri:{cream:await toUrl(a),peach:await toUrl(b)}});
+  }
+
+  renderVals(){
+    const one=(this.props.kadr??'cała strona')==='jeden ekran';
+    const h=this.state.hov;
+    return {
+      deskRef:this.deskRef,phoneRef:this.phoneRef,
+      deskH:one?'900px':'auto',phoneH:one?'812px':'auto',
+      nuri:this.state.nuri||{},nuriReady:!!this.state.nuri,
+      liftD:h?-14:0,dimD:h?.72:1,
+      onNextIn:()=>this.setState({hov:true}),onNextOut:()=>this.setState({hov:false})};
+  }
+}
+</script>
+</body>
+</html>
