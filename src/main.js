@@ -1,4 +1,4 @@
-/* v2 motion lab — the two signature effects on placeholder content:
+/* The portfolio's home page — the two signature effects on placeholder content:
    1. the project wall: an orbit of cards (orbit.js) or the infinite
       Phantom-style grid (canvas.js), switchable in the panel
    2. the dot field that forms Nuri in the intro (dots.js)
@@ -47,7 +47,7 @@ for (const b of $("#langSwitch").children) {
 
 /* The switch saves the choice and reloads; `resume` carries where the
    visitor was across that reload, so only the words change. */
-const RESUME_KEY = "lab.resume";
+const RESUME_KEY = "portfolio.resume";
 const resume = JSON.parse(sessionStorage.getItem(RESUME_KEY) || "null");
 sessionStorage.removeItem(RESUME_KEY);
 $("#langSwitch").addEventListener("click", (e) => {

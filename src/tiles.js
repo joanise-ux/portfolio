@@ -1,4 +1,4 @@
-/* Placeholder content for the motion lab: flat-colour cards standing in for
+/* Placeholder content for the project wall: flat-colour cards standing in for
    the five planned projects, as drawn in design/v2/Strona główna.dc.html.
    Real shots replace `makeTexture` later — the layouts only care about
    `aspect` and a texture. */
