@@ -1,5 +1,6 @@
 /* v2 motion lab — the two signature effects on placeholder content:
-   1. the infinite project wall (canvas.js)
+   1. the project wall: an orbit of cards (orbit.js) or the infinite
+      Phantom-style grid (canvas.js), switchable in the panel
    2. the dot field that forms Nuri in the intro (dots.js)
    Open /lab/ and tune the feel with the panel in the corner. */
 
@@ -7,14 +8,18 @@ import * as THREE from "three";
 import gsap from "gsap";
 import GUI from "lil-gui";
 import { InfiniteCanvas } from "./canvas.js";
+import { Orbit } from "./orbit.js";
 import { Dots } from "./dots.js";
-import { buildShots } from "./tiles.js";
+import { Buddy } from "./buddy.js";
+import { buildShots, shuffled } from "./tiles.js";
 
 const $ = (s) => document.querySelector(s);
 const stage = $("#stage");
 const label = $("#cursorLabel");
+const caption = $("#caption");
+const captionName = caption.querySelector(".caption__name");
+const captionCat = caption.querySelector(".caption__cat");
 const labelName = label.querySelector(".cursor-label__name");
-const labelCat = label.querySelector(".cursor-label__cat");
 const hint = $("#hint");
 const detail = $("#detail");
 
@@ -22,34 +27,54 @@ const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").mat
 
 /* Everything the panel can tune. Values here are the starting "feel". */
 const settings = {
+  accent: "#f0532a", // persymona
+  layout: "orbita", // "orbita" suits 3–6 projects, "siatka" needs many more
   ease: 0.085, // how fast the wall catches up with the finger (lower = more glide)
   dragSpeed: 1.15,
   wheelSpeed: 0.9,
   momentum: 9, // how far a fling carries
   bend: 1.4,
   rgb: 1.0,
-  hoverScale: 1.06,
-  dim: 0.38,
+  hoverScale: 1.05,
+  dim: 0.45,
+  orbitSpin: 22, // px of turn per second when nobody is touching it
+  orbitBlur: 3.5,
+  orbitPerProject: 2,
   dotSize: 3.2,
   fieldAlpha: 0.32,
   parallax: 0.12,
   introSpeed: 1,
   dotsDesktop: 1100,
   dotsMobile: 320,
+  buddy: true, // little Nuri on the page after the intro
   reducedMotion: prefersReduced,
 };
 
 /* ── three ───────────────────────────────────────────── */
 const renderer = new THREE.WebGLRenderer({ canvas: stage, antialias: true, alpha: false });
-renderer.setClearColor(0x0e0c0b, 1);
+renderer.setClearColor(0x15120f, 1);
 const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -100, 100);
 camera.position.z = 10;
 
 await document.fonts.ready; // tile labels are drawn with Outfit
-const wall = new InfiniteCanvas({ scene, shots: buildShots(), settings });
+const shots = buildShots();
+const walls = {
+  orbita: new Orbit({ scene, shots, settings }),
+  siatka: new InfiniteCanvas({ scene, shots: shuffled(shots), settings }),
+};
+let wall = walls[settings.layout];
 const dots = new Dots({ scene, settings });
-if (import.meta.env.DEV) window.__lab = { wall, dots, settings, renderer, gsap };
+const buddy = new Buddy({ settings, dock: $(".dock") });
+if (import.meta.env.DEV) window.__lab = { walls, dots, buddy, settings, renderer, gsap };
+
+function setLayout() {
+  closeDetail(true);
+  wall = walls[settings.layout];
+  for (const w of Object.values(walls)) w.group.visible = w === wall;
+  gsap.killTweensOf(wall);
+  gsap.fromTo(wall, { reveal: 0 }, { reveal: 1, duration: settings.reducedMotion ? 0 : 1.2, ease: "power2.out" });
+}
 
 let vw = 0;
 let vh = 0;
@@ -65,10 +90,11 @@ function resize() {
   camera.bottom = -vh / 2;
   camera.updateProjectionMatrix();
   closeDetail(true);
-  wall.layout(vw, vh);
+  for (const w of Object.values(walls)) w.layout(vw, vh);
   dots.layout(vw, vh, pr);
 }
 resize();
+for (const w of Object.values(walls)) w.group.visible = w === wall;
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
@@ -77,10 +103,12 @@ window.addEventListener("resize", () => {
 
 /* ── intro ───────────────────────────────────────────── */
 function intro() {
+  buddy.hide();
   wall.reveal = 0;
   gsap.killTweensOf(wall);
   dots.playIntro({
     onRelease: () => gsap.to(wall, { reveal: 1, duration: settings.reducedMotion ? 0 : 1.8, ease: "power2.out" }),
+    onDone: () => settings.buddy && buddy.show(),
   });
 }
 intro();
@@ -101,7 +129,6 @@ function showLabel(tile) {
     return;
   }
   labelName.textContent = tile.shot.project.name;
-  labelCat.textContent = tile.shot.project.cat;
   label.classList.add("is-visible");
 }
 
@@ -111,6 +138,7 @@ let touchSelected = null;
 
 stage.addEventListener("pointerdown", (e) => {
   if (wall.locked) return;
+  if (wall.idle !== undefined) wall.idle = 0;
   stage.setPointerCapture(e.pointerId);
   Object.assign(ptr, { down: true, id: e.pointerId, x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, t: performance.now(), vx: 0, vy: 0, dragging: false, type: e.pointerType });
 });
@@ -143,8 +171,8 @@ stage.addEventListener("pointermove", (e) => {
     mouse.inside = true;
     mouse.x = e.clientX;
     mouse.y = e.clientY;
-    labelPos.tx = e.clientX + 18;
-    labelPos.ty = e.clientY + 18;
+    labelPos.tx = e.clientX;
+    labelPos.ty = e.clientY;
     updateHover();
   }
 });
@@ -185,6 +213,7 @@ function endPointer(e) {
     showLabel(null);
     return;
   }
+  if (wall.bringToFront && wall.bringToFront(tile)) return;
   if (ptr.type === "mouse" || touchSelected === tile) {
     openDetail(tile);
   } else {
@@ -230,6 +259,7 @@ function openDetail(tile) {
   detail.querySelector(".detail__title").textContent = tile.shot.project.name;
   detail.querySelector(".detail__cat").textContent = tile.shot.project.cat;
   dots.setReading(true);
+  buddy.hide();
   wall.open(tile);
   detail.classList.add("is-open");
   detail.setAttribute("aria-hidden", "false");
@@ -241,6 +271,7 @@ function closeDetail(instant) {
   detail.classList.remove("is-open");
   detail.setAttribute("aria-hidden", "true");
   dots.setReading(false);
+  if (settings.buddy) buddy.show();
   if (instant === true) {
     wall.opened.open = 0;
     wall.opened = null;
@@ -250,14 +281,20 @@ function closeDetail(instant) {
   wall.close();
 }
 $("#detailBack").addEventListener("click", () => closeDetail());
-$("#replay").addEventListener("click", () => {
+function replay() {
   closeDetail(true);
   intro();
-});
+}
+$("#replay").addEventListener("click", replay);
 
 /* ── tuning panel ────────────────────────────────────── */
 const gui = new GUI({ title: "czucie / feel" });
 if (window.innerWidth < 640) gui.close();
+gui.add(settings, "layout", ["orbita", "siatka"]).name("układ projektów").onChange(setLayout);
+const f0 = gui.addFolder("orbita");
+f0.add(settings, "orbitSpin", 0, 80, 1).name("samoczynny obrót");
+f0.add(settings, "orbitBlur", 0, 6, 0.1).name("rozmycie kart z tyłu");
+f0.add(settings, "orbitPerProject", 1, 4, 1).name("kart na projekt").onFinishChange(resize);
 const f1 = gui.addFolder("płótno");
 f1.add(settings, "ease", 0.03, 0.3, 0.005).name("doganianie (glide)");
 f1.add(settings, "dragSpeed", 0.5, 2.5, 0.05).name("drag");
@@ -274,8 +311,9 @@ f2.add(settings, "parallax", 0, 0.5, 0.01).name("paralaksa");
 f2.add(settings, "introSpeed", 0.4, 2.5, 0.05).name("długość intra");
 f2.add(settings, "dotsDesktop", 300, 3000, 50).name("ilość: desktop").onFinishChange(resize);
 f2.add(settings, "dotsMobile", 150, 800, 10).name("ilość: telefon").onFinishChange(resize);
+gui.add(settings, "buddy").name("mała Nuri na stronie").onChange((on) => (on ? buddy.show() : buddy.hide()));
 gui.add(settings, "reducedMotion").name("mniej ruchu (a11y)");
-gui.add({ replay: () => $("#replay").click() }, "replay").name("powtórz intro");
+gui.add({ replay }, "replay").name("powtórz intro");
 
 /* ── loop ────────────────────────────────────────────── */
 const clock = new THREE.Clock();
@@ -285,16 +323,33 @@ function frame() {
 
   wall.update(dt);
   dots.update(t, wall.offset);
+  buddy.update(dt, { wall, vw, vh, mouse, t });
   if (Math.abs(wall.vel.x) + Math.abs(wall.vel.y) > 0.05) updateHover();
 
   labelPos.x = THREE.MathUtils.lerp(labelPos.x, labelPos.tx, 0.25);
   labelPos.y = THREE.MathUtils.lerp(labelPos.y, labelPos.ty, 0.25);
   if (touchSelected) {
     // on touch the name sits under the tapped tile and travels with it
-    labelPos.x = touchSelected.x + vw / 2 - touchSelected.w / 2;
-    labelPos.y = vh / 2 - touchSelected.y + touchSelected.h / 2 + 10;
+    const tw = touchSelected.sw || touchSelected.w;
+    const th = touchSelected.sh || touchSelected.h;
+    labelPos.x = touchSelected.x + vw / 2 - tw / 2;
+    labelPos.y = vh / 2 - touchSelected.y + th / 2 + 10;
   }
   label.style.transform = `translate3d(${labelPos.x}px, ${labelPos.y}px, 0)`;
+
+  // the front card's name sits under its left edge; hover hands it to the cursor label
+  const front = wall.front;
+  const showCaption = !!front && !wall.opened && !wall.hovered && wall.reveal > 0.6;
+  caption.classList.toggle("is-visible", showCaption);
+  if (front) {
+    if (caption.dataset.key !== front.shot.project.key) {
+      caption.dataset.key = front.shot.project.key;
+      captionName.textContent = front.shot.project.name;
+      captionCat.textContent = front.shot.project.cat;
+    }
+    const gap = (vw < 640 ? 18 : 22) * wall.unit;
+    caption.style.transform = `translate3d(${vw / 2 + front.x - front.sw / 2}px, ${vh / 2 - front.y + front.sh / 2 + gap}px, 0)`;
+  }
 
   renderer.render(scene, camera);
   requestAnimationFrame(frame);

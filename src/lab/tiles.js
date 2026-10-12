@@ -1,60 +1,62 @@
-/* Placeholder content for the motion lab: grey tiles standing in for the
-   five planned projects. Real shots replace `makeTexture` later — the canvas
-   only cares about `aspect` and a texture. */
+/* Placeholder content for the motion lab: flat-colour cards standing in for
+   the five planned projects, as drawn in design/v2/Strona główna.dc.html.
+   Real shots replace `makeTexture` later — the layouts only care about
+   `aspect` and a texture. */
 
 import * as THREE from "three";
 
 export const PROJECTS = [
-  { key: "nf", name: "Nature Future", cat: "web" },
-  { key: "estate", name: "Nieruchomości", cat: "web" },
-  { key: "law", name: "Kancelaria", cat: "branding" },
-  { key: "cafe", name: "Kawiarnia", cat: "branding" },
-  { key: "series", name: "Tracker seriali", cat: "aplikacja mobilna" },
+  { key: "nf", name: "Nature Future", cat: "web", bg: "#3a4034" },
+  { key: "nr", name: "Nieruchomości", cat: "web", bg: "#3b3833" },
+  { key: "ka", name: "Kancelaria", cat: "branding", bg: "#32363a" },
+  { key: "kw", name: "Kawiarnia", cat: "branding", bg: "#46372b" },
+  { key: "tr", name: "Tracker seriali", cat: "aplikacja mobilna", bg: "#3a3532" },
 ];
 
-const ASPECTS = [3 / 4, 4 / 5, 1, 4 / 3, 16 / 10, 9 / 14];
-const SHOTS_PER_PROJECT = 4;
+/* Card formats from the design, in px on the 1440×900 frame. */
+export const SHAPES = { H: [600, 400], S: [440, 440], V: [340, 450] };
 
-/* Deterministic pseudo-random so the layout is the same on every load. */
-function rng(seed) {
-  let s = seed >>> 0;
-  return () => {
-    s = (s + 0x6d2b79f5) >>> 0;
-    let t = s;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
+/* Per project: [shape, x and y of the soft shape inside the card]. The first
+   two of each are the ten cards on the orbit; the rest only fill the wall. */
+const SHOTS = {
+  nf: [["H", 0.62, 0.45], ["S", 0.38, 0.42], ["V", 0.5, 0.55], ["H", 0.4, 0.5]],
+  nr: [["V", 0.45, 0.36], ["H", 0.6, 0.5], ["S", 0.55, 0.5], ["V", 0.5, 0.6]],
+  ka: [["S", 0.5, 0.5], ["V", 0.5, 0.4], ["H", 0.45, 0.5], ["S", 0.4, 0.55]],
+  kw: [["V", 0.5, 0.6], ["H", 0.42, 0.5], ["S", 0.6, 0.45], ["V", 0.45, 0.4]],
+  tr: [["V", 0.5, 0.46], ["S", 0.5, 0.48], ["V", 0.5, 0.5], ["H", 0.55, 0.5]],
+};
 
-function makeTexture(project, index, aspect, rand) {
-  const long = 640;
-  const w = aspect >= 1 ? long : Math.round(long * aspect);
-  const h = aspect >= 1 ? Math.round(long / aspect) : long;
+const INK = "243,235,221";
+
+function makeTexture(project, index, [shape, ox, oy]) {
+  const k = 2; // texture px per design px
+  const [dw, dh] = SHAPES[shape];
+  const w = dw * k;
+  const h = dh * k;
   const c = document.createElement("canvas");
   c.width = w;
   c.height = h;
   const g = c.getContext("2d");
 
-  const tone = 38 + Math.floor(rand() * 34);
-  const grad = g.createLinearGradient(0, 0, w, h);
-  grad.addColorStop(0, `rgb(${tone + 10},${tone + 7},${tone + 4})`);
-  grad.addColorStop(1, `rgb(${tone - 8},${tone - 9},${tone - 10})`);
-  g.fillStyle = grad;
+  g.fillStyle = project.bg;
   g.fillRect(0, 0, w, h);
 
-  // a soft shape so motion and distortion are readable on a grey tile
-  g.globalAlpha = 0.16;
-  g.fillStyle = "#f1eadf";
-  const r = Math.min(w, h) * (0.18 + rand() * 0.22);
+  // a soft shape so motion and blur are readable on a flat card
+  g.fillStyle = `rgba(${INK},0.08)`;
+  const m = Math.min(w, h);
   g.beginPath();
-  g.arc(w * (0.3 + rand() * 0.4), h * (0.3 + rand() * 0.4), r, 0, Math.PI * 2);
+  if (project.key === "tr") {
+    const pw = m * 0.32;
+    const ph = Math.min(pw * 1.9, h * 0.72);
+    g.roundRect(ox * w - pw / 2, oy * h - ph / 2, pw, ph, 14 * k);
+  } else {
+    g.arc(ox * w, oy * h, m * 0.25, 0, Math.PI * 2);
+  }
   g.fill();
-  g.globalAlpha = 1;
 
-  g.fillStyle = "rgba(241,234,223,0.7)";
-  g.font = `500 ${Math.round(long * 0.034)}px Outfit, system-ui, sans-serif`;
-  g.fillText(`${project.key} · 0${index + 1}`, w * 0.06, h - w * 0.06);
+  g.fillStyle = `rgb(${INK})`;
+  g.font = `500 ${14 * k}px Outfit, system-ui, sans-serif`;
+  g.fillText(`${project.name.toLowerCase()} · 0${index + 1}`, 20 * k, h - 20 * k);
 
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -62,20 +64,34 @@ function makeTexture(project, index, aspect, rand) {
   return tex;
 }
 
-/* One entry per shot: { project, aspect, texture }. Order is shuffled so the
-   same project's shots don't sit next to each other on the canvas. */
+/* One entry per shot: { project, shape, aspect, texture }, grouped by project
+   in the order above. */
 export function buildShots() {
-  const rand = rng(7);
   const shots = [];
   PROJECTS.forEach((p) => {
-    for (let i = 0; i < SHOTS_PER_PROJECT; i++) {
-      const aspect = ASPECTS[Math.floor(rand() * ASPECTS.length)];
-      shots.push({ project: p, aspect, texture: makeTexture(p, i, aspect, rand) });
-    }
+    SHOTS[p.key].forEach((spec, i) => {
+      const [dw, dh] = SHAPES[spec[0]];
+      shots.push({ project: p, shape: spec[0], aspect: dw / dh, texture: makeTexture(p, i, spec) });
+    });
   });
-  for (let i = shots.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [shots[i], shots[j]] = [shots[j], shots[i]];
-  }
   return shots;
+}
+
+/* Deterministic shuffle, so the wall never puts a project's shots side by
+   side and still looks the same on every load. */
+export function shuffled(list, seed = 7) {
+  let s = seed >>> 0;
+  const rand = () => {
+    s = (s + 0x6d2b79f5) >>> 0;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const out = [...list];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
 }

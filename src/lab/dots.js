@@ -7,7 +7,7 @@
 
 import * as THREE from "three";
 import gsap from "gsap";
-import { sampleShape } from "./nuri.js";
+import { sampleShape, shapeSpacing } from "./nuri.js";
 
 const vertex = /* glsl */ `
   attribute vec2 aShape;
@@ -18,6 +18,7 @@ const vertex = /* glsl */ `
   uniform float uTime;
   uniform float uParallax;
   uniform float uSize;
+  uniform float uShapeSize;
   uniform float uPixelRatio;
   uniform float uFieldAlpha;
   uniform vec2 uViewport;
@@ -45,7 +46,7 @@ const vertex = /* glsl */ `
     vAlpha = mix(uFieldAlpha * twinkle, 1.0, w);
 
     gl_Position = projectionMatrix * viewMatrix * vec4(p, -1.0, 1.0);
-    gl_PointSize = uSize * mix(0.8 + aRand * 0.6, 1.35, w) * uPixelRatio;
+    gl_PointSize = mix(uSize * (0.8 + aRand * 0.6), uShapeSize, w) * uPixelRatio;
   }
 `;
 
@@ -76,12 +77,13 @@ export class Dots {
       uTime: { value: 0 },
       uParallax: { value: 0.12 },
       uSize: { value: settings.dotSize },
+      uShapeSize: { value: settings.dotSize },
       uPixelRatio: { value: 1 },
       uFieldAlpha: { value: settings.fieldAlpha },
       uViewport: { value: new THREE.Vector2(1, 1) },
       uOffset: { value: new THREE.Vector2() },
-      uInk: { value: new THREE.Color("#f1eadf") },
-      uAccent: { value: new THREE.Color("#ff5b35") },
+      uInk: { value: new THREE.Color("#f3ebdd") },
+      uAccent: { value: new THREE.Color(settings.accent) },
       uOpacity: { value: 0 },
     };
     this.timeline = null;
@@ -94,6 +96,8 @@ export class Dots {
     const count = vw < 640 ? this.s.dotsMobile : this.s.dotsDesktop;
     const size = Math.min(vw, vh) * (vw < 640 ? 0.62 : 0.42);
     const shape = sampleShape(count, size);
+    // in Nuri the dots nearly touch, so the eyes stay the only real gaps
+    this.uniforms.uShapeSize.value = shapeSpacing(count, size) * 0.86;
 
     const n = shape.length / 2;
     const aField = new Float32Array(n * 2);
@@ -165,6 +169,7 @@ export class Dots {
     this.uniforms.uTime.value = t;
     this.uniforms.uOffset.value.copy(offset);
     this.uniforms.uSize.value = this.s.dotSize;
+    this.uniforms.uAccent.value.set(this.s.accent);
     this.uniforms.uFieldAlpha.value = this.s.fieldAlpha;
     this.uniforms.uParallax.value = this.s.reducedMotion ? 0 : this.s.parallax;
   }

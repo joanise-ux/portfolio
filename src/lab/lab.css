@@ -1,12 +1,17 @@
-/* v2 lab — placeholder tokens for direction C (dark base, persimmon accent).
-   Final values come from the Claude Design moodboard. */
+/* v2 lab — tokens and chrome from the Claude Design files in design/v2/
+   (Plansza marki, Strona główna). */
 :root {
-  --bg: #0e0c0b;
-  --ink: #f1eadf;
-  --ink-60: rgba(241, 234, 223, 0.6);
-  --ink-20: rgba(241, 234, 223, 0.2);
-  --accent: #ff5b35; /* persymona — placeholder */
-  --font-display: "DynaPuff", "Modak", system-ui, sans-serif;
+  --bg: #15120f;
+  --surface: #1e1a16;
+  --line: #2e2822;
+  --ink: #f3ebdd;
+  --muted: #a99e8e;
+  --ink-60: rgba(243, 235, 221, 0.6);
+  --ink-20: rgba(243, 235, 221, 0.2);
+  --accent: #f0532a; /* persymona: text, links, dots, active states */
+  --accent-deep: #d2401c; /* pressed states and large fills only, too dark for small text */
+  --font-mark: "Modak", "DynaPuff", system-ui, sans-serif; /* single big words: portfolio, work */
+  --font-display: "DynaPuff", system-ui, sans-serif; /* headings, anything with Polish letters */
   --font-body: "Outfit", system-ui, sans-serif;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -43,46 +48,95 @@ body {
   cursor: pointer;
 }
 
+/* ── header ── */
+.who {
+  position: fixed;
+  left: 32px;
+  top: calc(28px + env(safe-area-inset-top));
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  pointer-events: none;
+  z-index: 4;
+}
+.who__name {
+  font-size: 15px;
+  font-weight: 500;
+}
+.who__role {
+  font-size: 13px;
+  color: var(--muted);
+}
+
 /* ── name that follows the cursor (desktop) / sits at the tap (touch) ── */
 .cursor-label {
   position: fixed;
   left: 0;
   top: 0;
+  margin: -6px 0 0 -6px;
   pointer-events: none;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 10px;
   opacity: 0;
   transform: translate3d(-100px, -100px, 0);
-  transition: opacity 0.25s var(--ease);
+  transition: opacity 0.2s var(--ease);
   z-index: 5;
 }
 .cursor-label.is-visible {
   opacity: 1;
 }
-.cursor-label__name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(22px, 2.6vw, 40px);
-  line-height: 1;
-  color: var(--ink);
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+.cursor-label__dot {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
 }
-.cursor-label__cat {
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
+.cursor-label__name {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font: 500 18px var(--font-display);
+  white-space: nowrap;
+}
+
+/* ── name of the front card ── */
+.caption {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+  z-index: 3;
+}
+.caption.is-visible {
+  opacity: 1;
+}
+.caption__name {
+  font: 500 30px/1.1 var(--font-display);
+}
+.caption__cat {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--accent);
 }
 
 .hint {
   position: fixed;
   left: 50%;
-  top: calc(20px + env(safe-area-inset-top));
+  top: calc(32px + env(safe-area-inset-top));
   transform: translateX(-50%);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  color: var(--ink-60);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
   pointer-events: none;
   transition: opacity 0.6s var(--ease);
   z-index: 4;
@@ -156,68 +210,240 @@ body {
 .dock {
   position: fixed;
   left: 50%;
-  bottom: calc(16px + env(safe-area-inset-bottom));
+  bottom: calc(28px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 4px;
   padding: 6px;
   border-radius: 999px;
-  background: rgba(24, 21, 19, 0.72);
-  border: 1px solid var(--ink-20);
-  backdrop-filter: blur(14px);
+  background: var(--surface);
+  border: 1px solid var(--line);
   z-index: 7;
   white-space: nowrap;
 }
-.dock a,
-.dock button {
+.dock a {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  padding: 0 16px;
+  height: 44px;
+  padding: 0 18px;
   border-radius: 999px;
-  border: 0;
-  background: none;
-  color: var(--ink-60);
-  font: 500 14px var(--font-body);
-  text-decoration: none;
-  cursor: pointer;
-}
-.dock a:hover,
-.dock button:hover {
   color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.dock a:hover {
+  color: var(--accent);
 }
 .dock a.is-active {
+  padding: 0 20px;
+  background: var(--accent);
   color: var(--bg);
-  background: var(--ink);
+  font-weight: 600;
+}
+.dock a.is-active:active {
+  background: var(--accent-deep);
 }
 .dock__mark {
-  width: 28px;
-  height: 28px;
-  margin: 0 6px 0 8px;
-  border-radius: 46% 54% 50% 50% / 55% 50% 50% 45%;
-  background: var(--accent);
+  width: 44px;
+  height: 44px;
+  padding: 7px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  fill: var(--accent);
+  cursor: pointer;
+}
+.dock__mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.dock__eye {
+  fill: var(--surface);
 }
 .dock__sep {
   width: 1px;
-  height: 20px;
-  background: var(--ink-20);
-  margin: 0 4px;
+  height: 24px;
+  margin: 0 6px;
+  background: var(--line);
+}
+.dock__pair {
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+.dock__pair > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 44px;
+}
+.dock__pair > .dock__icon {
+  width: 44px;
+}
+.dock__pair > .is-on {
+  color: var(--accent);
+  font-weight: 600;
+}
+.ico-orbit {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+.ico-orbit::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ico-list {
+  width: 15px;
+  height: 12px;
+  background: linear-gradient(currentColor 0 0) top / 100% 2px no-repeat, linear-gradient(currentColor 0 0) center / 100% 2px no-repeat,
+    linear-gradient(currentColor 0 0) bottom / 100% 2px no-repeat;
 }
 
-@media (max-width: 480px) {
-  .dock a,
-  .dock button {
-    padding: 0 11px;
+@media (max-width: 639px) {
+  .who {
+    left: 24px;
+    top: calc(20px + env(safe-area-inset-top));
+  }
+  .who__name {
+    font-size: 14px;
+  }
+  .who__role {
+    font-size: 12px;
+  }
+  .hint {
+    left: auto;
+    right: 24px;
+    top: calc(23px + env(safe-area-inset-top));
+    transform: none;
+    font-size: 12px;
+  }
+  .caption__name {
+    font-size: 22px;
+  }
+  .caption__cat {
+    font-size: 12px;
+  }
+  .dock {
+    left: 12px;
+    right: 12px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    transform: none;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 5px;
+  }
+  .dock a {
+    padding: 0 8px;
+    font-size: 14px;
+  }
+  .dock a.is-active {
+    padding: 0 12px;
+  }
+  .dock__sep,
+  .dock__list {
+    display: none;
+  }
+  .dock__pair {
     font-size: 13px;
   }
-  .dock__mark {
-    margin: 0 2px 0 6px;
+  .dock__pair > span {
+    width: auto;
+    padding: 0 3px;
   }
 }
 
-/* lil-gui sits out of the dock's way, collapsed on phones */
-.lil-gui.root {
-  z-index: 8;
-  top: env(safe-area-inset-top);
+/* little Nuri on the page: under the navbar, so she can hide behind it */
+.buddy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: grab;
+  opacity: 0;
+  pointer-events: none;
+  touch-action: none;
+  transition: opacity 0.35s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.buddy.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.buddy.is-visible.is-dots {
+  opacity: 0;
+  transition-duration: 0.12s;
+}
+.buddy:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+.buddy svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform-origin: 50% 88%;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+}
+.buddy__body {
+  fill: var(--accent);
+}
+.buddy__eyes {
+  fill: var(--bg);
+}
+.buddy__blush {
+  fill: var(--accent-deep);
+}
+.buddy__mouth {
+  display: none;
+  fill: none;
+  stroke: var(--bg);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+.buddy__mouth--surprised {
+  fill: var(--bg);
+  stroke: none;
+}
+.buddy[data-mood="calm"] .buddy__mouth--calm,
+.buddy[data-mood="surprised"] .buddy__mouth--surprised,
+.buddy[data-mood="panic"] .buddy__mouth--panic {
+  display: block;
+}
+.buddy__sweat {
+  display: none;
+  fill: var(--ink);
+}
+.buddy[data-mood="panic"] .buddy__sweat {
+  display: block;
+}
+.buddy[data-mood="surprised"],
+.buddy.is-visible:active {
+  cursor: grabbing;
+}
+.buddy-burst {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  fill: var(--accent);
 }

@@ -8,7 +8,7 @@
 import * as THREE from "three";
 import gsap from "gsap";
 
-const vertex = /* glsl */ `
+export const vertex = /* glsl */ `
   uniform vec2 uVel;        // px per frame, smoothed
   uniform float uBend;      // how far the wall bows at full speed
   uniform vec2 uViewport;
@@ -25,7 +25,7 @@ const vertex = /* glsl */ `
   }
 `;
 
-const fragment = /* glsl */ `
+export const fragment = /* glsl */ `
   uniform sampler2D uMap;
   uniform vec2 uPlane;      // on-screen size in px
   uniform float uImgAspect;
@@ -34,6 +34,7 @@ const fragment = /* glsl */ `
   uniform float uDim;       // 1 = full brightness
   uniform float uAlpha;
   uniform float uRadius;
+  uniform float uBlur;      // mip levels of softness, 0 = sharp
   varying vec2 vUv;
 
   float roundedBox(vec2 p, vec2 b, float r) {
@@ -51,9 +52,9 @@ const fragment = /* glsl */ `
     vec2 uv = vUv * ratio + (1.0 - ratio) * 0.5;
 
     vec2 shift = uVel * uRgb * 0.0004;
-    vec4 base = texture2D(uMap, uv);
-    float r = texture2D(uMap, uv + shift).r;
-    float b = texture2D(uMap, uv - shift).b;
+    vec4 base = texture2D(uMap, uv, uBlur);
+    float r = texture2D(uMap, uv + shift, uBlur).r;
+    float b = texture2D(uMap, uv - shift, uBlur).b;
     vec3 col = vec3(r, base.g, b) * uDim;
 
     float d = roundedBox((vUv - 0.5) * uPlane, uPlane * 0.5, uRadius);
@@ -137,6 +138,7 @@ export class InfiniteCanvas {
             uDim: { value: 1 },
             uAlpha: { value: 0 },
             uRadius: { value: Math.max(6, w * 0.035) },
+            uBlur: { value: 0 },
           },
         });
         const mesh = new THREE.Mesh(this.geometry, material);
