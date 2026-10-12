@@ -13,6 +13,7 @@ import { Dots } from "./dots.js";
 import { Buddy } from "./buddy.js";
 import { CasePage } from "./case.js";
 import { ProjectList } from "./list.js";
+import { Pages } from "./pages.js";
 import { PROJECTS, buildShots, shuffled } from "./tiles.js";
 
 const $ = (s) => document.querySelector(s);
@@ -69,15 +70,18 @@ let wall = walls[settings.layout];
 const dots = new Dots({ scene, settings });
 const buddy = new Buddy({ settings, dock: $(".dock") });
 const list = new ProjectList({ root: $("#list"), projects: PROJECTS, shotOf: (p) => shots.find((s) => s.project === p), onOpen: openFromList });
+const pages = new Pages({ roots: { about: $("#about"), kontakt: $("#kontakt") }, onGo: (name) => go(name) });
 const page = new CasePage({ root: $("#case"), settings, onBack: () => leave(), onNext: () => openNext() });
 if (import.meta.env.DEV) window.__lab = { walls, dots, buddy, settings, renderer, gsap };
 
 const listing = () => settings.view === "lista";
+let section = "work"; // the stop on the navbar: work | about | kontakt
+const onWall = () => section === "work" && !listing();
 
-/* Only the chosen wall is drawn, and none of them under the list. */
+/* Only the chosen wall is drawn, and none of them under the list or a page. */
 function showWall(animate) {
-  for (const w of Object.values(walls)) w.group.visible = w === wall && !listing();
-  if (!animate || listing()) return;
+  for (const w of Object.values(walls)) w.group.visible = w === wall && onWall();
+  if (!animate || !onWall()) return;
   gsap.killTweensOf(wall);
   gsap.fromTo(wall, { reveal: 0 }, { reveal: 1, duration: settings.reducedMotion ? 0 : 1.2, ease: "power2.out" });
 }
@@ -162,7 +166,7 @@ function intro() {
   gsap.killTweensOf(wall);
   dots.playIntro({
     onRelease: () => gsap.to(wall, { reveal: 1, duration: settings.reducedMotion ? 0 : 1.8, ease: "power2.out" }),
-    onDone: () => settings.buddy && !listing() && buddy.show(),
+    onDone: () => settings.buddy && onWall() && buddy.show(),
   });
 }
 intro();
@@ -296,7 +300,7 @@ stage.addEventListener(
 
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") return leave();
-  if (wall.opened || listing()) return; // the arrows scroll the case study or the list
+  if (wall.opened || !onWall()) return; // the arrows scroll the page that is open
   const step = 140;
   const map = { ArrowLeft: [step, 0], ArrowRight: [-step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
   if (map[e.key]) {
@@ -332,12 +336,55 @@ function leave() {
   if (history.state?.project) history.back();
   else closeDetail();
 }
+/* The stop an address stands for; a typed or linked #about has no state yet. */
+const sectionAt = (state) => state?.section || ["about", "kontakt"].find((n) => location.hash === `#${n}`) || "work";
 window.addEventListener("popstate", (e) => {
   const project = PROJECTS.find((p) => p.key === e.state?.project);
+  showSection(sectionAt(e.state));
   if (project) openPlain(project); // Forward, back into a project
   else closeDetail();
 });
-if (location.hash) history.replaceState(null, "", location.pathname); // a reload starts on the wall
+
+/* ── work / about / kontakt ─────────────────────────────
+   `showSection` puts a stop on screen; `go` is a click on a link to it and
+   also writes the history entry, so Back walks through the stops. */
+function showSection(name) {
+  if (name === section) return;
+  closeDetail(true, true);
+  section = name;
+  const home = name === "work";
+  pages.show(home ? null : name);
+  for (const a of document.querySelectorAll(".dock [data-go]")) {
+    a.classList.toggle("is-active", a.dataset.go === name);
+    a.toggleAttribute("aria-current", a.dataset.go === name);
+  }
+  $(".dock").classList.toggle("is-plain", !home); // the orbit / list switch belongs to Work
+  if (home && listing()) list.show();
+  else list.hide();
+  if (onWall() && settings.buddy) buddy.show();
+  else buddy.hide();
+  dots.setReading(!onWall());
+  gui.show(onWall());
+  showWall(true);
+}
+
+function go(name) {
+  if (name === "work" && wall.opened) return leave();
+  if (name === section) return;
+  const entry = [name === "work" ? null : { section: name }, "", name === "work" ? location.pathname : `#${name}`];
+  // from inside a case study the new stop takes over its history entry
+  if (wall.opened) {
+    closeDetail(true, true);
+    history.replaceState(...entry);
+  } else history.pushState(...entry);
+  showSection(name);
+}
+$(".dock").addEventListener("click", (e) => {
+  const a = e.target.closest("[data-go]");
+  if (!a) return;
+  e.preventDefault();
+  go(a.dataset.go);
+});
 
 function openDetail(tile) {
   showLabel(null);
@@ -377,9 +424,10 @@ function openNext() {
   });
 }
 
-function closeDetail(instant) {
+/* `keep` leaves the history entry alone, for a caller that rewrites it itself. */
+function closeDetail(instant, keep) {
   if (!wall.opened) return;
-  if (history.state?.project) history.back(); // closed some other way than Back (view switch, intro replay)
+  if (!keep && history.state?.project) history.back(); // closed some other way than Back (view switch, intro replay)
   document.documentElement.classList.remove("is-reading");
   page.hide();
   gui.show(!listing());
@@ -396,12 +444,9 @@ function closeDetail(instant) {
   }
   wall.close();
 }
-$("#navWork").addEventListener("click", (e) => {
-  e.preventDefault();
-  leave();
-});
 function replay() {
-  closeDetail(true);
+  if (wall.opened) closeDetail(true);
+  else go("work");
   setView("orbita");
   intro();
 }
@@ -431,9 +476,13 @@ f2.add(settings, "parallax", 0, 0.5, 0.01).name("paralaksa");
 f2.add(settings, "introSpeed", 0.4, 2.5, 0.05).name("długość intra");
 f2.add(settings, "dotsDesktop", 300, 3000, 50).name("ilość: desktop").onFinishChange(resize);
 f2.add(settings, "dotsMobile", 150, 800, 10).name("ilość: telefon").onFinishChange(resize);
-gui.add(settings, "buddy").name("mała Nuri na stronie").onChange((on) => (on && !listing() ? buddy.show() : buddy.hide()));
+gui.add(settings, "buddy").name("mała Nuri na stronie").onChange((on) => (on && onWall() ? buddy.show() : buddy.hide()));
 gui.add(settings, "reducedMotion").name("mniej ruchu (a11y)");
 gui.add({ replay }, "replay").name("powtórz intro");
+
+/* A reload keeps About / Kontakt; a project address starts on the wall. */
+if (sectionAt() !== "work") showSection(sectionAt());
+else if (location.hash) history.replaceState(null, "", location.pathname);
 
 /* ── loop ────────────────────────────────────────────── */
 const clock = new THREE.Clock();
@@ -459,7 +508,7 @@ function frame() {
 
   // the front card's name sits under its left edge; hover hands it to the cursor label
   const front = wall.front;
-  const showCaption = !!front && !wall.opened && !wall.hovered && wall.reveal > 0.6 && !listing();
+  const showCaption = !!front && !wall.opened && !wall.hovered && wall.reveal > 0.6 && onWall();
   caption.classList.toggle("is-visible", showCaption);
   if (front) {
     if (caption.dataset.key !== front.shot.project.key) {

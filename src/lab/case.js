@@ -14,11 +14,12 @@ import { cardStyle, cardSpot } from "./tiles.js";
 const RISE = 72; // px an image travels as it comes in
 const TRIGGER = 0.9; // …once its top edge passes this share of the screen height
 
-const NURI = `<svg viewBox="0 24 196 160" aria-hidden="true">
+/* Nuri as she peeks over a card at the bottom of a page. */
+export const NURI = `<svg viewBox="0 24 196 160" aria-hidden="true">
   <path d="${FILL[1]}"/><path d="${FILL[0]}"/>
-  <g class="case__nuri-blush"><ellipse cx="60" cy="130" rx="8" ry="4.5"/><ellipse cx="136" cy="130" rx="8" ry="4.5"/></g>
-  <g class="case__nuri-face">${EYES.map((e) => `<ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}"/>`).join("")}</g>
-  <path class="case__nuri-mouth" d="M91 121 q3.5 5 7 0 q3.5 5 7 0"/>
+  <g class="peek-nuri-blush"><ellipse cx="60" cy="130" rx="8" ry="4.5"/><ellipse cx="136" cy="130" rx="8" ry="4.5"/></g>
+  <g class="peek-nuri-face">${EYES.map((e) => `<ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}"/>`).join("")}</g>
+  <path class="peek-nuri-mouth" d="M91 121 q3.5 5 7 0 q3.5 5 7 0"/>
 </svg>`;
 
 const shot = (label, kind) => `<figure class="case__shot case__shot--${kind}" data-reveal><figcaption>${label}</figcaption></figure>`;
@@ -48,8 +49,8 @@ function markup(s, next) {
       <p class="case__lead">${c.lead}</p>
 
       <section class="case__split">
-        <div class="case__text">
-          <span class="case__eyebrow">problem</span>
+        <div class="prose">
+          <span class="eyebrow">problem</span>
           <h2>${c.problem.title}</h2>
           ${c.problem.text.map((t) => `<p>${t}</p>`).join("")}
         </div>
@@ -57,8 +58,8 @@ function markup(s, next) {
       </section>
 
       <section class="case__process">
-        <div class="case__text">
-          <span class="case__eyebrow">proces</span>
+        <div class="prose">
+          <span class="eyebrow">proces</span>
           <h2>${c.process.title}</h2>
         </div>
         <ol>
@@ -66,8 +67,8 @@ function markup(s, next) {
             .map(
               (step, i) => `<li class="case__step">
                 ${shot(step.image, "wide")}
-                <div class="case__text">
-                  <span class="case__num">0${i + 1}</span>
+                <div class="prose">
+                  <span class="num">0${i + 1}</span>
                   <h3>${step.title}</h3>
                   <p>${step.text}</p>
                 </div>
@@ -78,7 +79,7 @@ function markup(s, next) {
       </section>
 
       <section class="case__gallery">
-        <span class="case__eyebrow">galeria</span>
+        <span class="eyebrow">galeria</span>
         <div class="case__grid">
           <figure class="case__shot case__shot--video" data-reveal>
             <span class="case__play" role="img" aria-label="Odtwórz wideo"></span>
@@ -91,8 +92,8 @@ function markup(s, next) {
       </section>
 
       <section class="case__result">
-        <div class="case__text">
-          <span class="case__eyebrow">rezultat</span>
+        <div class="prose">
+          <span class="eyebrow">rezultat</span>
           <h2>${c.result.title}</h2>
           <p>${c.result.text}</p>
         </div>
@@ -103,11 +104,11 @@ function markup(s, next) {
     </div>
 
     <footer class="case__next">
-      <span class="case__nuri">${NURI}</span>
+      <span class="peek-nuri">${NURI}</span>
       <a class="case__next-card" href="#" data-next ${cardStyle(next)}>
         ${cardSpot(next)}
         <span class="case__next-text">
-          <span class="case__eyebrow">następny projekt</span>
+          <span class="eyebrow">następny projekt</span>
           <span class="case__next-name" data-fit>${next.project.name}</span>
         </span>
         <span class="case__next-arrow" aria-hidden="true">→</span>
