@@ -11,7 +11,7 @@ const NF = {
     hero: "hero: strona główna",
     meta: [
       ["Rola", "UX/UI designer, research"],
-      ["Rok", "2025"],
+      ["Rok", "2026"],
       ["Zakres", "Strona www, design system"],
       ["Narzędzia", "Figma, Maze, Webflow"],
     ],
@@ -65,7 +65,7 @@ const NF = {
     hero: "hero: home page",
     meta: [
       ["Role", "UX/UI designer, research"],
-      ["Year", "2025"],
+      ["Year", "2026"],
       ["Scope", "Website, design system"],
       ["Tools", "Figma, Maze, Webflow"],
     ],
