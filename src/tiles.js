@@ -1,14 +1,15 @@
 /* Content for the project wall: flat-colour cards standing in for the five
    planned projects, as drawn in design/v2/Strona główna.dc.html. A project
-   with a `cover` shows that photo instead, cropped to each card's shape —
-   the layouts only care about `aspect` and a texture. */
+   with a `cover` shows that photo instead, cropped to each card's shape, or
+   `{ H, S, V }`, one image made for each shape — the layouts only care about
+   `aspect` and a texture. */
 
 import * as THREE from "three";
 import { tr } from "./i18n.js";
 
 export const PROJECTS = [
   { key: "nf", name: "Nature Future", cat: "web", year: 2026, bg: "#3a4034" },
-  { key: "nr", name: tr({ pl: "Nieruchomości", en: "Real Estate" }), cat: "web", year: 2026, bg: "#3b3833", cover: "/assets/cases/nr/nr-hero.jpg" },
+  { key: "nr", name: tr({ pl: "Nieruchomości", en: "Real Estate" }), cat: "web", year: 2026, bg: "#3b3833", cover: { H: "/assets/cases/nr/nr-cover-H.jpg", S: "/assets/cases/nr/nr-cover-S.jpg", V: "/assets/cases/nr/nr-cover-V.jpg" } },
   { key: "su", name: "SUOH", cat: "e-commerce", year: 2026, bg: "#3a2620", cover: "/assets/cases/su/su-hero.jpg" },
   { key: "ka", name: tr({ pl: "Kancelaria", en: "Law Firm" }), cat: "branding", year: 2024, bg: "#32363a" },
   { key: "kw", name: tr({ pl: "Kawiarnia", en: "Café" }), cat: "rebranding", year: 2024, bg: "#46372b" },
@@ -33,6 +34,9 @@ const INK = "243,235,221";
 
 /* Keep in step with .card-cover::after in main.css. */
 const COVER_VEIL = "rgba(21,18,15,0.3)";
+
+/* The cover image for a card of this shape, if the project has one. */
+const coverFor = (project, shape) => (typeof project.cover === "string" ? project.cover : project.cover?.[shape]);
 
 /* One load per cover, shared by every card of the project. */
 const covers = new Map();
@@ -85,8 +89,9 @@ function makeTexture(project, index, [shape, ox, oy]) {
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = 4;
   // the flat card stays until the cover photo has loaded
-  if (project.cover) {
-    loadCover(project.cover)
+  const cover = coverFor(project, shape);
+  if (cover) {
+    loadCover(cover)
       .then((img) => {
         drawCover(g, img, w, h);
         tex.needsUpdate = true;
@@ -113,9 +118,10 @@ export function buildShots() {
 /* The same card drawn in the DOM (case study hero, list thumbnail): the
    style goes on a box with `container-type: size`, the spot inside it. */
 export const cardStyle = (s) => `style="--card:${s.project.bg};--spot-x:${s.spot[0] * 100}%;--spot-y:${s.spot[1] * 100}%"`;
+// DOM cards (list thumbnail, next project) are all wide, so they take the H cover
 export const cardSpot = (s) =>
   s.project.cover
-    ? `<i class="card-cover" style="background-image:url(${s.project.cover})"></i>`
+    ? `<i class="card-cover" style="background-image:url(${coverFor(s.project, "H")})"></i>`
     : `<i class="card-spot"></i>`;
 
 /* Deterministic shuffle, so the wall never puts a project's shots side by
