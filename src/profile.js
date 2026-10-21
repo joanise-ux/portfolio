@@ -31,6 +31,7 @@ export const ABOUT = tr({
       text: [
         "Nature&Future to mój projekt od pierwszego szkicu po produkcję — identyfikacja, interfejs, front-end, integracje płatności, deploy.",
         "Zaczynam od stanów pustych i błędów, kończę na typografii. Projekt uznaję za skończony, kiedy działa pod adresem, nie kiedy wygląda dobrze na artboardzie.",
+        "Projektuję z AI. Kierunek, treść i decyzje są moje, a ekrany i kod składam z pomocą Claude Code i Claude Design. Dzięki temu szybko sprawdzam w działaniu, czy pomysł się broni, zamiast tygodniami dopracowywać go w Figmie.",
       ],
     },
     services: {
@@ -39,7 +40,7 @@ export const ABOUT = tr({
         ["UX research", "Wywiady, testy z użytkownikami i analiza danych, z których wynika, co naprawdę warto zmienić."],
         ["UI design", "Czytelne ekrany i spójne komponenty, które dobrze wyglądają i równie dobrze działają na telefonie."],
         ["Branding", "Logo, kolory i ton głosu, które pasują do produktu i nie gubią się, gdy marka zaczyna rosnąć."],
-        ["Prototypowanie", "Klikalne makiety w Figmie, dzięki którym pomysł da się sprawdzić, zanim trafi do programistów."],
+        ["Prototypowanie", "Działające prototypy składane z AI, dzięki którym pomysł da się sprawdzić w przeglądarce, zanim trafi do programistów."],
       ],
     },
     experience: {
@@ -60,6 +61,7 @@ export const ABOUT = tr({
       text: [
         "Nature&Future is mine from the first sketch to production — identity, interface, front-end, payment integrations, deploy.",
         "I start with empty and error states and finish with typography. A project is done when it works at an address, not when it looks good on an artboard.",
+        "I design with AI. The direction, the copy and the decisions are mine, and I put the screens and code together with Claude Code and Claude Design. That way I quickly see a working version and whether the idea holds up, instead of polishing it in Figma for weeks.",
       ],
     },
     services: {
@@ -68,7 +70,7 @@ export const ABOUT = tr({
         ["UX research", "Interviews, user tests and data analysis that show what is really worth changing."],
         ["UI design", "Readable screens and consistent components that look good and work just as well on a phone."],
         ["Branding", "A logo, colours and a tone of voice that fit the product and hold up as the brand grows."],
-        ["Prototyping", "Clickable prototypes in Figma, so an idea can be tested before it reaches the developers."],
+        ["Prototyping", "Working prototypes put together with AI, so an idea can be tested in the browser before it reaches the developers."],
       ],
     },
     experience: {

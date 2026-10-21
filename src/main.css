@@ -415,6 +415,23 @@ html.is-reading body {
 .case__hero {
   height: clamp(480px, 83.33vh, 900px);
 }
+/* a real hero shot, darkened at the bottom so the title stays readable */
+.case__hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.case__hero:has(.case__hero-img)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(21, 18, 15, 0.82), rgba(21, 18, 15, 0.1) 55%, rgba(21, 18, 15, 0.25));
+}
+.case__hero-title {
+  z-index: 1;
+}
 /* pinned to the screen, where the design puts it in the hero */
 .case__back {
   position: fixed;
@@ -534,6 +551,32 @@ html.is-reading body {
   letter-spacing: -0.01em;
 }
 
+/* the question and the goal under the lead, side by side */
+.case__brief {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4.44vw, 64px);
+  margin-top: calc(-1 * clamp(48px, 5.56vw, 80px));
+  padding-top: clamp(28px, 2.78vw, 40px);
+  border-top: 1px solid var(--line);
+}
+.case__brief div {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.case__brief dd {
+  max-width: 30ch;
+  font-size: clamp(20px, 1.67vw, 24px);
+  line-height: 1.4;
+}
+@media (max-width: 899px) {
+  .case__brief {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
 .prose {
   display: flex;
   flex-direction: column;
@@ -585,6 +628,16 @@ html.is-reading body {
   bottom: 20px;
   font-size: 14px;
   font-weight: 500;
+}
+.case__shot.has-img {
+  overflow: hidden;
+}
+.case__shot.has-img img,
+.case__shot.has-img video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .case__shot--tall {
   aspect-ratio: 4 / 5;

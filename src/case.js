@@ -22,7 +22,21 @@ const NURI = `<svg viewBox="0 24 196 160" aria-hidden="true">
   <path class="case__nuri-mouth" d="M91 121 q3.5 5 7 0 q3.5 5 7 0"/>
 </svg>`;
 
-const shot = (label, kind) => `<figure class="case__shot case__shot--${kind}" data-reveal><figcaption>${label}</figcaption></figure>`;
+/* An image slot: a placeholder label, or a real shot `{ src, alt }`. */
+const shot = (img, kind) =>
+  typeof img === "string"
+    ? `<figure class="case__shot case__shot--${kind}" data-reveal><figcaption>${img}</figcaption></figure>`
+    : `<figure class="case__shot case__shot--${kind} has-img" data-reveal><img src="${img.src}" alt="${img.alt}" loading="lazy" decoding="async"></figure>`;
+
+const video = (v) =>
+  typeof v === "string"
+    ? `<figure class="case__shot case__shot--video" data-reveal>
+        <span class="case__play" role="img" aria-label="${UI.aria.play}"></span>
+        <figcaption>${v}</figcaption>
+      </figure>`
+    : `<figure class="case__shot case__shot--video has-img" data-reveal>
+        <video src="${v.src}" aria-label="${v.label}" muted loop playsinline preload="metadata"></video>
+      </figure>`;
 
 function markup(s, next) {
   const p = s.project;
@@ -31,8 +45,11 @@ function markup(s, next) {
     <button class="case__back" type="button" data-back>${UI.back}</button>
     <header class="case__top">
       <div class="case__hero" ${cardStyle(s)}>
-        ${cardSpot(s)}
-        <span class="case__hero-label">${c.hero}</span>
+        ${
+          typeof c.hero === "string"
+            ? `${cardSpot(s)}<span class="case__hero-label">${c.hero}</span>`
+            : `<img class="case__hero-img" src="${c.hero.src}" alt="${c.hero.alt}" decoding="async">`
+        }
         <div class="case__hero-title">
           <span class="case__tag">${p.cat}</span>
           <h1 data-fit>${p.name}</h1>
@@ -47,10 +64,15 @@ function markup(s, next) {
       </div>
 
       <p class="case__lead">${c.lead}</p>
+      ${
+        c.brief
+          ? `<dl class="case__brief">${c.brief.map(([k, v]) => `<div><dt class="eyebrow">${k}</dt><dd>${v}</dd></div>`).join("")}</dl>`
+          : ""
+      }
 
       <section class="case__split">
         <div class="prose">
-          <span class="eyebrow">${UI.problem}</span>
+          <span class="eyebrow">${c.problem.eyebrow || UI.problem}</span>
           <h2>${c.problem.title}</h2>
           ${c.problem.text.map((t) => `<p>${t}</p>`).join("")}
         </div>
@@ -59,7 +81,7 @@ function markup(s, next) {
 
       <section class="case__process">
         <div class="prose">
-          <span class="eyebrow">${UI.process}</span>
+          <span class="eyebrow">${c.process.eyebrow || UI.process}</span>
           <h2>${c.process.title}</h2>
         </div>
         <ol>
@@ -81,10 +103,7 @@ function markup(s, next) {
       <section class="case__gallery">
         <span class="eyebrow">${UI.gallery}</span>
         <div class="case__grid">
-          <figure class="case__shot case__shot--video" data-reveal>
-            <span class="case__play" role="img" aria-label="${UI.aria.play}"></span>
-            <figcaption>${c.gallery.video}</figcaption>
-          </figure>
+          ${video(c.gallery.video)}
           ${c.gallery.phones.map((label) => shot(label, "tall")).join("")}
           ${shot(c.gallery.detail, "square")}
           <p class="case__note">${c.gallery.note}</p>
@@ -93,13 +112,17 @@ function markup(s, next) {
 
       <section class="case__result">
         <div class="prose">
-          <span class="eyebrow">${UI.result}</span>
+          <span class="eyebrow">${c.result.eyebrow || UI.result}</span>
           <h2>${c.result.title}</h2>
           <p>${c.result.text}</p>
         </div>
-        <ul class="case__stats">
+        ${
+          c.result.stats
+            ? `<ul class="case__stats">
           ${c.result.stats.map(([n, label]) => `<li><strong>${n}</strong><span>${label}</span></li>`).join("")}
-        </ul>
+        </ul>`
+            : ""
+        }
       </section>
     </div>
 
@@ -142,6 +165,22 @@ export class CasePage {
     this.waiting = this.s.reducedMotion ? [] : [...this.root.querySelectorAll("[data-reveal]")];
     this.waiting.forEach((el) => el.classList.add("is-waiting"));
     this.reveal();
+    this.watchVideos();
+  }
+
+  /* Gallery videos loop while on screen; with reduced motion they wait for a click. */
+  watchVideos() {
+    this.videoWatch?.disconnect();
+    const videos = this.root.querySelectorAll("video");
+    if (this.s.reducedMotion) {
+      videos.forEach((v) => (v.controls = true));
+      return;
+    }
+    this.videoWatch = new IntersectionObserver(
+      (entries) => entries.forEach((e) => (e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause())),
+      { root: this.root, threshold: 0.25 }
+    );
+    videos.forEach((v) => this.videoWatch.observe(v));
   }
 
   /* One long word (Nieruchomości) must not run off a narrow screen. */
