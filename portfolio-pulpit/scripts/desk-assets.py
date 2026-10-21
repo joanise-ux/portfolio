@@ -6,10 +6,10 @@ For every entry two WebPs land in public/assets/desk/:
   <slug>-thumb.webp  exactly 2x the box it renders in on the desktop
 
 The desktop never touches the first one. Keep the display sizes here in
-step with DESK_IMAGES in src/content/data.js, otherwise the thumbnails
+step with DESK_IMAGES in portfolio-pulpit/src/content/data.js, otherwise the thumbnails
 stop matching their boxes.
 
-    python scripts/desk-assets.py
+    python portfolio-pulpit/scripts/desk-assets.py
 """
 import os
 from PIL import Image, ImageFile
@@ -17,7 +17,9 @@ from PIL import Image, ImageFile
 # the SUOH exports are partial files — read what is there rather than fail
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "assets")
+# the repo root is two folders up from this file's folder
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ROOT = os.path.join(REPO, "public", "assets")
 OUT = os.path.join(ROOT, "desk")
 
 SOURCES = {

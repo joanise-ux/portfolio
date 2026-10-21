@@ -1,12 +1,21 @@
-/* Language of the v2 pages. Same rule and the same remembered choice as the
-   current site (src/content/i18n.js): the PL/EN switch wins, otherwise a
-   Polish browser gets Polish and every other one gets English.
+/* Language of the pages: the PL/EN switch wins and is remembered,
+   otherwise a Polish browser gets Polish and every other one gets English.
 
    The language is fixed for the life of the page — the switch saves the
    choice and reloads — so content modules can simply pick their strings
    with `tr` as they load. */
 
-import { detectLang, LANG_STORAGE_KEY } from "../content/i18n.js";
+const LANG_STORAGE_KEY = "portfolio.lang";
+
+function detectLang() {
+  try {
+    const saved = localStorage.getItem(LANG_STORAGE_KEY);
+    if (saved === "pl" || saved === "en") return saved;
+  } catch {
+    /* private mode / storage disabled — fall through to the browser's language */
+  }
+  return (navigator.language || "").toLowerCase().startsWith("pl") ? "pl" : "en";
+}
 
 export const LANG = detectLang();
 export const tr = (byLang) => byLang[LANG];

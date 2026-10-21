@@ -1,25 +1,25 @@
-/* Copy for About and Kontakt (design/v2/About.dc.html, Kontakt.dc.html),
-   in both languages.
+/* Copy and contact details for About and Kontakt (design/v2/About.dc.html,
+   Kontakt.dc.html), in both languages.
 
-   The facts come from the current site (src/content) and from Joanna: the
-   bio, the work history, the stack, the city, the address, LinkedIn, the CV
-   files and the portrait. The intro line and the four services are still the
-   design's placeholder copy. */
+   The bio, work history, stack, city, address, LinkedIn, CV files and the
+   portrait are Joanna's own. The intro line and the four services are still
+   the design's placeholder copy. */
 
-import { DATA } from "../content/data.js";
-import { LANG, tr } from "./i18n.js";
+import { tr } from "./i18n.js";
 
 export const CONTACT = {
-  email: DATA.email,
-  linkedin: DATA.linkedin,
-  cv: { href: `/${DATA.cv.dir}${DATA.cv[LANG].file}`, download: DATA.cv[LANG].download },
+  email: "zuczkowskaj@gmail.com",
+  linkedin: "https://www.linkedin.com/in/joannazuczkowska",
+  cv: tr({
+    pl: { href: "/assets/cv_2026_pl.pdf", download: "Joanna_Zuczkowska_CV_PL.pdf" },
+    en: { href: "/assets/cv_2026_en.pdf", download: "Joanna_Zuczkowska_CV_EN.pdf" },
+  }),
   /* Where the form posts JSON { name, email, message } (Formspree and the
      like). While this is empty there is no backend, so the form hands the
      message to the visitor's own mail program instead of pretending. */
   formEndpoint: "",
 };
 
-// DATA.stack, spelled with capitals
 const TOOLS = ["Figma", "Adobe Suite", "Canva", "HTML / CSS", "JavaScript", "React", "SQL", "Supabase", "Vercel", "Claude Code", "Claude Design", "Figma Make"];
 
 export const ABOUT = tr({
@@ -31,6 +31,7 @@ export const ABOUT = tr({
       text: [
         "Nature&Future to mój projekt od pierwszego szkicu po produkcję — identyfikacja, interfejs, front-end, integracje płatności, deploy.",
         "Zaczynam od stanów pustych i błędów, kończę na typografii. Projekt uznaję za skończony, kiedy działa pod adresem, nie kiedy wygląda dobrze na artboardzie.",
+        "Projektuję z AI. Kierunek, treść i decyzje są moje, a ekrany i kod składam z pomocą Claude Code i Claude Design. Dzięki temu szybko sprawdzam w działaniu, czy pomysł się broni, zamiast tygodniami dopracowywać go w Figmie.",
       ],
     },
     services: {
@@ -39,7 +40,7 @@ export const ABOUT = tr({
         ["UX research", "Wywiady, testy z użytkownikami i analiza danych, z których wynika, co naprawdę warto zmienić."],
         ["UI design", "Czytelne ekrany i spójne komponenty, które dobrze wyglądają i równie dobrze działają na telefonie."],
         ["Branding", "Logo, kolory i ton głosu, które pasują do produktu i nie gubią się, gdy marka zaczyna rosnąć."],
-        ["Prototypowanie", "Klikalne makiety w Figmie, dzięki którym pomysł da się sprawdzić, zanim trafi do programistów."],
+        ["Prototypowanie", "Działające prototypy składane z AI, dzięki którym pomysł da się sprawdzić w przeglądarce, zanim trafi do programistów."],
       ],
     },
     experience: {
@@ -60,6 +61,7 @@ export const ABOUT = tr({
       text: [
         "Nature&Future is mine from the first sketch to production — identity, interface, front-end, payment integrations, deploy.",
         "I start with empty and error states and finish with typography. A project is done when it works at an address, not when it looks good on an artboard.",
+        "I design with AI. The direction, the copy and the decisions are mine, and I put the screens and code together with Claude Code and Claude Design. That way I quickly see a working version and whether the idea holds up, instead of polishing it in Figma for weeks.",
       ],
     },
     services: {
@@ -68,7 +70,7 @@ export const ABOUT = tr({
         ["UX research", "Interviews, user tests and data analysis that show what is really worth changing."],
         ["UI design", "Readable screens and consistent components that look good and work just as well on a phone."],
         ["Branding", "A logo, colours and a tone of voice that fit the product and hold up as the brand grows."],
-        ["Prototyping", "Clickable prototypes in Figma, so an idea can be tested before it reaches the developers."],
+        ["Prototyping", "Working prototypes put together with AI, so an idea can be tested in the browser before it reaches the developers."],
       ],
     },
     experience: {

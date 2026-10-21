@@ -1,8 +1,11 @@
 /* Case study copy, one entry per project key (see PROJECTS in tiles.js),
    in both languages. Nature Future is the placeholder copy from
    design/v2/Case study.dc.html; projects without an entry get a neutral
-   stand-in so the layout can be checked on every card. Every image is a
-   label for now — add `src` next to a label when the real shots arrive. */
+   stand-in so the layout can be checked on every card. An image is either
+   a label (a placeholder slot) or `{ src, alt }`; the gallery video is a
+   label or `{ src, label }`. Optional: `brief` (short question and goal
+   under the lead), an `eyebrow` on problem / process / result to rename
+   that section, and `result.stats` (leave it out for no numbers). */
 
 import { tr } from "./i18n.js";
 
@@ -11,7 +14,7 @@ const NF = {
     hero: "hero: strona główna",
     meta: [
       ["Rola", "UX/UI designer, research"],
-      ["Rok", "2025"],
+      ["Rok", "2026"],
       ["Zakres", "Strona www, design system"],
       ["Narzędzia", "Figma, Maze, Webflow"],
     ],
@@ -65,7 +68,7 @@ const NF = {
     hero: "hero: home page",
     meta: [
       ["Role", "UX/UI designer, research"],
-      ["Year", "2025"],
+      ["Year", "2026"],
       ["Scope", "Website, design system"],
       ["Tools", "Figma, Maze, Webflow"],
     ],
@@ -117,7 +120,134 @@ const NF = {
   },
 };
 
-export const CASES = { nf: tr(NF) };
+/* Atelier, the real estate site. Shots are framed screenshots of
+   atelier-realestate.vercel.app (public/assets/cases/nr); the hero is the
+   site's own Unsplash photo. */
+const NR_DIR = "/assets/cases/nr";
+const nrPic = (file, alt) => ({ src: `${NR_DIR}/${file}`, alt });
+
+const NR = {
+  pl: {
+    hero: nrPic("nr-hero.jpg", "Nowoczesny dom nocą, zdjęcie z pierwszego ekranu strony Atelier"),
+    meta: [
+      ["Klient", "Projekt własny"],
+      ["Rok", "2026"],
+      ["Usługi", "UX/UI, web design, ton marki"],
+      ["Narzędzia", "Claude"],
+    ],
+    link: { label: "zobacz stronę", href: "https://atelier-realestate.vercel.app/" },
+    lead: "Atelier to koncept butikowego biura nieruchomości, które zamiast katalogu pokazuje trzy domy i mówi, dlaczego właśnie te.",
+    brief: [
+      ["Pytanie", "Jak pokazać dom za kilkanaście milionów, żeby strona nie wyglądała jak portal z ogłoszeniami?"],
+      ["Cel", "Spokojna strona, która buduje zaufanie, zanim klient w ogóle zadzwoni."],
+    ],
+    problem: {
+      eyebrow: "o projekcie",
+      title: "Mniej ofert, więcej powodu",
+      text: [
+        "Atelier to mój projekt własny. Chciałam sprawdzić, jak wygląda strona biura premium, kiedy wyrzuci się z niej wszystko, co znamy z portali: filtry, dziesiątki ogłoszeń i formularze, które wyskakują po trzech sekundach.",
+        "Zostało hasło, trzy oferty, cztery kroki współpracy i kontakt. Kierunek, treść i wszystkie decyzje są moje, a stronę złożyłam z pomocą AI. To przyspiesza pracę i pozwala mi szybko sprawdzić w działaniu, czy pomysł się broni.",
+      ],
+      image: nrPic("nr-start.webp", "Pierwszy ekran strony Atelier na telefonie"),
+    },
+    process: {
+      eyebrow: "decyzje",
+      title: "Trzy decyzje, które ułożyły stronę",
+      steps: [
+        {
+          title: "Kierunek wizualny",
+          text: "Zaczęłam od hasła „Nieruchomości wybrane, nie znalezione” i dopiero pod nie dobrałam resztę. Szeryfowy Cormorant Garamond w nagłówkach, prawie czarne tło i mosiężny akcent tylko w drobnych podpisach. Kolor wnoszą zdjęcia domów, więc nic z nimi nie konkuruje.",
+          image: nrPic("nr-step-1.webp", "Pierwszy ekran z hasłem na zdjęciu domu nocą"),
+        },
+        {
+          title: "Trzy oferty zamiast katalogu",
+          text: "Biuro, które pracuje z niewieloma klientami, nie potrzebuje wyszukiwarki. Każda karta ma lokalizację, nazwę, metraż i cenę, nic więcej. Duże zdjęcia robią tu to, co na portalach robią filtry.",
+          image: nrPic("nr-step-2.webp", "Sekcja z trzema wyróżnionymi nieruchomościami"),
+        },
+        {
+          title: "Ruch, który nie ponagla",
+          text: "Sekcje pojawiają się łagodnie przy przewijaniu, a zdjęcie na pierwszym ekranie przesuwa się wolniej niż tekst. Przy włączonym ograniczeniu ruchu strona po prostu stoi. Kontakt to trzy pola i dopisek „spotkania wyłącznie po umówieniu”, bez wyskakujących okienek.",
+          image: nrPic("nr-step-3.webp", "Sekcje Jak pracujemy i Kontakt"),
+        },
+      ],
+    },
+    gallery: {
+      video: { src: `${NR_DIR}/nr-scroll.webm`, label: "Przewijanie strony Atelier od góry do dołu" },
+      phones: [
+        nrPic("nr-phone-1.webp", "Wyróżnione nieruchomości na telefonie"),
+        nrPic("nr-phone-2.webp", "Sekcja Jak pracujemy na telefonie"),
+      ],
+      detail: nrPic("nr-detail.webp", "Karta oferty po najechaniu kursorem"),
+      note: "Karta oferty po najechaniu: zdjęcie powoli się przybliża i przygasa, a tekst zostaje na swoim miejscu.",
+    },
+    result: {
+      eyebrow: "efekt",
+      title: "Strona, która mówi mniej",
+      text: "Atelier pokazuje, że w segmencie premium liczy się też to, czego na stronie nie ma. Każda sekcja ma jedno zadanie, a całość działa tak samo dobrze na telefonie jak na dużym ekranie. Z tego projektu biorę ton, który mogę przenieść na stronę prawdziwego biura.",
+    },
+  },
+  en: {
+    hero: nrPic("nr-hero.jpg", "A modern house at night, the photo from the first screen of the Atelier site"),
+    meta: [
+      ["Client", "Personal project"],
+      ["Year", "2026"],
+      ["Services", "UX/UI, web design, brand voice"],
+      ["Tools", "Claude"],
+    ],
+    link: { label: "see the site", href: "https://atelier-realestate.vercel.app/" },
+    lead: "Atelier is a concept for a boutique real estate agency that shows three houses instead of a catalogue, and says why these three.",
+    brief: [
+      ["The question", "How do you show a house worth millions without the site looking like a listings portal?"],
+      ["The goal", "A calm site that builds trust before the client even picks up the phone."],
+    ],
+    problem: {
+      eyebrow: "overview",
+      title: "Fewer offers, more reason",
+      text: [
+        "Atelier is a personal project. I wanted to see what a premium agency site looks like once you take out everything we know from portals: filters, dozens of listings and forms that pop up after three seconds.",
+        "What's left is a headline, three offers, four steps of working together and a contact form. The direction, the copy and every decision are mine, and I put the site together with AI. It speeds the work up and lets me quickly see a working version and check whether the idea holds up.",
+      ],
+      image: nrPic("nr-start.webp", "The first screen of the Atelier site on a phone"),
+    },
+    process: {
+      eyebrow: "decisions",
+      title: "Three decisions that shaped the site",
+      steps: [
+        {
+          title: "Visual direction",
+          text: "I started with the headline, “Properties chosen, not found,” and fitted the rest to it. Cormorant Garamond serif for headings, an almost black background and a brass accent kept to small labels. The colour comes from the photos of the houses, so nothing competes with them.",
+          image: nrPic("nr-step-1.webp", "The first screen with the headline over a house at night"),
+        },
+        {
+          title: "Three offers instead of a catalogue",
+          text: "An agency that works with few clients doesn't need a search engine. Each card has a location, a name, the floor area and the price, nothing more. Large photos do the job that filters do on portals.",
+          image: nrPic("nr-step-2.webp", "The section with three featured properties"),
+        },
+        {
+          title: "Motion that doesn't rush you",
+          text: "Sections fade in gently as you scroll, and the photo on the first screen moves slower than the text. With reduced motion turned on, the page simply stays still. Contact is three fields and a note, “meetings by appointment only”, with no pop-ups.",
+          image: nrPic("nr-step-3.webp", "The How we work and Contact sections"),
+        },
+      ],
+    },
+    gallery: {
+      video: { src: `${NR_DIR}/nr-scroll.webm`, label: "Scrolling the Atelier site from top to bottom" },
+      phones: [
+        nrPic("nr-phone-1.webp", "Featured properties on a phone"),
+        nrPic("nr-phone-2.webp", "The How we work section on a phone"),
+      ],
+      detail: nrPic("nr-detail.webp", "An offer card on hover"),
+      note: "An offer card on hover: the photo slowly zooms in and dims, while the text stays where it is.",
+    },
+    result: {
+      eyebrow: "outcome",
+      title: "A site that says less",
+      text: "Atelier shows that in the premium segment, what the site leaves out matters too. Every section has one job, and the whole thing works as well on a phone as on a big screen. What I take from it is a tone I can carry over to a real agency's site.",
+    },
+  },
+};
+
+export const CASES = { nf: tr(NF), nr: tr(NR) };
 
 const S = tr({
   pl: {
