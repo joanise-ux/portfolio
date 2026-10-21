@@ -11,7 +11,7 @@ export const PROJECTS = [
   { key: "nr", name: tr({ pl: "Nieruchomości", en: "Real Estate" }), cat: "web", year: 2026, bg: "#3b3833", cover: "/assets/cases/nr/nr-hero.jpg" },
   { key: "ka", name: tr({ pl: "Kancelaria", en: "Law Firm" }), cat: "branding", year: 2024, bg: "#32363a" },
   { key: "kw", name: tr({ pl: "Kawiarnia", en: "Café" }), cat: "rebranding", year: 2024, bg: "#46372b" },
-  { key: "tr", name: tr({ pl: "Tracker seriali", en: "Series Tracker" }), cat: tr({ pl: "aplikacja mobilna", en: "mobile app" }), year: 2026, bg: "#3a3532" },
+  { key: "rp", name: "Red Panda Pomodoro", cat: tr({ pl: "aplikacja desktopowa", en: "desktop app" }), year: 2026, bg: "#4a3024", cover: "/assets/cases/rp/rp-hero.jpg" },
 ];
 
 /* Card formats from the design, in px on the 1440×900 frame. */
@@ -24,7 +24,7 @@ const SHOTS = {
   nr: [["V", 0.45, 0.36], ["H", 0.6, 0.5], ["S", 0.55, 0.5], ["V", 0.5, 0.6]],
   ka: [["S", 0.5, 0.5], ["V", 0.5, 0.4], ["H", 0.45, 0.5], ["S", 0.4, 0.55]],
   kw: [["V", 0.5, 0.6], ["H", 0.42, 0.5], ["S", 0.6, 0.45], ["V", 0.45, 0.4]],
-  tr: [["V", 0.5, 0.46], ["S", 0.5, 0.48], ["V", 0.5, 0.5], ["H", 0.55, 0.5]],
+  rp: [["V", 0.5, 0.46], ["S", 0.5, 0.48], ["V", 0.5, 0.5], ["H", 0.55, 0.5]],
 };
 
 const INK = "243,235,221";
@@ -72,13 +72,7 @@ function makeTexture(project, index, [shape, ox, oy]) {
   g.fillStyle = `rgba(${INK},0.08)`;
   const m = Math.min(w, h);
   g.beginPath();
-  if (project.key === "tr") {
-    const pw = m * 0.32;
-    const ph = Math.min(pw * 1.9, h * 0.72);
-    g.roundRect(ox * w - pw / 2, oy * h - ph / 2, pw, ph, 14 * k);
-  } else {
-    g.arc(ox * w, oy * h, m * 0.25, 0, Math.PI * 2);
-  }
+  g.arc(ox * w, oy * h, m * 0.25, 0, Math.PI * 2);
   g.fill();
 
   g.fillStyle = `rgb(${INK})`;
@@ -120,7 +114,7 @@ export const cardStyle = (s) => `style="--card:${s.project.bg};--spot-x:${s.spot
 export const cardSpot = (s) =>
   s.project.cover
     ? `<i class="card-cover" style="background-image:url(${s.project.cover})"></i>`
-    : `<i class="card-spot${s.project.key === "tr" ? " card-spot--phone" : ""}"></i>`;
+    : `<i class="card-spot"></i>`;
 
 /* Deterministic shuffle, so the wall never puts a project's shots side by
    side and still looks the same on every load. */
