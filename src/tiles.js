@@ -9,6 +9,7 @@ import { tr } from "./i18n.js";
 export const PROJECTS = [
   { key: "nf", name: "Nature Future", cat: "web", year: 2026, bg: "#3a4034" },
   { key: "nr", name: tr({ pl: "Nieruchomości", en: "Real Estate" }), cat: "web", year: 2026, bg: "#3b3833", cover: "/assets/cases/nr/nr-hero.jpg" },
+  { key: "su", name: "SUOH", cat: "e-commerce", year: 2026, bg: "#3a2620", cover: "/assets/cases/su/su-hero.jpg" },
   { key: "ka", name: tr({ pl: "Kancelaria", en: "Law Firm" }), cat: "branding", year: 2024, bg: "#32363a" },
   { key: "kw", name: tr({ pl: "Kawiarnia", en: "Café" }), cat: "rebranding", year: 2024, bg: "#46372b" },
   { key: "rp", name: "Red Panda Pomodoro", cat: tr({ pl: "aplikacja desktopowa", en: "desktop app" }), year: 2026, bg: "#4a3024", cover: "/assets/cases/rp/rp-hero.jpg" },
@@ -22,6 +23,7 @@ export const SHAPES = { H: [600, 400], S: [440, 440], V: [340, 450] };
 const SHOTS = {
   nf: [["H", 0.62, 0.45], ["S", 0.38, 0.42], ["V", 0.5, 0.55], ["H", 0.4, 0.5]],
   nr: [["V", 0.45, 0.36], ["H", 0.6, 0.5], ["S", 0.55, 0.5], ["V", 0.5, 0.6]],
+  su: [["H", 0.5, 0.5], ["V", 0.4, 0.5], ["S", 0.5, 0.45], ["H", 0.55, 0.55]],
   ka: [["S", 0.5, 0.5], ["V", 0.5, 0.4], ["H", 0.45, 0.5], ["S", 0.4, 0.55]],
   kw: [["V", 0.5, 0.6], ["H", 0.42, 0.5], ["S", 0.6, 0.45], ["V", 0.45, 0.4]],
   rp: [["V", 0.5, 0.46], ["S", 0.5, 0.48], ["V", 0.5, 0.5], ["H", 0.55, 0.5]],

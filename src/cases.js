@@ -376,7 +376,134 @@ const RP = {
   },
 };
 
-export const CASES = { nf: tr(NF), nr: tr(NR), rp: tr(RP) };
+/* SUOH, the shop for crochet bags. Shots are framed screenshots of
+   suoh-two.vercel.app (public/assets/cases/su); the hero is the site's own
+   first screen with the text hidden, so only the two bags are left. */
+const SU_DIR = "/assets/cases/su";
+const suPic = (file, alt) => ({ src: `${SU_DIR}/${file}`, alt });
+
+const SU = {
+  pl: {
+    hero: suPic("su-hero.jpg", "Dwie szydełkowe torebki SUOH: brązowa na kamieniach nad wodą i granatowa na łańcuszku"),
+    meta: [
+      ["Klient", "SUOH, Wrocław"],
+      ["Rok", "2026"],
+      ["Usługi", "UX/UI, e-commerce, front-end"],
+      ["Narzędzia", "Claude"],
+    ],
+    link: { label: "zobacz stronę", href: "https://suoh-two.vercel.app/" },
+    lead: "SUOH to jednoosobowa pracownia z Wrocławia, w której każda torebka, brelok i prezent powstają ręcznie na szydełku. Zaprojektowałam dla niej sklep, w którym rękodzieło wygląda jak sztuka, a kupuje się je jak w zwykłym sklepie.",
+    brief: [
+      ["Pytanie", "Jak sprzedawać rzeczy, z których każda jest jedyna, żeby sklep nie wyglądał jak kolejny marketplace z rękodziełem?"],
+      ["Cel", "Ciemna, spokojna strona, na której pierwsze skrzypce grają zdjęcia, a droga od torebki do koszyka zajmuje dwa kliknięcia."],
+    ],
+    problem: {
+      eyebrow: "o projekcie",
+      title: "Rękodzieło, które nie chce wyglądać na tanie",
+      text: [
+        "Projektantka SUOH szydełkuje torebki z jedwabistego sznurka i wykańcza je metalowymi okuciami i własną blaszką z logo. Sprzedaż przez media społecznościowe i portale z rękodziełem sprawiała, że torebka za kilkaset złotych stała obok rzeczy za kilkanaście.",
+        "SUOH to mój projekt własny, zrobiony z myślą o niej. Hasło „Art you can carry”, czyli sztuka, którą nosisz, ustawiło cały kierunek. Projekt, treść i wszystkie decyzje są moje, a stronę złożyłam z pomocą AI, więc od razu działa: ma koszyk, ulubione i konto klienta.",
+      ],
+      image: suPic("su-start.webp", "Pierwszy ekran sklepu SUOH na telefonie"),
+    },
+    process: {
+      eyebrow: "decyzje",
+      title: "Trzy decyzje, które ułożyły sklep",
+      steps: [
+        {
+          title: "Ciemna galeria zamiast jasnego katalogu",
+          text: "Tło jest prawie czarne, a sekcje przeplatają się z głębokim brązem w odcieniu octu balsamicznego. Nagłówki są w szeryfowym Cormorant Garamond, drobne napisy w Jost z szerokim odstępem, a miedziany kolor zostaje tylko dla cen i przycisków. Dzięki temu faktura splotu na zdjęciach jest najjaśniejszym, co widać na ekranie.",
+          image: suPic("su-step-1.webp", "Pierwszy ekran sklepu z dwiema torebkami i hasłem Art you can carry"),
+        },
+        {
+          title: "Karta produktu jak metryczka",
+          text: "W sklepie produkty dzielą się na torebki, breloki i prezenty, a filtry mieszczą się w jednym rzędzie. Na karcie jest nazwa, kolor, cena, z czego torebka jest zrobiona i jakie ma wymiary. Kupująca nie widzi torebki na żywo, więc dostaje wszystko, o co zapytałaby w pracowni.",
+          image: suPic("su-step-2.webp", "Sklep z filtrami kategorii, a z przodu karta torebki Noir Crossbody po dodaniu do koszyka"),
+        },
+        {
+          title: "Historia obok koszyka",
+          text: "Strona „O nas” opowiada, jak z wieczorów z szydełkiem powstała pracownia i dlaczego zawsze będzie mała. Kiedy kupująca wie, ile godzin stoi za jedną torebką, cena przestaje dziwić. Koszyk jest prosty: miniatura, ilość, cena i informacja, że od 200 zł wysyłka jest gratis.",
+          image: suPic("su-step-3.webp", "Strona z historią pracowni, a z przodu koszyk z dwiema torebkami"),
+        },
+      ],
+    },
+    gallery: {
+      video: { src: `${SU_DIR}/su-scroll.webm`, label: "Przewijanie strony głównej SUOH od góry do dołu" },
+      phones: [
+        suPic("su-phone-1.webp", "Karta torebki Noir Crossbody na telefonie"),
+        suPic("su-phone-2.webp", "Kolekcja breloków na telefonie"),
+      ],
+      detail: suPic("su-detail.webp", "Karta torebki po najechaniu kursorem"),
+      note: "Na liście nowości zdjęcie stoi samo. Nazwa, cena i przycisk „Do koszyka” pojawiają się dopiero po najechaniu, żeby nic nie zasłaniało splotu.",
+    },
+    result: {
+      eyebrow: "efekt",
+      title: "Sklep, który traktuje rękodzieło poważnie",
+      text: "SUOH ma działający sklep po polsku i angielsku, z koszykiem, listą ulubionych i kontem klienta. Na telefonie wszystko mieści się w jednej kolumnie i dalej wygląda jak galeria. Na razie to wersja pokazowa, która czeka na płatności i prawdziwe zamówienia.",
+    },
+  },
+  en: {
+    hero: suPic("su-hero.jpg", "Two SUOH crochet bags: a brown one on rocks by the water and a navy one on a chain"),
+    meta: [
+      ["Client", "SUOH, Wrocław"],
+      ["Year", "2026"],
+      ["Services", "UX/UI, e-commerce, front-end"],
+      ["Tools", "Claude"],
+    ],
+    link: { label: "see the site", href: "https://suoh-two.vercel.app/" },
+    lead: "SUOH is a one-woman studio in Wrocław, Poland, where every bag, keychain and gift is crocheted by hand. I designed a shop for it where handmade work looks like art and buying it feels like any other shop.",
+    brief: [
+      ["The question", "How do you sell things that are each one of a kind, without the shop looking like yet another handmade marketplace?"],
+      ["The goal", "A dark, calm site where the photos lead, and the way from a bag to the cart takes two clicks."],
+    ],
+    problem: {
+      eyebrow: "overview",
+      title: "Handmade that doesn't want to look cheap",
+      text: [
+        "The designer behind SUOH crochets bags from silky cord and finishes them with metal hardware and her own logo plate. Selling through social media and handmade portals meant a bag worth a few hundred złoty stood next to things that cost a few dozen.",
+        "SUOH is a personal project, made with her in mind. The line “Art you can carry” set the whole direction. The design, the copy and every decision are mine, and I put the site together with AI, so it works from day one: it has a cart, a wishlist and a customer account.",
+      ],
+      image: suPic("su-start.webp", "The first screen of the SUOH shop on a phone"),
+    },
+    process: {
+      eyebrow: "decisions",
+      title: "Three decisions that shaped the shop",
+      steps: [
+        {
+          title: "A dark gallery instead of a bright catalogue",
+          text: "The background is almost black, and the sections alternate with a deep balsamic brown. Headings are in Cormorant Garamond serif, small labels in widely spaced Jost, and copper is kept for prices and buttons. That way the texture of the stitches in the photos is the brightest thing on the screen.",
+          image: suPic("su-step-1.webp", "The shop's first screen with two bags and the line Art you can carry"),
+        },
+        {
+          title: "A product card like a label",
+          text: "The shop splits into bags, keychains and gifts, and the filters fit in one row. Each card has the name, colour, price, what the bag is made of and its dimensions. The buyer can't see the bag in person, so she gets everything she'd ask about in the studio.",
+          image: suPic("su-step-2.webp", "The shop with category filters, and in front the Noir Crossbody card after adding it to the cart"),
+        },
+        {
+          title: "The story next to the cart",
+          text: "The About page tells how evenings with a crochet hook turned into a studio, and why it will always stay small. Once a buyer knows how many hours go into one bag, the price stops being a surprise. The cart is simple: a thumbnail, the quantity, the price and a note that shipping is free above 200 PLN.",
+          image: suPic("su-step-3.webp", "The studio's story page, and in front the cart with two bags"),
+        },
+      ],
+    },
+    gallery: {
+      video: { src: `${SU_DIR}/su-scroll.webm`, label: "Scrolling the SUOH home page from top to bottom" },
+      phones: [
+        suPic("su-phone-1.webp", "The Noir Crossbody card on a phone"),
+        suPic("su-phone-2.webp", "The keychain collection on a phone"),
+      ],
+      detail: suPic("su-detail.webp", "A bag card on hover"),
+      note: "In the new arrivals the photo stands on its own. The name, price and “Add to bag” button only show up on hover, so nothing covers the stitches.",
+    },
+    result: {
+      eyebrow: "outcome",
+      title: "A shop that takes handmade seriously",
+      text: "SUOH has a working shop in Polish and English, with a cart, a wishlist and a customer account. On a phone everything fits in one column and still looks like a gallery. For now it's a demo version, waiting for payments and real orders.",
+    },
+  },
+};
+
+export const CASES = { nf: tr(NF), nr: tr(NR), su: tr(SU), rp: tr(RP) };
 
 const S = tr({
   pl: {
