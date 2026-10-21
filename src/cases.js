@@ -304,7 +304,7 @@ const RP = {
       video: rpPic("rp-wide.jpg", "Ekrany aplikacji w telefonach ułożone ukośnie: tryby, ustawienia, jasny i ciemny motyw"),
       phones: [
         rpPic("rp-phone-1.jpg", "Ikona Red Panda Pomodoro na ekranie telefonu"),
-        rpPic("rp-phone-2.jpg", "Dłoń trzymająca telefon z minutnikiem w ciemnym motywie"),
+        rpPic("rp-phone-2.jpg", "Telefon z minutnikiem w ciemnym motywie w trakcie skupienia"),
       ],
       detail: rpPic("rp-detail.jpg", "Menu w pasku menu z pozostałym czasem"),
       note: "Minutnik mieszka też w pasku menu. Stamtąd można zatrzymać sesję, przeskoczyć ją albo otworzyć ustawienia, bez otwierania okna.",
@@ -363,7 +363,7 @@ const RP = {
       video: rpPic("rp-wide.jpg", "App screens in phones laid out at an angle: the modes, settings, light and dark themes"),
       phones: [
         rpPic("rp-phone-1.jpg", "The Red Panda Pomodoro icon on a phone home screen"),
-        rpPic("rp-phone-2.jpg", "A hand holding a phone with the timer in the dark theme"),
+        rpPic("rp-phone-2.jpg", "A phone with the timer in the dark theme during a focus session"),
       ],
       detail: rpPic("rp-detail.jpg", "The menu bar menu with the time left"),
       note: "The timer also lives in the menu bar. From there you can pause a session, skip it or open the settings without opening the window.",
