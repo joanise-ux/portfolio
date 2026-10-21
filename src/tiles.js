@@ -1,14 +1,14 @@
-/* Placeholder content for the project wall: flat-colour cards standing in for
-   the five planned projects, as drawn in design/v2/Strona główna.dc.html.
-   Real shots replace `makeTexture` later — the layouts only care about
-   `aspect` and a texture. */
+/* Content for the project wall: flat-colour cards standing in for the five
+   planned projects, as drawn in design/v2/Strona główna.dc.html. A project
+   with a `cover` shows that photo instead, cropped to each card's shape —
+   the layouts only care about `aspect` and a texture. */
 
 import * as THREE from "three";
 import { tr } from "./i18n.js";
 
 export const PROJECTS = [
   { key: "nf", name: "Nature Future", cat: "web", year: 2026, bg: "#3a4034" },
-  { key: "nr", name: tr({ pl: "Nieruchomości", en: "Real Estate" }), cat: "web", year: 2026, bg: "#3b3833" },
+  { key: "nr", name: tr({ pl: "Nieruchomości", en: "Real Estate" }), cat: "web", year: 2026, bg: "#3b3833", cover: "/assets/cases/nr/nr-hero.jpg" },
   { key: "ka", name: tr({ pl: "Kancelaria", en: "Law Firm" }), cat: "branding", year: 2024, bg: "#32363a" },
   { key: "kw", name: tr({ pl: "Kawiarnia", en: "Café" }), cat: "rebranding", year: 2024, bg: "#46372b" },
   { key: "tr", name: tr({ pl: "Tracker seriali", en: "Series Tracker" }), cat: tr({ pl: "aplikacja mobilna", en: "mobile app" }), year: 2026, bg: "#3a3532" },
@@ -28,6 +28,32 @@ const SHOTS = {
 };
 
 const INK = "243,235,221";
+
+/* Keep in step with .card-cover::after in main.css. */
+const COVER_VEIL = "rgba(21,18,15,0.3)";
+
+/* One load per cover, shared by every card of the project. */
+const covers = new Map();
+const loadCover = (src) => {
+  if (!covers.has(src)) {
+    const img = new Image();
+    img.decoding = "async";
+    img.src = src;
+    covers.set(src, img.decode().then(() => img));
+  }
+  return covers.get(src);
+};
+
+/* Draw `img` over the whole canvas like `object-fit: cover`. */
+function drawCover(g, img, w, h) {
+  const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
+  const sw = w / scale;
+  const sh = h / scale;
+  g.drawImage(img, (img.naturalWidth - sw) / 2, (img.naturalHeight - sh) / 2, sw, sh, 0, 0, w, h);
+  // a veil in the page colour, so a bright photo sits with the dark cards
+  g.fillStyle = COVER_VEIL;
+  g.fillRect(0, 0, w, h);
+}
 
 function makeTexture(project, index, [shape, ox, oy]) {
   const k = 2; // texture px per design px
@@ -62,6 +88,15 @@ function makeTexture(project, index, [shape, ox, oy]) {
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = 4;
+  // the flat card stays until the cover photo has loaded
+  if (project.cover) {
+    loadCover(project.cover)
+      .then((img) => {
+        drawCover(g, img, w, h);
+        tex.needsUpdate = true;
+      })
+      .catch(() => {});
+  }
   return tex;
 }
 
@@ -82,7 +117,10 @@ export function buildShots() {
 /* The same card drawn in the DOM (case study hero, list thumbnail): the
    style goes on a box with `container-type: size`, the spot inside it. */
 export const cardStyle = (s) => `style="--card:${s.project.bg};--spot-x:${s.spot[0] * 100}%;--spot-y:${s.spot[1] * 100}%"`;
-export const cardSpot = (s) => `<i class="card-spot${s.project.key === "tr" ? " card-spot--phone" : ""}"></i>`;
+export const cardSpot = (s) =>
+  s.project.cover
+    ? `<i class="card-cover" style="background-image:url(${s.project.cover})"></i>`
+    : `<i class="card-spot${s.project.key === "tr" ? " card-spot--phone" : ""}"></i>`;
 
 /* Deterministic shuffle, so the wall never puts a project's shots side by
    side and still looks the same on every load. */

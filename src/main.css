@@ -407,6 +407,19 @@ html.is-reading body {
   background: rgba(243, 235, 221, 0.08);
   transform: translate(-50%, -50%);
 }
+/* a project's cover photo in place of the soft shape */
+.card-cover {
+  position: absolute;
+  inset: 0;
+  background: center / cover no-repeat;
+}
+/* the same veil the wall draws over a cover (COVER_VEIL in tiles.js) */
+.card-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(21, 18, 15, 0.3);
+}
 .card-spot--phone {
   width: 32cqmin;
   height: min(60.8cqmin, 72cqh);
