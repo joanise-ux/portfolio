@@ -129,7 +129,7 @@ const nrPic = (file, alt) => ({ src: `${NR_DIR}/${file}`, alt });
 
 const NR = {
   pl: {
-    hero: nrPic("nr-hero.jpg", "Nowoczesny dom nocą, zdjęcie z pierwszego ekranu strony Atelier"),
+    hero: nrPic("nr-hero.jpg", "Pierwszy ekran strony Atelier na laptopie i telefonie"),
     meta: [
       ["Klient", "Projekt własny"],
       ["Rok", "2026"],
@@ -188,7 +188,7 @@ const NR = {
     },
   },
   en: {
-    hero: nrPic("nr-hero.jpg", "A modern house at night, the photo from the first screen of the Atelier site"),
+    hero: nrPic("nr-hero.jpg", "The first screen of the Atelier site on a laptop and a phone"),
     meta: [
       ["Client", "Personal project"],
       ["Year", "2026"],
