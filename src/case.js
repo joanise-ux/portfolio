@@ -28,8 +28,11 @@ const shot = (img, kind) =>
     ? `<figure class="case__shot case__shot--${kind}" data-reveal><figcaption>${img}</figcaption></figure>`
     : `<figure class="case__shot case__shot--${kind} has-img" data-reveal><img src="${img.src}" alt="${img.alt}" loading="lazy" decoding="async"></figure>`;
 
+/* The wide gallery slot: a label, a still `{ src, alt }` or a clip `{ src, label }`. */
 const video = (v) =>
-  typeof v === "string"
+  v.alt !== undefined
+    ? shot(v, "video")
+    : typeof v === "string"
     ? `<figure class="case__shot case__shot--video" data-reveal>
         <span class="case__play" role="img" aria-label="${UI.aria.play}"></span>
         <figcaption>${v}</figcaption>
@@ -61,6 +64,7 @@ function markup(s, next) {
       <div class="case__meta">
         <dl>${c.meta.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
         ${c.link ? `<a class="case__link" href="${c.link.href}"><span>${c.link.label}</span><span>→</span></a>` : ""}
+        ${c.badge ? `<span class="case__badge">${c.badge}</span>` : ""}
       </div>
 
       <p class="case__lead">${c.lead}</p>

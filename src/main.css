@@ -420,11 +420,6 @@ html.is-reading body {
   inset: 0;
   background: rgba(21, 18, 15, 0.3);
 }
-.card-spot--phone {
-  width: 32cqmin;
-  height: min(60.8cqmin, 72cqh);
-  border-radius: 14cqmin;
-}
 .case__hero {
   height: clamp(480px, 83.33vh, 900px);
 }
@@ -555,6 +550,15 @@ html.is-reading body {
 }
 .case__link:active {
   color: var(--accent-deep);
+}
+/* in place of the link, for a project that can't be opened yet */
+.case__badge {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  color: var(--muted);
+  font-size: 17px;
+  white-space: nowrap;
 }
 
 .case__lead {
@@ -909,6 +913,11 @@ html.is-reading body {
   }
   .case__link {
     justify-content: space-between;
+    height: 52px;
+    border-top: 1px solid var(--line);
+    font-size: 16px;
+  }
+  .case__badge {
     height: 52px;
     border-top: 1px solid var(--line);
     font-size: 16px;
