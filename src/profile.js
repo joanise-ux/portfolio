@@ -29,7 +29,7 @@ export const ABOUT = tr({
     me: {
       title: "Projektuję i wdrażam",
       text: [
-        "Nature&Future to mój projekt od pierwszego szkicu po produkcję — identyfikacja, interfejs, front-end, integracje płatności, deploy.",
+        "Prowadzę projekty od pierwszego szkicu po produkcję — identyfikacja, interfejs, front-end, deploy.",
         "Zaczynam od stanów pustych i błędów, kończę na typografii. Projekt uznaję za skończony, kiedy działa pod adresem, nie kiedy wygląda dobrze na artboardzie.",
         "Projektuję z AI. Kierunek, treść i decyzje są moje, a ekrany i kod składam z pomocą Claude Code i Claude Design. Dzięki temu szybko sprawdzam w działaniu, czy pomysł się broni, zamiast tygodniami dopracowywać go w Figmie.",
       ],
@@ -59,7 +59,7 @@ export const ABOUT = tr({
     me: {
       title: "I design and I ship",
       text: [
-        "Nature&Future is mine from the first sketch to production — identity, interface, front-end, payment integrations, deploy.",
+        "I take projects from the first sketch to production — identity, interface, front-end, deploy.",
         "I start with empty and error states and finish with typography. A project is done when it works at an address, not when it looks good on an artboard.",
         "I design with AI. The direction, the copy and the decisions are mine, and I put the screens and code together with Claude Code and Claude Design. That way I quickly see a working version and whether the idea holds up, instead of polishing it in Figma for weeks.",
       ],
