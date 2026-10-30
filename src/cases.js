@@ -141,7 +141,8 @@ const NR = {
 /* Red Panda Pomodoro, the desktop timer (github.com/joanise-ux/red-panda-pomodoro).
    It's private for now, so there's no download link. The window shots are
    captures of the real build with sample data; the desk, phone and menu bar
-   around them are drawn mockups (public/assets/cases/rp). */
+   around them are drawn mockups, the palette board and the numbers come from
+   Joanna's case study pack (public/assets/cases/rp). */
 const RP_DIR = "/assets/cases/rp";
 const rpPic = (file, alt) => ({ src: `${RP_DIR}/${file}`, alt });
 
@@ -152,10 +153,10 @@ const RP = {
       ["Klient", "Projekt własny"],
       ["Rok", "2026"],
       ["Usługi", "Ilustracja, UX/UI, aplikacja desktopowa"],
-      ["Narzędzia", "Claude, Electron, React"],
+      ["Narzędzia", "Claude, Electron, React, TypeScript"],
     ],
     badge: "prywatna, do pobrania wkrótce",
-    lead: "Red Panda Pomodoro to spokojny minutnik do pracy w rytmie pomodoro, na macOS i Windows. Zamiast kolejnego surowego zegara ma czerwoną pandę, która siedzi na tarczy i dotrzymuje towarzystwa przy pracy.",
+    lead: "Red Panda Pomodoro to aplikacja na macOS i Windows, która pomaga pracować w rytmie pomodoro. Ma ciepły, spokojny interfejs i pandę rudą, która siedzi na tarczy minutnika. Nie wymaga konta i niczego nie śledzi.",
     brief: [
       ["Pytanie", "Jak zrobić minutnik, który pilnuje czasu, ale nie stresuje?"],
       ["Cel", "Mała aplikacja, która działa w tle, mówi tylko to, co trzeba, i którą po prostu miło otworzyć."],
@@ -164,28 +165,33 @@ const RP = {
       eyebrow: "o projekcie",
       title: "Minutnik, który nie pogania",
       text: [
-        "Red Panda Pomodoro to mój projekt własny. Większość minutników pomodoro albo wygląda jak panel sterowania, albo odlicza czas czerwonymi cyframi, które bardziej stresują, niż pomagają się skupić. Chciałam czegoś cichego i ciepłego, co stoi z boku ekranu i nie domaga się uwagi.",
-        "Kierunek, ilustracja, kolory i wszystkie decyzje są moje, a kod napisałam z pomocą AI. Dzięki temu z pomysłu powstała prawdziwa aplikacja: instaluje się, pamięta ustawienia i działa także przy zamkniętym oknie. Na razie korzystam z niej sama, a wersja do pobrania jest w planach.",
+        "Technika pomodoro jest prosta, ale narzędzia do niej często nie są. Minutniki w przeglądarce gubią się wśród kart, a przeglądarka spowalnia karty w tle, więc pokazują zły czas. Aplikacje do produktywności dokładają konta, rankingi i subskrypcje, aż same zaczynają rozpraszać. Proste minutniki systemowe nie znają rytmu pomodoro i nie wiedzą, kiedy wypada długa przerwa. Chciałam czegoś cichego i ciepłego, co stoi z boku ekranu i nie domaga się uwagi.",
+        "To mój projekt własny. Kierunek, ilustracja, kolory i wszystkie decyzje są moje, a kod napisałam z pomocą AI. Z pomysłu powstała prawdziwa aplikacja w wersji 0.1.0: instaluje się, pamięta ustawienia i działa także przy zamkniętym oknie. Na razie korzystam z niej sama, a wersja do pobrania jest w planach.",
       ],
-      image: rpPic("rp-start.jpg", "Ikona aplikacji: czerwona panda na kremowym tle"),
+      image: rpPic("rp-start.jpg", "Ikona aplikacji: panda ruda na kremowym tle"),
     },
     process: {
       eyebrow: "decyzje",
-      title: "Trzy decyzje, które ułożyły aplikację",
+      title: "Cztery decyzje, które ułożyły aplikację",
       steps: [
         {
           title: "Panda jako twarz aplikacji",
-          text: "Zaczęłam od ilustracji. Ta sama panda jest ikoną w docku, siedzi na tarczy minutnika, a jej uproszczona głowa w pasku menu pokazuje, ile zostało czasu. Z niej wzięła się też paleta: rdzawy, kremowy i ciepły brąz.",
+          text: "Zaczęłam od ilustracji. Ta sama panda jest ikoną w docku, siedzi na tarczy minutnika, a jej uproszczona głowa w pasku menu pokazuje, ile zostało czasu. Z niej wzięła się też paleta: rdzawy, kremowy i ciepły brąz. Grafiki są przypisane do trybów, więc panda może dostawać nowe pozy bez zmian w reszcie interfejsu.",
           image: rpPic("rp-step-1.jpg", "Aplikacja na pulpicie: okno z minutnikiem, panda w docku i pozostały czas w pasku menu"),
         },
         {
           title: "Kolor mówi, co teraz robisz",
-          text: "Skupienie jest rdzawe, krótka przerwa zielona, a długa niebieska. Wystarczy zerknąć na ekran, żeby wiedzieć, w jakiej jesteś fazie. Kropki pod tarczą liczą pomodoro do długiej przerwy, a na dole widać, ile udało się dziś zrobić.",
+          text: "Skupienie jest rdzawe, krótka przerwa zielona, a długa niebieska. Kolor obejmuje odznakę trybu, pierścień, główny przycisk i delikatnie tło, więc fazę rozpoznajesz kątem oka. Przejście między trybami trwa 600 ms, żeby zmiana była łagodna. Kropki pod tarczą liczą pomodoro do długiej przerwy, a na dole widać, ile udało się dziś zrobić.",
           image: rpPic("rp-step-2.jpg", "Trzy tryby obok siebie: skupienie, krótka przerwa i długa przerwa"),
         },
         {
           title: "Spokój także po ciemku",
-          text: "Aplikacja przechodzi w ciemny motyw razem z systemem, a kolory w obu motywach mają kontrast zgodny z WCAG AA. Ustawienia mieszczą się na jednym ekranie. Całość da się obsłużyć z klawiatury: spacja startuje i pauzuje, R resetuje, S przeskakuje sesję.",
+          text: "Aplikacja przechodzi w ciemny motyw razem z systemem. Każdy kolor ma osobną wartość dla obu motywów, a wszystkie pary tekstu i akcentu mają kontrast zgodny z WCAG AA. Krój Nunito jest zaokrąglony jak panda, a cyfry minutnika są duże i czytelne z daleka. Całość da się obsłużyć z klawiatury, a przy systemowym ograniczeniu ruchu animacje się wyłączają.",
+          image: rpPic("rp-palette.jpg", "Paleta kolorów i typografia w jasnym i ciemnym motywie"),
+        },
+        {
+          title: "Uczciwe zasady i dokładny czas",
+          text: "Reset i pominięcie sesji nigdy nie liczą się jako ukończone pomodoro, a zmiana długości sesji działa od następnej. Minutnik zapamiętuje moment, w którym sesja się skończy, zamiast odejmować sekundy, więc pokazuje dobry czas nawet po uśpieniu komputera. Trwająca sesja przetrwa też zamknięcie aplikacji.",
           image: rpPic("rp-step-3.jpg", "Ustawienia w jasnym motywie i minutnik w ciemnym"),
         },
       ],
@@ -197,12 +203,17 @@ const RP = {
         rpPic("rp-phone-2.jpg", "Telefon z minutnikiem w ciemnym motywie w trakcie skupienia"),
       ],
       detail: rpPic("rp-detail.jpg", "Menu w pasku menu z pozostałym czasem"),
-      note: "Minutnik mieszka też w pasku menu. Stamtąd można zatrzymać sesję, przeskoczyć ją albo otworzyć ustawienia, bez otwierania okna.",
+      note: "Minutnik mieszka też w pasku menu na macOS i w zasobniku na Windows. Widać tam pozostały czas, a sesję można zatrzymać, pominąć albo zresetować bez otwierania okna. Na koniec sesji gra cichy dzwonek i przychodzi powiadomienie z tym, co dalej.",
     },
     result: {
       eyebrow: "efekt",
       title: "Mała aplikacja, która naprawdę działa",
-      text: "Red Panda Pomodoro to działająca aplikacja na macOS i Windows, a nie makieta. Liczy czas dokładnie nawet po uśpieniu komputera, pamięta ustawienia i dzisiejsze statystyki, a żadne dane nie opuszczają komputera. Na razie to projekt prywatny, a w przyszłości chcę udostępnić go do pobrania.",
+      text: "Red Panda Pomodoro to działająca aplikacja, a nie makieta. Logikę cyklu i zapis danych sprawdzają testy, a instalatory na macOS i Windows buduje automatycznie GitHub Actions. Żadne dane nie opuszczają komputera. Dalej chcę podpisać aplikację, żeby instalowała się bez ostrzeżeń systemu, dodać pandzie nowe pozy i udostępnić ją do pobrania.",
+      stats: [
+        ["63", "testy jednostkowe logiki, ustawień i zapisu danych"],
+        ["2", "systemy: macOS i Windows"],
+        ["0", "kont, połączeń z siecią i śledzenia"],
+      ],
     },
   },
   en: {
@@ -211,10 +222,10 @@ const RP = {
       ["Client", "Personal project"],
       ["Year", "2026"],
       ["Services", "Illustration, UX/UI, desktop app"],
-      ["Tools", "Claude, Electron, React"],
+      ["Tools", "Claude, Electron, React, TypeScript"],
     ],
     badge: "private, download coming later",
-    lead: "Red Panda Pomodoro is a calm Pomodoro timer for macOS and Windows. Instead of yet another bare clock, it has a red panda that sits on the dial and keeps you company while you work.",
+    lead: "Red Panda Pomodoro is a desktop app for macOS and Windows that helps you work in Pomodoro rhythm. It has a warm, calm interface and a red panda sitting on the timer's dial. No account, no tracking.",
     brief: [
       ["The question", "How do you make a timer that keeps track of time without stressing you out?"],
       ["The goal", "A small app that runs in the background, says only what it needs to, and is simply nice to open."],
@@ -223,28 +234,33 @@ const RP = {
       eyebrow: "overview",
       title: "A timer that doesn't rush you",
       text: [
-        "Red Panda Pomodoro is a personal project. Most Pomodoro timers either look like a control panel or count down in red digits that stress you more than they help you focus. I wanted something quiet and warm that sits at the side of the screen and doesn't ask for attention.",
-        "The direction, the illustration, the colours and every decision are mine, and I wrote the code with AI. That turned the idea into a real app: it installs, remembers its settings and keeps running with the window closed. For now I'm its only user, and a downloadable version is in the plans.",
+        "The Pomodoro technique is simple. The tools for it often aren't. Browser timers get lost among tabs, and browsers slow down background tabs, so the countdown drifts. Productivity apps add accounts, leaderboards and subscriptions until they become a distraction themselves. Basic system timers don't know the Pomodoro rhythm or when a long break is due. I wanted something quiet and warm that sits at the side of the screen and doesn't ask for attention.",
+        "It's a personal project. The direction, the illustration, the colours and every decision are mine, and I wrote the code with AI. That turned the idea into a real app at version 0.1.0: it installs, remembers its settings and keeps running with the window closed. For now I'm its only user, and a downloadable version is in the plans.",
       ],
       image: rpPic("rp-start.jpg", "The app icon: a red panda on a cream background"),
     },
     process: {
       eyebrow: "decisions",
-      title: "Three decisions that shaped the app",
+      title: "Four decisions that shaped the app",
       steps: [
         {
           title: "The panda as the face of the app",
-          text: "I started with the illustration. The same panda is the icon in the dock, sits on the timer's dial, and a simplified head in the menu bar shows how much time is left. The palette came from it too: rust, cream and warm brown.",
+          text: "I started with the illustration. The same panda is the icon in the dock, sits on the timer's dial, and a simplified head in the menu bar shows how much time is left. The palette came from it too: rust, cream and warm brown. The artwork is mapped to the modes, so the panda can get new poses without changes to the rest of the interface.",
           image: rpPic("rp-step-1.jpg", "The app on a desktop: the timer window, the panda in the dock and the time left in the menu bar"),
         },
         {
           title: "Colour tells you what you're doing",
-          text: "Focus is rust, a short break is green and a long break is blue. One glance at the screen tells you which phase you're in. The dots under the dial count pomodoros until the long break, and the bottom line shows what you've done today.",
+          text: "Focus is rust, a short break is green and a long break is blue. The colour covers the mode badge, the ring, the main button and a light tint of the background, so you can tell the phase at a glance. Switching modes takes 600 ms, so the change feels gentle. The dots under the dial count pomodoros until the long break, and the bottom line shows what you've done today.",
           image: rpPic("rp-step-2.jpg", "The three modes side by side: focus, short break and long break"),
         },
         {
           title: "Calm in the dark too",
-          text: "The app follows the system into dark mode, and the colours in both themes meet WCAG AA contrast. The settings fit on one screen. Everything works from the keyboard: Space starts and pauses, R resets, S skips a session.",
+          text: "The app follows the system into dark mode. Every colour has its own value for each theme, and every text and accent pair meets WCAG AA contrast. Nunito is rounded like the panda, and the timer's digits are large enough to read from across the desk. Everything works from the keyboard, and animations turn off when the system asks for reduced motion.",
+          image: rpPic("rp-palette.jpg", "The colour palette and typography in the light and dark themes"),
+        },
+        {
+          title: "Fair rules and accurate time",
+          text: "Reset and skip never count as a finished pomodoro, and a new session length applies from the next session. The timer remembers when a session will end instead of subtracting seconds, so it shows the right time even after the computer sleeps. A running session also survives closing the app.",
           image: rpPic("rp-step-3.jpg", "Settings in the light theme and the timer in the dark theme"),
         },
       ],
@@ -256,12 +272,17 @@ const RP = {
         rpPic("rp-phone-2.jpg", "A phone with the timer in the dark theme during a focus session"),
       ],
       detail: rpPic("rp-detail.jpg", "The menu bar menu with the time left"),
-      note: "The timer also lives in the menu bar. From there you can pause a session, skip it or open the settings without opening the window.",
+      note: "The timer also lives in the menu bar on macOS and in the system tray on Windows. It shows the time left, and you can pause, skip or reset a session without opening the window. When a session ends, a soft chime plays and a notification says what's next.",
     },
     result: {
       eyebrow: "outcome",
       title: "A small app that really works",
-      text: "Red Panda Pomodoro is a working app for macOS and Windows, not a mockup. It keeps accurate time even after the computer sleeps, remembers its settings and today's stats, and no data ever leaves the computer. For now it's a private project, and later on I'd like to make it available to download.",
+      text: "Red Panda Pomodoro is a working app, not a mockup. Tests cover the cycle logic and data storage, and GitHub Actions builds the macOS and Windows installers automatically. No data ever leaves the computer. Next, I'd like to sign the app so it installs without system warnings, give the panda new poses and make it available to download.",
+      stats: [
+        ["63", "unit tests for the logic, settings and data storage"],
+        ["2", "systems: macOS and Windows"],
+        ["0", "accounts, network calls or tracking"],
+      ],
     },
   },
 };
