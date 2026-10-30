@@ -746,6 +746,45 @@ html.is-reading body {
   line-height: 1.5;
 }
 
+/* live prototype screens: text beside a list of links, two to a row */
+.case__protos {
+  display: grid;
+  grid-template-columns: minmax(0, 0.84fr) minmax(0, 1fr);
+  gap: clamp(40px, 6.67vw, 96px);
+  align-items: start;
+}
+.case__protos ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 32px;
+  border-bottom: 1px solid var(--line);
+}
+.case__proto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 60px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.case__proto span:last-child {
+  color: var(--accent);
+}
+.case__proto:hover {
+  color: var(--accent);
+}
+.case__proto:active {
+  color: var(--accent-deep);
+}
+.case__proto:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
 .case__result {
   display: flex;
   flex-direction: column;
@@ -965,6 +1004,18 @@ html.is-reading body {
     left: 14px;
     bottom: 14px;
     font-size: 12px;
+  }
+
+  .case__protos,
+  .case__protos ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .case__protos {
+    gap: 32px;
+  }
+  .case__proto {
+    height: 52px;
+    font-size: 16px;
   }
 
   .case__stats {

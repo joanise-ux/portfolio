@@ -1,125 +1,15 @@
 /* Case study copy, one entry per project key (see PROJECTS in tiles.js),
-   in both languages. Nature Future is the placeholder copy from
-   design/v2/Case study.dc.html; projects without an entry get a neutral
+   in both languages. Projects without an entry get a neutral
    stand-in so the layout can be checked on every card. An image is either
    a label (a placeholder slot) or `{ src, alt }`; the gallery video is a
    label, `{ src, label }` or a still `{ src, alt }`. Optional: `link`, or
    `badge` (a plain note in its place), `brief` (short question and goal
    under the lead), an `eyebrow` on problem / process / result to rename
-   that section, and `result.stats` (leave it out for no numbers). */
+   that section, `result.stats` (leave it out for no numbers), and
+   `prototypes` (`{ title, text, links: [[label, href]] }`, a list of
+   live screens under the gallery). */
 
 import { tr } from "./i18n.js";
-
-const NF = {
-  pl: {
-    hero: "hero: strona główna",
-    meta: [
-      ["Rola", "UX/UI designer, research"],
-      ["Rok", "2026"],
-      ["Zakres", "Strona www, design system"],
-      ["Narzędzia", "Figma, Maze, Webflow"],
-    ],
-    link: { label: "zobacz stronę", href: "#" },
-    lead: "Strona fundacji klimatycznej, która zamienia długie raporty w krótkie historie, przez które chce się przewinąć do końca.",
-    problem: {
-      title: "Raporty, których nikt nie czytał",
-      text: [
-        "Fundacja co kwartał publikowała raport w PDF-ie liczący kilkadziesiąt stron. Strona była tylko miejscem, z którego się go pobierało, a większość odwiedzających wychodziła po kilku sekundach.",
-        "Zespół chciał, żeby wyniki badań trafiały do osób spoza branży: nauczycieli, dziennikarzy i lokalnych samorządów. Bez zmiany formy treści nie dało się tego osiągnąć.",
-      ],
-      image: "obraz: stara strona, audyt",
-    },
-    process: {
-      title: "Od arkusza do opowieści",
-      steps: [
-        {
-          title: "Mapa treści",
-          text: "Przejrzałam trzy ostatnie raporty i wypisałam pytania, na które odpowiadają. Z warsztatu z zespołem wyszło siedem tematów, które wracają co kwartał.",
-          image: "obraz: mapa treści z warsztatu",
-        },
-        {
-          title: "Makiety i testy",
-          text: "Zbudowałam dwa warianty strony tematu i sprawdziłam je z ośmioma osobami. Wygrała wersja, w której dane pojawiają się dopiero po krótkim wstępie.",
-          image: "obraz: makiety w Figmie",
-        },
-        {
-          title: "System komponentów",
-          text: "Ułożyłam bibliotekę bloków, z których redakcja składa nowe historie bez pomocy programisty. Każdy blok ma wersję na telefon i krótki opis użycia.",
-          image: "obraz: biblioteka komponentów",
-        },
-      ],
-    },
-    gallery: {
-      video: "wideo: przewijanie strony tematu · 0:42",
-      phones: ["telefon: menu tematów", "telefon: artykuł"],
-      detail: "detal: nawigacja",
-      note: "Nawigacja tematów w trzech stanach: spoczynek, hover i aktywny.",
-    },
-    result: {
-      title: "Co się zmieniło",
-      text: "Po trzech miesiącach od startu strona przestała być miejscem do pobrania pliku. Ludzie czytają historie do końca i wracają do kolejnych tematów, a redakcja publikuje nowe treści sama, bez kolejki do programisty.",
-      stats: [
-        ["+00%", "czasu spędzanego na stronie tematu"],
-        ["−00%", "odejść z pierwszego ekranu"],
-        ["00", "historii opublikowanych samodzielnie przez redakcję"],
-      ],
-    },
-  },
-  en: {
-    hero: "hero: home page",
-    meta: [
-      ["Role", "UX/UI designer, research"],
-      ["Year", "2026"],
-      ["Scope", "Website, design system"],
-      ["Tools", "Figma, Maze, Webflow"],
-    ],
-    link: { label: "see the site", href: "#" },
-    lead: "A website for a climate foundation that turns long reports into short stories you want to scroll to the end of.",
-    problem: {
-      title: "Reports nobody read",
-      text: [
-        "Every quarter the foundation published a PDF report dozens of pages long. The website was only the place you downloaded it from, and most visitors left within seconds.",
-        "The team wanted the research to reach people outside the field: teachers, journalists and local councils. That could not happen without changing the form of the content.",
-      ],
-      image: "image: old site, audit",
-    },
-    process: {
-      title: "From spreadsheet to story",
-      steps: [
-        {
-          title: "Content map",
-          text: "I went through the last three reports and wrote down the questions they answer. A workshop with the team gave seven topics that come back every quarter.",
-          image: "image: content map from the workshop",
-        },
-        {
-          title: "Wireframes and tests",
-          text: "I built two versions of the topic page and tested them with eight people. The version where the data only appears after a short introduction won.",
-          image: "image: wireframes in Figma",
-        },
-        {
-          title: "Component system",
-          text: "I put together a library of blocks the editors use to build new stories without a developer. Every block has a phone version and a short note on how to use it.",
-          image: "image: component library",
-        },
-      ],
-    },
-    gallery: {
-      video: "video: scrolling a topic page · 0:42",
-      phones: ["phone: topic menu", "phone: article"],
-      detail: "detail: navigation",
-      note: "Topic navigation in three states: rest, hover and active.",
-    },
-    result: {
-      title: "What changed",
-      text: "Three months after launch the site is no longer a place to download a file. People read the stories to the end and come back for more topics, and the editors publish new content themselves, with no queue for a developer.",
-      stats: [
-        ["+00%", "time spent on a topic page"],
-        ["−00%", "exits from the first screen"],
-        ["00", "stories published by the editors on their own"],
-      ],
-    },
-  },
-};
 
 /* Atelier, the real estate site. Shots are framed screenshots of
    atelier-realestate.vercel.app (public/assets/cases/nr); the hero is the
@@ -376,33 +266,34 @@ const RP = {
   },
 };
 
-/* SUOH, the shop for crochet bags. Shots are framed screenshots of
-   suoh-two.vercel.app (public/assets/cases/su); the hero is the site's own
-   first screen with the text hidden, so only the two bags are left. */
+/* SUOH, the shop for crochet bags (github.com/joanise-ux/suoh). Shots are
+   framed screenshots of suoh-two.vercel.app (public/assets/cases/su); the
+   cart and checkout in step 3 come from the project's own screenshots. The
+   cover is the first screen in a browser window. */
 const SU_DIR = "/assets/cases/su";
 const suPic = (file, alt) => ({ src: `${SU_DIR}/${file}`, alt });
 
 const SU = {
   pl: {
-    hero: suPic("su-hero.jpg", "Dwie szydełkowe torebki SUOH: brązowa na kamieniach nad wodą i granatowa na łańcuszku"),
+    hero: suPic("su-hero.jpg", "Pierwszy ekran sklepu SUOH w oknie przeglądarki: brązowa i granatowa torebka z szydełka"),
     meta: [
       ["Klient", "SUOH, Wrocław"],
       ["Rok", "2026"],
       ["Usługi", "UX/UI, e-commerce, front-end"],
-      ["Narzędzia", "Claude"],
+      ["Narzędzia", "Claude, Next.js, React, Tailwind CSS"],
     ],
     link: { label: "zobacz stronę", href: "https://suoh-two.vercel.app/" },
-    lead: "SUOH to jednoosobowa pracownia z Wrocławia, w której każda torebka, brelok i prezent powstają ręcznie na szydełku. Zaprojektowałam dla niej sklep, w którym rękodzieło wygląda jak sztuka, a kupuje się je jak w zwykłym sklepie.",
+    lead: "SUOH to wrocławska marka szydełkowych torebek, breloków i zestawów prezentowych. Każda rzecz powstaje ręcznie, więc każda jest jedyna. Zaprojektowałam i zbudowałam dla niej dwujęzyczny sklep, który wygląda jak butik przy przyciemnionym świetle i prowadzi klientkę od zdjęcia torebki aż do śledzenia paczki.",
     brief: [
-      ["Pytanie", "Jak sprzedawać rzeczy, z których każda jest jedyna, żeby sklep nie wyglądał jak kolejny marketplace z rękodziełem?"],
-      ["Cel", "Ciemna, spokojna strona, na której pierwsze skrzypce grają zdjęcia, a droga od torebki do koszyka zajmuje dwa kliknięcia."],
+      ["Pytanie", "Jak sprzedawać rzeczy, z których każda jest jedyna, żeby sklep czuł się jak cichy butik, a nie kolejny marketplace?"],
+      ["Cel", "Ciemna, ciepła strona, na której prowadzą zdjęcia, a zakupy działają jak w dużym sklepie: po polsku i angielsku, z Paczkomatem i BLIK-iem."],
     ],
     problem: {
-      eyebrow: "o projekcie",
-      title: "Rękodzieło, które nie chce wyglądać na tanie",
+      eyebrow: "o marce",
+      title: "Sztuka, którą nosisz",
       text: [
-        "Projektantka SUOH szydełkuje torebki z jedwabistego sznurka i wykańcza je metalowymi okuciami i własną blaszką z logo. Sprzedaż przez media społecznościowe i portale z rękodziełem sprawiała, że torebka za kilkaset złotych stała obok rzeczy za kilkanaście.",
-        "SUOH to mój projekt własny, zrobiony z myślą o niej. Hasło „Art you can carry”, czyli sztuka, którą nosisz, ustawiło cały kierunek. Projekt, treść i wszystkie decyzje są moje, a stronę złożyłam z pomocą AI, więc od razu działa: ma koszyk, ulubione i konto klienta.",
+        "SUOH szydełkuje torebki z poliestrowego sznurka jedwabnego i wykańcza je metalowymi okuciami i blaszką z logo. W ofercie są cztery torebki za 420–590 zł, breloki za 45 zł i dwa zestawy prezentowe. Marka mówi o sobie „Art you can carry”, czyli sztuka, którą nosisz, i to hasło ustawiło cały kierunek strony.",
+        "Sklep miał oddać charakter marki: ręczną robotę, spokój i ciepły luksus. Miał też przeprowadzić klientkę przez całe zakupy, działać na telefonie i w dwóch językach oraz pasować do polskich przyzwyczajeń, czyli Paczkomatów InPost, kuriera i BLIK-a. Projekt, treść i decyzje są moje, a kod napisałam z pomocą AI.",
       ],
       image: suPic("su-start.webp", "Pierwszy ekran sklepu SUOH na telefonie"),
     },
@@ -411,19 +302,19 @@ const SU = {
       title: "Trzy decyzje, które ułożyły sklep",
       steps: [
         {
-          title: "Ciemna galeria zamiast jasnego katalogu",
-          text: "Tło jest prawie czarne, a sekcje przeplatają się z głębokim brązem w odcieniu octu balsamicznego. Nagłówki są w szeryfowym Cormorant Garamond, drobne napisy w Jost z szerokim odstępem, a miedziany kolor zostaje tylko dla cen i przycisków. Dzięki temu faktura splotu na zdjęciach jest najjaśniejszym, co widać na ekranie.",
+          title: "Butik przy przyciemnionym świetle",
+          text: "Tło jest prawie czarne, sekcje przeplatają się z brązem w odcieniu octu balsamicznego, a tekst ma kolor szampana. Złoty odcień whisky zostaje dla cen, przycisków i cienkich linii zamiast ciężkich ramek. Nagłówki są w szeryfowym Cormorant Garamond, a nawigacja w lekkim Jost z szerokim odstępem. Dzięki temu najjaśniejsza na ekranie jest faktura splotu.",
           image: suPic("su-step-1.webp", "Pierwszy ekran sklepu z dwiema torebkami i hasłem Art you can carry"),
         },
         {
           title: "Karta produktu jak metryczka",
-          text: "W sklepie produkty dzielą się na torebki, breloki i prezenty, a filtry mieszczą się w jednym rzędzie. Na karcie jest nazwa, kolor, cena, z czego torebka jest zrobiona i jakie ma wymiary. Kupująca nie widzi torebki na żywo, więc dostaje wszystko, o co zapytałaby w pracowni.",
+          text: "Sklep dzieli się na torebki, breloki i prezenty, a filtry mieszczą się w jednym rzędzie. Na karcie jest nazwa, kolor, cena, materiał i wymiary. Kupująca nie dotknie torebki, więc dostaje wszystko, o co zapytałaby w pracowni. Koszyk i lista ulubionych działają bez logowania i pamiętają swoją zawartość.",
           image: suPic("su-step-2.webp", "Sklep z filtrami kategorii, a z przodu karta torebki Noir Crossbody po dodaniu do koszyka"),
         },
         {
-          title: "Historia obok koszyka",
-          text: "Strona „O nas” opowiada, jak z wieczorów z szydełkiem powstała pracownia i dlaczego zawsze będzie mała. Kiedy kupująca wie, ile godzin stoi za jedną torebką, cena przestaje dziwić. Koszyk jest prosty: miniatura, ilość, cena i informacja, że od 200 zł wysyłka jest gratis.",
-          image: suPic("su-step-3.webp", "Strona z historią pracowni, a z przodu koszyk z dwiema torebkami"),
+          title: "Zakupy po polsku",
+          text: "Checkout ma Paczkomat InPost z listą paczkomatów, kuriera DPD i DHL, a płatność kartą, BLIK-iem, Apple Pay, Google Pay albo PayPalem. Od 200 zł wysyłka jest gratis. Formularz nie przepuści zamówienia z brakami i mówi, którego pola brakuje. Po zakupie klientka dostaje numer do śledzenia paczki, a na koncie widzi historię zamówień.",
+          image: suPic("su-step-3.webp", "Koszyk, a z przodu checkout z wyborem Paczkomatu InPost i sposobu płatności"),
         },
       ],
     },
@@ -438,30 +329,35 @@ const SU = {
     },
     result: {
       eyebrow: "efekt",
-      title: "Sklep, który traktuje rękodzieło poważnie",
-      text: "SUOH ma działający sklep po polsku i angielsku, z koszykiem, listą ulubionych i kontem klienta. Na telefonie wszystko mieści się w jednej kolumnie i dalej wygląda jak galeria. Na razie to wersja pokazowa, która czeka na płatności i prawdziwe zamówienia.",
+      title: "Butik z pełną ścieżką zakupu",
+      text: "SUOH ma kompletny sklep demonstracyjny: od strony głównej przez kartę produktu, koszyk i checkout po potwierdzenie, śledzenie paczki i konto klientki. Nie przyjmuje jeszcze prawdziwych zamówień, ale jest gotowy na podpięcie płatności, na przykład Przelewy24 albo Stripe z BLIK-iem, i bazy zamówień. Kolejne kroki to panel do dodawania produktów i kilka zdjęć na każdą torebkę.",
+      stats: [
+        ["16", "podstron, od strony głównej po śledzenie paczki"],
+        ["2", "języki, polski i angielski"],
+        ["5", "sposobów płatności, w tym BLIK"],
+      ],
     },
   },
   en: {
-    hero: suPic("su-hero.jpg", "Two SUOH crochet bags: a brown one on rocks by the water and a navy one on a chain"),
+    hero: suPic("su-hero.jpg", "The SUOH shop's first screen in a browser window: a brown and a navy crochet bag"),
     meta: [
       ["Client", "SUOH, Wrocław"],
       ["Year", "2026"],
       ["Services", "UX/UI, e-commerce, front-end"],
-      ["Tools", "Claude"],
+      ["Tools", "Claude, Next.js, React, Tailwind CSS"],
     ],
     link: { label: "see the site", href: "https://suoh-two.vercel.app/" },
-    lead: "SUOH is a one-woman studio in Wrocław, Poland, where every bag, keychain and gift is crocheted by hand. I designed a shop for it where handmade work looks like art and buying it feels like any other shop.",
+    lead: "SUOH is a Wrocław brand of crochet bags, keychains and gift sets. Every piece is made by hand, so every piece is one of a kind. I designed and built a bilingual shop for it that feels like a boutique in low light and takes the customer from a photo of a bag all the way to tracking the parcel.",
     brief: [
-      ["The question", "How do you sell things that are each one of a kind, without the shop looking like yet another handmade marketplace?"],
-      ["The goal", "A dark, calm site where the photos lead, and the way from a bag to the cart takes two clicks."],
+      ["The question", "How do you sell things that are each one of a kind, so the shop feels like a quiet boutique rather than yet another marketplace?"],
+      ["The goal", "A dark, warm site where the photos lead, and shopping works like in a big store: in Polish and English, with parcel lockers and BLIK."],
     ],
     problem: {
-      eyebrow: "overview",
-      title: "Handmade that doesn't want to look cheap",
+      eyebrow: "the brand",
+      title: "Art you can carry",
       text: [
-        "The designer behind SUOH crochets bags from silky cord and finishes them with metal hardware and her own logo plate. Selling through social media and handmade portals meant a bag worth a few hundred złoty stood next to things that cost a few dozen.",
-        "SUOH is a personal project, made with her in mind. The line “Art you can carry” set the whole direction. The design, the copy and every decision are mine, and I put the site together with AI, so it works from day one: it has a cart, a wishlist and a customer account.",
+        "SUOH crochets bags from polyester silk cord and finishes them with metal hardware and a logo plate. The range is four bags at 420–590 PLN, keychains at 45 PLN and two gift sets. The brand's line is “Art you can carry”, and it set the direction for the whole site.",
+        "The shop had to capture the brand's character: handmade, calm, warm luxury. It also had to take the customer through the whole purchase, work on a phone and in two languages, and fit how people shop in Poland, with InPost parcel lockers, couriers and BLIK. The design, the copy and the decisions are mine, and I wrote the code with AI.",
       ],
       image: suPic("su-start.webp", "The first screen of the SUOH shop on a phone"),
     },
@@ -470,19 +366,19 @@ const SU = {
       title: "Three decisions that shaped the shop",
       steps: [
         {
-          title: "A dark gallery instead of a bright catalogue",
-          text: "The background is almost black, and the sections alternate with a deep balsamic brown. Headings are in Cormorant Garamond serif, small labels in widely spaced Jost, and copper is kept for prices and buttons. That way the texture of the stitches in the photos is the brightest thing on the screen.",
+          title: "A boutique in low light",
+          text: "The background is almost black, the sections alternate with a balsamic brown, and the text is champagne. Whiskey gold is kept for prices, buttons and thin hairlines instead of heavy borders. Headings are in Cormorant Garamond serif, and the navigation in light, widely spaced Jost. That way the brightest thing on the screen is the texture of the stitches.",
           image: suPic("su-step-1.webp", "The shop's first screen with two bags and the line Art you can carry"),
         },
         {
           title: "A product card like a label",
-          text: "The shop splits into bags, keychains and gifts, and the filters fit in one row. Each card has the name, colour, price, what the bag is made of and its dimensions. The buyer can't see the bag in person, so she gets everything she'd ask about in the studio.",
+          text: "The shop splits into bags, keychains and gifts, and the filters fit in one row. Each card has the name, colour, price, material and dimensions. The buyer can't touch the bag, so she gets everything she'd ask about in the studio. The cart and wishlist work without signing in and remember what's in them.",
           image: suPic("su-step-2.webp", "The shop with category filters, and in front the Noir Crossbody card after adding it to the cart"),
         },
         {
-          title: "The story next to the cart",
-          text: "The About page tells how evenings with a crochet hook turned into a studio, and why it will always stay small. Once a buyer knows how many hours go into one bag, the price stops being a surprise. The cart is simple: a thumbnail, the quantity, the price and a note that shipping is free above 200 PLN.",
-          image: suPic("su-step-3.webp", "The studio's story page, and in front the cart with two bags"),
+          title: "Shopping the Polish way",
+          text: "Checkout offers an InPost parcel locker picked from a list, DPD and DHL couriers, and payment by card, BLIK, Apple Pay, Google Pay or PayPal. Shipping is free above 200 PLN. The form won't let an incomplete order through and names the field that's missing. After the purchase the customer gets a tracking number, and her account shows her order history.",
+          image: suPic("su-step-3.webp", "The cart, and in front the checkout with an InPost parcel locker and payment options"),
         },
       ],
     },
@@ -497,13 +393,160 @@ const SU = {
     },
     result: {
       eyebrow: "outcome",
-      title: "A shop that takes handmade seriously",
-      text: "SUOH has a working shop in Polish and English, with a cart, a wishlist and a customer account. On a phone everything fits in one column and still looks like a gallery. For now it's a demo version, waiting for payments and real orders.",
+      title: "A boutique with the whole purchase flow",
+      text: "SUOH has a complete demo shop: from the home page through the product card, cart and checkout to the confirmation, parcel tracking and customer account. It doesn't take real orders yet, but it's ready for payments, for example Przelewy24 or Stripe with BLIK, and an order database. Next up are a panel for adding products and several photos for each bag.",
+      stats: [
+        ["16", "pages, from the home page to parcel tracking"],
+        ["2", "languages, Polish and English"],
+        ["5", "payment methods, BLIK included"],
+      ],
     },
   },
 };
 
-export const CASES = { nf: tr(NF), nr: tr(NR), su: tr(SU), rp: tr(RP) };
+/* UME, the private photo journal (a product concept). Shots are composed
+   from the prototype's own phone screenshots (public/assets/cases/um); the
+   prototypes live on ume-app-zeta.vercel.app, one page per screen. */
+const UM_DIR = "/assets/cases/um";
+const umPic = (file, alt) => ({ src: `${UM_DIR}/${file}`, alt });
+const UM_URL = "https://ume-app-zeta.vercel.app";
+const umLinks = (labels) =>
+  ["/", "/tablica/Tablica.html", "/wpis/index.html", "/nowy-wpis/index.html", "/haru/index.html", "/kolekcje/index.html", "/ustawienia/index.html", "/logo-final/splash-standalone.html"].map(
+    (path, i) => [labels[i], UM_URL + path]
+  );
+
+const UM = {
+  pl: {
+    hero: umPic("um-hero.jpg", "Trzy telefony z aplikacją UME: Kolekcje, Tablica i udekorowany wpis ze zdjęciem kota"),
+    meta: [
+      ["Klient", "Projekt własny"],
+      ["Rok", "2026"],
+      ["Usługi", "Research, marka i logo, UX/UI, prototypy"],
+      ["Narzędzia", "Claude Design, Claude Code"],
+    ],
+    link: { label: "otwórz prototyp", href: `${UM_URL}/` },
+    lead: "UME to prywatny fotodziennik na iOS i Androida: jak Instagram, tylko dla siebie. Małe momenty dnia trafiają na przytulną tablicę, bez obserwujących, polubień i reklam, a wszystko jest szyfrowane end-to-end.",
+    brief: [
+      ["Pytanie", "Jak zrobić miejsce na codzienne wspomnienia, które jest przyjemne jak Pinterest, prywatne jak sejf i nie wywiera żadnej presji?"],
+      ["Cel", "Koncept aplikacji z marką, logo i klikalnymi prototypami, które da się sprawdzić na telefonie, zanim powstanie pierwsza linijka kodu."],
+    ],
+    problem: {
+      eyebrow: "o projekcie",
+      title: "Wspomnienia, które nie są występem",
+      text: [
+        "Robimy coraz więcej zdjęć, ale rzadko do nich wracamy. Media społecznościowe zamieniają je w występ dla innych, a dzienniki, które dbają o prywatność, wyglądają jak edytory tekstu. Przeanalizowałam siedem aplikacji, od Day One po BeReal, i żadna nie łączyła naraz ładnej tablicy wspomnień, szyfrowania, Androida i lokalnych języków.",
+        "UME to mój projekt własny. Nazwa to po japońsku kwiat śliwy, który kwitnie jako pierwszy, jeszcze zimą. Z niego wzięło się logo rysowane jedną linią i bordowy akcent na tle mleka owsianego i lnu. Research, decyzje produktowe i kierunek są moje, a ekrany i prototypy złożyłam z pomocą AI.",
+      ],
+      image: umPic("um-start.jpg", "Logo UME w kolorze bordo na kremowym tle"),
+    },
+    process: {
+      eyebrow: "decyzje",
+      title: "Trzy decyzje, które ułożyły aplikację",
+      steps: [
+        {
+          title: "Tablica zamiast feedu",
+          text: "Główny ekran to tablica w stylu Pinterest: zdjęcia, krótkie klipy i notatki różnej wysokości, z filtrami po tagach i nastroju. Zamiast liczników jest przywitanie „Dobry wieczór”. Tryb ciemny zamienia krem na leśną zieleń, a daty i tytuły w miękkim szeryfie Fraunces zostają te same.",
+          image: umPic("um-step-1.jpg", "Tablica w trybie jasnym i ciemnym obok siebie"),
+        },
+        {
+          title: "Nowy wpis w kilku ruchach",
+          text: "Arkusz wyboru, galeria, przycięcie klipu do 10 sekund i edytor z nastrojem, tagami i kolekcją. Klipy są krótkie, bo to mają być momenty dnia, a nie filmy. Zaprojektowałam też stany graniczne: wpis tylko tekstowy, koniec okresu próbnego, limit klipów i brak dostępu do zdjęć.",
+          image: umPic("um-step-2.jpg", "Nowy wpis w trzech krokach: wybór, przycinanie klipu i edytor"),
+        },
+        {
+          title: "Prywatność, którą widać",
+          text: "Szyfrowania nie widać, więc pokazuje je interfejs. Przy kolekcjach stoi „Widzisz je tylko Ty”, nigdzie nie ma przycisku udostępniania, a strona „Gdzie są moje dane?” prostym schematem tłumaczy drogę zdjęcia z telefonu na serwer w UE. Eksport wszystkiego to jedno kliknięcie, bo dane należą do użytkownika.",
+          image: umPic("um-step-3.jpg", "Ustawienia, strona Gdzie są moje dane? i eksport wszystkich wpisów"),
+        },
+      ],
+    },
+    gallery: {
+      video: umPic("um-wide.jpg", "Pięć ekranów UME: wpis ze zdjęciami, kalendarz Haru, Kolekcje w trybie jasnym i ciemnym oraz wpis tekstowy"),
+      phones: [
+        umPic("um-phone-1.jpg", "Tablica na Androidzie"),
+        umPic("um-phone-2.jpg", "Kolekcje na Androidzie w trybie ciemnym"),
+      ],
+      detail: umPic("um-detail.jpg", "Kalendarz Haru z miniaturą każdego dnia"),
+      note: "Haru to kalendarz, w którym każdy dzień ma swoją miniaturę. Pod nim czeka „Tego dnia rok temu”, więc aplikacja z czasem zyskuje wartość, bez codziennego przymusu.",
+    },
+    prototypes: {
+      title: "Sprawdź na telefonie",
+      text: "Każdy ekran działa w wersji na iPhone'a i Androida, w trybie jasnym i ciemnym, a dolny pasek prowadzi między nimi. Najlepiej otworzyć je na telefonie.",
+      links: umLinks(["Strona projektu", "Tablica", "Podgląd wpisu", "Nowy wpis", "Haru, kalendarz", "Kolekcje", "Ustawienia", "Ekran startowy z logo"]),
+    },
+    result: {
+      eyebrow: "efekt",
+      title: "Aplikacja, którą można kliknąć przed kodem",
+      text: "UME ma spójny system wizualny, animowane logo i siedem połączonych, klikalnych prototypów online. Każdy ekran można ocenić na telefonie, zanim powstała pierwsza linijka kodu aplikacji. Kolejne kroki to testy z użytkownikami i aplikacja w Expo, z pięcioma językami i szyfrowaniem end-to-end.",
+    },
+  },
+  en: {
+    hero: umPic("um-hero.jpg", "Three phones with the UME app: Collections, the Board and a decorated entry with a photo of a kitten"),
+    meta: [
+      ["Client", "Personal project"],
+      ["Year", "2026"],
+      ["Services", "Research, brand and logo, UX/UI, prototypes"],
+      ["Tools", "Claude Design, Claude Code"],
+    ],
+    link: { label: "open the prototype", href: `${UM_URL}/` },
+    lead: "UME is a private photo journal for iOS and Android: like Instagram, but only for you. Small moments of the day land on a cozy board, with no followers, no likes and no ads, and everything is end-to-end encrypted.",
+    brief: [
+      ["The question", "How do you make a place for everyday memories that feels as pleasant as Pinterest, as private as a safe, and puts no pressure on you?"],
+      ["The goal", "An app concept with a brand, a logo and clickable prototypes you can try on a phone before the first line of code is written."],
+    ],
+    problem: {
+      eyebrow: "overview",
+      title: "Memories that aren't a performance",
+      text: [
+        "We take more photos than ever but rarely look back at them. Social media turns them into a performance for others, and the journals that take privacy seriously look like text editors. I analysed seven apps, from Day One to BeReal, and none of them combined a beautiful memory board, encryption, Android and local languages at once.",
+        "UME is a personal project. The name is Japanese for the plum blossom, the first flower to bloom while it's still winter. It gave me a logo drawn in a single line and a burgundy accent on oat milk and linen. The research, the product decisions and the direction are mine, and I put the screens and prototypes together with AI.",
+      ],
+      image: umPic("um-start.jpg", "The UME logo in burgundy on a cream background"),
+    },
+    process: {
+      eyebrow: "decisions",
+      title: "Three decisions that shaped the app",
+      steps: [
+        {
+          title: "A board instead of a feed",
+          text: "The main screen is a Pinterest-like board: photos, short clips and notes of different heights, with filters by tag and mood. Instead of counters there's a greeting, “Good evening”. Dark mode swaps the cream for forest green, while the dates and titles in the soft Fraunces serif stay the same.",
+          image: umPic("um-step-1.jpg", "The Board in light and dark mode side by side"),
+        },
+        {
+          title: "A new entry in a few moves",
+          text: "A picker sheet, the gallery, trimming a clip to 10 seconds and an editor with mood, tags and a collection. Clips are short because these are moments of the day, not films. I designed the edge cases too: a text-only entry, the end of the trial, the clip limit and no photo access.",
+          image: umPic("um-step-2.jpg", "A new entry in three steps: the picker, trimming a clip and the editor"),
+        },
+        {
+          title: "Privacy you can see",
+          text: "Encryption is invisible, so the interface shows it. Collections say “Only you can see them”, there's no share button anywhere, and a “Where is my data?” page explains with a simple diagram how a photo travels from the phone to a server in the EU. Exporting everything takes one tap, because the data belongs to the user.",
+          image: umPic("um-step-3.jpg", "Settings, the Where is my data? page and exporting every entry"),
+        },
+      ],
+    },
+    gallery: {
+      video: umPic("um-wide.jpg", "Five UME screens: an entry with photos, the Haru calendar, Collections in light and dark mode, and a text entry"),
+      phones: [
+        umPic("um-phone-1.jpg", "The Board on Android"),
+        umPic("um-phone-2.jpg", "Collections on Android in dark mode"),
+      ],
+      detail: umPic("um-detail.jpg", "The Haru calendar with a thumbnail for every day"),
+      note: "Haru is a calendar where every day has its own thumbnail. Below it waits “On this day last year”, so the app grows more valuable over time, with no daily obligation.",
+    },
+    prototypes: {
+      title: "Try it on your phone",
+      text: "Every screen works on iPhone and Android, in light and dark mode, and the bottom bar takes you between them. They're best opened on a phone. The interface is in Polish, the first market.",
+      links: umLinks(["Project page", "Board", "Entry", "New entry", "Haru, the calendar", "Collections", "Settings", "Splash screen with the logo"]),
+    },
+    result: {
+      eyebrow: "outcome",
+      title: "An app you can click before the code",
+      text: "UME has a consistent visual system, an animated logo and seven connected, clickable prototypes online. Every screen can be judged on a phone before the first line of app code exists. Next come user testing and the Expo app, with five languages and end-to-end encryption.",
+    },
+  },
+};
+
+export const CASES = { nr: tr(NR), su: tr(SU), rp: tr(RP), um: tr(UM) };
 
 const S = tr({
   pl: {
