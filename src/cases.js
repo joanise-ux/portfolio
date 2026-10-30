@@ -266,33 +266,34 @@ const RP = {
   },
 };
 
-/* SUOH, the shop for crochet bags. Shots are framed screenshots of
-   suoh-two.vercel.app (public/assets/cases/su); the hero is the site's own
-   first screen with the text hidden, so only the two bags are left. */
+/* SUOH, the shop for crochet bags (github.com/joanise-ux/suoh). Shots are
+   framed screenshots of suoh-two.vercel.app (public/assets/cases/su); the
+   cart and checkout in step 3 come from the project's own screenshots. The
+   cover is the first screen in a browser window. */
 const SU_DIR = "/assets/cases/su";
 const suPic = (file, alt) => ({ src: `${SU_DIR}/${file}`, alt });
 
 const SU = {
   pl: {
-    hero: suPic("su-hero.jpg", "Dwie szydełkowe torebki SUOH: brązowa na kamieniach nad wodą i granatowa na łańcuszku"),
+    hero: suPic("su-hero.jpg", "Pierwszy ekran sklepu SUOH w oknie przeglądarki: brązowa i granatowa torebka z szydełka"),
     meta: [
       ["Klient", "SUOH, Wrocław"],
       ["Rok", "2026"],
       ["Usługi", "UX/UI, e-commerce, front-end"],
-      ["Narzędzia", "Claude"],
+      ["Narzędzia", "Claude, Next.js, React, Tailwind CSS"],
     ],
     link: { label: "zobacz stronę", href: "https://suoh-two.vercel.app/" },
-    lead: "SUOH to jednoosobowa pracownia z Wrocławia, w której każda torebka, brelok i prezent powstają ręcznie na szydełku. Zaprojektowałam dla niej sklep, w którym rękodzieło wygląda jak sztuka, a kupuje się je jak w zwykłym sklepie.",
+    lead: "SUOH to wrocławska marka szydełkowych torebek, breloków i zestawów prezentowych. Każda rzecz powstaje ręcznie, więc każda jest jedyna. Zaprojektowałam i zbudowałam dla niej dwujęzyczny sklep, który wygląda jak butik przy przyciemnionym świetle i prowadzi klientkę od zdjęcia torebki aż do śledzenia paczki.",
     brief: [
-      ["Pytanie", "Jak sprzedawać rzeczy, z których każda jest jedyna, żeby sklep nie wyglądał jak kolejny marketplace z rękodziełem?"],
-      ["Cel", "Ciemna, spokojna strona, na której pierwsze skrzypce grają zdjęcia, a droga od torebki do koszyka zajmuje dwa kliknięcia."],
+      ["Pytanie", "Jak sprzedawać rzeczy, z których każda jest jedyna, żeby sklep czuł się jak cichy butik, a nie kolejny marketplace?"],
+      ["Cel", "Ciemna, ciepła strona, na której prowadzą zdjęcia, a zakupy działają jak w dużym sklepie: po polsku i angielsku, z Paczkomatem i BLIK-iem."],
     ],
     problem: {
-      eyebrow: "o projekcie",
-      title: "Rękodzieło, które nie chce wyglądać na tanie",
+      eyebrow: "o marce",
+      title: "Sztuka, którą nosisz",
       text: [
-        "Projektantka SUOH szydełkuje torebki z jedwabistego sznurka i wykańcza je metalowymi okuciami i własną blaszką z logo. Sprzedaż przez media społecznościowe i portale z rękodziełem sprawiała, że torebka za kilkaset złotych stała obok rzeczy za kilkanaście.",
-        "SUOH to mój projekt własny, zrobiony z myślą o niej. Hasło „Art you can carry”, czyli sztuka, którą nosisz, ustawiło cały kierunek. Projekt, treść i wszystkie decyzje są moje, a stronę złożyłam z pomocą AI, więc od razu działa: ma koszyk, ulubione i konto klienta.",
+        "SUOH szydełkuje torebki z poliestrowego sznurka jedwabnego i wykańcza je metalowymi okuciami i blaszką z logo. W ofercie są cztery torebki za 420–590 zł, breloki za 45 zł i dwa zestawy prezentowe. Marka mówi o sobie „Art you can carry”, czyli sztuka, którą nosisz, i to hasło ustawiło cały kierunek strony.",
+        "Sklep miał oddać charakter marki: ręczną robotę, spokój i ciepły luksus. Miał też przeprowadzić klientkę przez całe zakupy, działać na telefonie i w dwóch językach oraz pasować do polskich przyzwyczajeń, czyli Paczkomatów InPost, kuriera i BLIK-a. Projekt, treść i decyzje są moje, a kod napisałam z pomocą AI.",
       ],
       image: suPic("su-start.webp", "Pierwszy ekran sklepu SUOH na telefonie"),
     },
@@ -301,19 +302,19 @@ const SU = {
       title: "Trzy decyzje, które ułożyły sklep",
       steps: [
         {
-          title: "Ciemna galeria zamiast jasnego katalogu",
-          text: "Tło jest prawie czarne, a sekcje przeplatają się z głębokim brązem w odcieniu octu balsamicznego. Nagłówki są w szeryfowym Cormorant Garamond, drobne napisy w Jost z szerokim odstępem, a miedziany kolor zostaje tylko dla cen i przycisków. Dzięki temu faktura splotu na zdjęciach jest najjaśniejszym, co widać na ekranie.",
+          title: "Butik przy przyciemnionym świetle",
+          text: "Tło jest prawie czarne, sekcje przeplatają się z brązem w odcieniu octu balsamicznego, a tekst ma kolor szampana. Złoty odcień whisky zostaje dla cen, przycisków i cienkich linii zamiast ciężkich ramek. Nagłówki są w szeryfowym Cormorant Garamond, a nawigacja w lekkim Jost z szerokim odstępem. Dzięki temu najjaśniejsza na ekranie jest faktura splotu.",
           image: suPic("su-step-1.webp", "Pierwszy ekran sklepu z dwiema torebkami i hasłem Art you can carry"),
         },
         {
           title: "Karta produktu jak metryczka",
-          text: "W sklepie produkty dzielą się na torebki, breloki i prezenty, a filtry mieszczą się w jednym rzędzie. Na karcie jest nazwa, kolor, cena, z czego torebka jest zrobiona i jakie ma wymiary. Kupująca nie widzi torebki na żywo, więc dostaje wszystko, o co zapytałaby w pracowni.",
+          text: "Sklep dzieli się na torebki, breloki i prezenty, a filtry mieszczą się w jednym rzędzie. Na karcie jest nazwa, kolor, cena, materiał i wymiary. Kupująca nie dotknie torebki, więc dostaje wszystko, o co zapytałaby w pracowni. Koszyk i lista ulubionych działają bez logowania i pamiętają swoją zawartość.",
           image: suPic("su-step-2.webp", "Sklep z filtrami kategorii, a z przodu karta torebki Noir Crossbody po dodaniu do koszyka"),
         },
         {
-          title: "Historia obok koszyka",
-          text: "Strona „O nas” opowiada, jak z wieczorów z szydełkiem powstała pracownia i dlaczego zawsze będzie mała. Kiedy kupująca wie, ile godzin stoi za jedną torebką, cena przestaje dziwić. Koszyk jest prosty: miniatura, ilość, cena i informacja, że od 200 zł wysyłka jest gratis.",
-          image: suPic("su-step-3.webp", "Strona z historią pracowni, a z przodu koszyk z dwiema torebkami"),
+          title: "Zakupy po polsku",
+          text: "Checkout ma Paczkomat InPost z listą paczkomatów, kuriera DPD i DHL, a płatność kartą, BLIK-iem, Apple Pay, Google Pay albo PayPalem. Od 200 zł wysyłka jest gratis. Formularz nie przepuści zamówienia z brakami i mówi, którego pola brakuje. Po zakupie klientka dostaje numer do śledzenia paczki, a na koncie widzi historię zamówień.",
+          image: suPic("su-step-3.webp", "Koszyk, a z przodu checkout z wyborem Paczkomatu InPost i sposobu płatności"),
         },
       ],
     },
@@ -328,30 +329,35 @@ const SU = {
     },
     result: {
       eyebrow: "efekt",
-      title: "Sklep, który traktuje rękodzieło poważnie",
-      text: "SUOH ma działający sklep po polsku i angielsku, z koszykiem, listą ulubionych i kontem klienta. Na telefonie wszystko mieści się w jednej kolumnie i dalej wygląda jak galeria. Na razie to wersja pokazowa, która czeka na płatności i prawdziwe zamówienia.",
+      title: "Butik z pełną ścieżką zakupu",
+      text: "SUOH ma kompletny sklep demonstracyjny: od strony głównej przez kartę produktu, koszyk i checkout po potwierdzenie, śledzenie paczki i konto klientki. Nie przyjmuje jeszcze prawdziwych zamówień, ale jest gotowy na podpięcie płatności, na przykład Przelewy24 albo Stripe z BLIK-iem, i bazy zamówień. Kolejne kroki to panel do dodawania produktów i kilka zdjęć na każdą torebkę.",
+      stats: [
+        ["16", "podstron, od strony głównej po śledzenie paczki"],
+        ["2", "języki, polski i angielski"],
+        ["5", "sposobów płatności, w tym BLIK"],
+      ],
     },
   },
   en: {
-    hero: suPic("su-hero.jpg", "Two SUOH crochet bags: a brown one on rocks by the water and a navy one on a chain"),
+    hero: suPic("su-hero.jpg", "The SUOH shop's first screen in a browser window: a brown and a navy crochet bag"),
     meta: [
       ["Client", "SUOH, Wrocław"],
       ["Year", "2026"],
       ["Services", "UX/UI, e-commerce, front-end"],
-      ["Tools", "Claude"],
+      ["Tools", "Claude, Next.js, React, Tailwind CSS"],
     ],
     link: { label: "see the site", href: "https://suoh-two.vercel.app/" },
-    lead: "SUOH is a one-woman studio in Wrocław, Poland, where every bag, keychain and gift is crocheted by hand. I designed a shop for it where handmade work looks like art and buying it feels like any other shop.",
+    lead: "SUOH is a Wrocław brand of crochet bags, keychains and gift sets. Every piece is made by hand, so every piece is one of a kind. I designed and built a bilingual shop for it that feels like a boutique in low light and takes the customer from a photo of a bag all the way to tracking the parcel.",
     brief: [
-      ["The question", "How do you sell things that are each one of a kind, without the shop looking like yet another handmade marketplace?"],
-      ["The goal", "A dark, calm site where the photos lead, and the way from a bag to the cart takes two clicks."],
+      ["The question", "How do you sell things that are each one of a kind, so the shop feels like a quiet boutique rather than yet another marketplace?"],
+      ["The goal", "A dark, warm site where the photos lead, and shopping works like in a big store: in Polish and English, with parcel lockers and BLIK."],
     ],
     problem: {
-      eyebrow: "overview",
-      title: "Handmade that doesn't want to look cheap",
+      eyebrow: "the brand",
+      title: "Art you can carry",
       text: [
-        "The designer behind SUOH crochets bags from silky cord and finishes them with metal hardware and her own logo plate. Selling through social media and handmade portals meant a bag worth a few hundred złoty stood next to things that cost a few dozen.",
-        "SUOH is a personal project, made with her in mind. The line “Art you can carry” set the whole direction. The design, the copy and every decision are mine, and I put the site together with AI, so it works from day one: it has a cart, a wishlist and a customer account.",
+        "SUOH crochets bags from polyester silk cord and finishes them with metal hardware and a logo plate. The range is four bags at 420–590 PLN, keychains at 45 PLN and two gift sets. The brand's line is “Art you can carry”, and it set the direction for the whole site.",
+        "The shop had to capture the brand's character: handmade, calm, warm luxury. It also had to take the customer through the whole purchase, work on a phone and in two languages, and fit how people shop in Poland, with InPost parcel lockers, couriers and BLIK. The design, the copy and the decisions are mine, and I wrote the code with AI.",
       ],
       image: suPic("su-start.webp", "The first screen of the SUOH shop on a phone"),
     },
@@ -360,19 +366,19 @@ const SU = {
       title: "Three decisions that shaped the shop",
       steps: [
         {
-          title: "A dark gallery instead of a bright catalogue",
-          text: "The background is almost black, and the sections alternate with a deep balsamic brown. Headings are in Cormorant Garamond serif, small labels in widely spaced Jost, and copper is kept for prices and buttons. That way the texture of the stitches in the photos is the brightest thing on the screen.",
+          title: "A boutique in low light",
+          text: "The background is almost black, the sections alternate with a balsamic brown, and the text is champagne. Whiskey gold is kept for prices, buttons and thin hairlines instead of heavy borders. Headings are in Cormorant Garamond serif, and the navigation in light, widely spaced Jost. That way the brightest thing on the screen is the texture of the stitches.",
           image: suPic("su-step-1.webp", "The shop's first screen with two bags and the line Art you can carry"),
         },
         {
           title: "A product card like a label",
-          text: "The shop splits into bags, keychains and gifts, and the filters fit in one row. Each card has the name, colour, price, what the bag is made of and its dimensions. The buyer can't see the bag in person, so she gets everything she'd ask about in the studio.",
+          text: "The shop splits into bags, keychains and gifts, and the filters fit in one row. Each card has the name, colour, price, material and dimensions. The buyer can't touch the bag, so she gets everything she'd ask about in the studio. The cart and wishlist work without signing in and remember what's in them.",
           image: suPic("su-step-2.webp", "The shop with category filters, and in front the Noir Crossbody card after adding it to the cart"),
         },
         {
-          title: "The story next to the cart",
-          text: "The About page tells how evenings with a crochet hook turned into a studio, and why it will always stay small. Once a buyer knows how many hours go into one bag, the price stops being a surprise. The cart is simple: a thumbnail, the quantity, the price and a note that shipping is free above 200 PLN.",
-          image: suPic("su-step-3.webp", "The studio's story page, and in front the cart with two bags"),
+          title: "Shopping the Polish way",
+          text: "Checkout offers an InPost parcel locker picked from a list, DPD and DHL couriers, and payment by card, BLIK, Apple Pay, Google Pay or PayPal. Shipping is free above 200 PLN. The form won't let an incomplete order through and names the field that's missing. After the purchase the customer gets a tracking number, and her account shows her order history.",
+          image: suPic("su-step-3.webp", "The cart, and in front the checkout with an InPost parcel locker and payment options"),
         },
       ],
     },
@@ -387,8 +393,13 @@ const SU = {
     },
     result: {
       eyebrow: "outcome",
-      title: "A shop that takes handmade seriously",
-      text: "SUOH has a working shop in Polish and English, with a cart, a wishlist and a customer account. On a phone everything fits in one column and still looks like a gallery. For now it's a demo version, waiting for payments and real orders.",
+      title: "A boutique with the whole purchase flow",
+      text: "SUOH has a complete demo shop: from the home page through the product card, cart and checkout to the confirmation, parcel tracking and customer account. It doesn't take real orders yet, but it's ready for payments, for example Przelewy24 or Stripe with BLIK, and an order database. Next up are a panel for adding products and several photos for each bag.",
+      stats: [
+        ["16", "pages, from the home page to parcel tracking"],
+        ["2", "languages, Polish and English"],
+        ["5", "payment methods, BLIK included"],
+      ],
     },
   },
 };
