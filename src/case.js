@@ -114,6 +114,23 @@ function markup(s, next) {
         </div>
       </section>
 
+      ${
+        c.prototypes
+          ? `<section class="case__protos">
+        <div class="prose">
+          <span class="eyebrow">${UI.prototypes}</span>
+          <h2>${c.prototypes.title}</h2>
+          <p>${c.prototypes.text}</p>
+        </div>
+        <ul>
+          ${c.prototypes.links
+            .map(([label, href]) => `<li><a class="case__proto" href="${href}" target="_blank" rel="noopener"><span>${label}</span><span aria-hidden="true">↗</span></a></li>`)
+            .join("")}
+        </ul>
+      </section>`
+          : ""
+      }
+
       <section class="case__result">
         <div class="prose">
           <span class="eyebrow">${c.result.eyebrow || UI.result}</span>

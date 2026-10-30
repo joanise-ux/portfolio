@@ -6,7 +6,9 @@
    label, `{ src, label }` or a still `{ src, alt }`. Optional: `link`, or
    `badge` (a plain note in its place), `brief` (short question and goal
    under the lead), an `eyebrow` on problem / process / result to rename
-   that section, and `result.stats` (leave it out for no numbers). */
+   that section, `result.stats` (leave it out for no numbers), and
+   `prototypes` (`{ title, text, links: [[label, href]] }`, a list of
+   live screens under the gallery). */
 
 import { tr } from "./i18n.js";
 
@@ -503,7 +505,149 @@ const SU = {
   },
 };
 
-export const CASES = { nf: tr(NF), nr: tr(NR), su: tr(SU), rp: tr(RP) };
+/* UME, the private photo journal (a product concept). Shots are composed
+   from the prototype's own phone screenshots (public/assets/cases/um); the
+   prototypes live on ume-app-zeta.vercel.app, one page per screen. */
+const UM_DIR = "/assets/cases/um";
+const umPic = (file, alt) => ({ src: `${UM_DIR}/${file}`, alt });
+const UM_URL = "https://ume-app-zeta.vercel.app";
+const umLinks = (labels) =>
+  ["/", "/tablica/Tablica.html", "/wpis/index.html", "/nowy-wpis/index.html", "/haru/index.html", "/kolekcje/index.html", "/ustawienia/index.html", "/logo-final/splash-standalone.html"].map(
+    (path, i) => [labels[i], UM_URL + path]
+  );
+
+const UM = {
+  pl: {
+    hero: umPic("um-hero.jpg", "Trzy telefony z aplikacją UME: Kolekcje, Tablica i udekorowany wpis ze zdjęciem kota"),
+    meta: [
+      ["Klient", "Projekt własny"],
+      ["Rok", "2026"],
+      ["Usługi", "Research, marka i logo, UX/UI, prototypy"],
+      ["Narzędzia", "Claude Design, Claude Code"],
+    ],
+    link: { label: "otwórz prototyp", href: `${UM_URL}/` },
+    lead: "UME to prywatny fotodziennik na iOS i Androida: jak Instagram, tylko dla siebie. Małe momenty dnia trafiają na przytulną tablicę, bez obserwujących, polubień i reklam, a wszystko jest szyfrowane end-to-end.",
+    brief: [
+      ["Pytanie", "Jak zrobić miejsce na codzienne wspomnienia, które jest przyjemne jak Pinterest, prywatne jak sejf i nie wywiera żadnej presji?"],
+      ["Cel", "Koncept aplikacji z marką, logo i klikalnymi prototypami, które da się sprawdzić na telefonie, zanim powstanie pierwsza linijka kodu."],
+    ],
+    problem: {
+      eyebrow: "o projekcie",
+      title: "Wspomnienia, które nie są występem",
+      text: [
+        "Robimy coraz więcej zdjęć, ale rzadko do nich wracamy. Media społecznościowe zamieniają je w występ dla innych, a dzienniki, które dbają o prywatność, wyglądają jak edytory tekstu. Przeanalizowałam siedem aplikacji, od Day One po BeReal, i żadna nie łączyła naraz ładnej tablicy wspomnień, szyfrowania, Androida i lokalnych języków.",
+        "UME to mój projekt własny. Nazwa to po japońsku kwiat śliwy, który kwitnie jako pierwszy, jeszcze zimą. Z niego wzięło się logo rysowane jedną linią i bordowy akcent na tle mleka owsianego i lnu. Research, decyzje produktowe i kierunek są moje, a ekrany i prototypy złożyłam z pomocą AI.",
+      ],
+      image: umPic("um-start.jpg", "Logo UME w kolorze bordo na kremowym tle"),
+    },
+    process: {
+      eyebrow: "decyzje",
+      title: "Trzy decyzje, które ułożyły aplikację",
+      steps: [
+        {
+          title: "Tablica zamiast feedu",
+          text: "Główny ekran to tablica w stylu Pinterest: zdjęcia, krótkie klipy i notatki różnej wysokości, z filtrami po tagach i nastroju. Zamiast liczników jest przywitanie „Dobry wieczór”. Tryb ciemny zamienia krem na leśną zieleń, a daty i tytuły w miękkim szeryfie Fraunces zostają te same.",
+          image: umPic("um-step-1.jpg", "Tablica w trybie jasnym i ciemnym obok siebie"),
+        },
+        {
+          title: "Nowy wpis w kilku ruchach",
+          text: "Arkusz wyboru, galeria, przycięcie klipu do 10 sekund i edytor z nastrojem, tagami i kolekcją. Klipy są krótkie, bo to mają być momenty dnia, a nie filmy. Zaprojektowałam też stany graniczne: wpis tylko tekstowy, koniec okresu próbnego, limit klipów i brak dostępu do zdjęć.",
+          image: umPic("um-step-2.jpg", "Nowy wpis w trzech krokach: wybór, przycinanie klipu i edytor"),
+        },
+        {
+          title: "Prywatność, którą widać",
+          text: "Szyfrowania nie widać, więc pokazuje je interfejs. Przy kolekcjach stoi „Widzisz je tylko Ty”, nigdzie nie ma przycisku udostępniania, a strona „Gdzie są moje dane?” prostym schematem tłumaczy drogę zdjęcia z telefonu na serwer w UE. Eksport wszystkiego to jedno kliknięcie, bo dane należą do użytkownika.",
+          image: umPic("um-step-3.jpg", "Ustawienia, strona Gdzie są moje dane? i eksport wszystkich wpisów"),
+        },
+      ],
+    },
+    gallery: {
+      video: umPic("um-wide.jpg", "Pięć ekranów UME: wpis ze zdjęciami, kalendarz Haru, Kolekcje w trybie jasnym i ciemnym oraz wpis tekstowy"),
+      phones: [
+        umPic("um-phone-1.jpg", "Tablica na Androidzie"),
+        umPic("um-phone-2.jpg", "Kolekcje na Androidzie w trybie ciemnym"),
+      ],
+      detail: umPic("um-detail.jpg", "Kalendarz Haru z miniaturą każdego dnia"),
+      note: "Haru to kalendarz, w którym każdy dzień ma swoją miniaturę. Pod nim czeka „Tego dnia rok temu”, więc aplikacja z czasem zyskuje wartość, bez codziennego przymusu.",
+    },
+    prototypes: {
+      title: "Sprawdź na telefonie",
+      text: "Każdy ekran działa w wersji na iPhone'a i Androida, w trybie jasnym i ciemnym, a dolny pasek prowadzi między nimi. Najlepiej otworzyć je na telefonie.",
+      links: umLinks(["Strona projektu", "Tablica", "Podgląd wpisu", "Nowy wpis", "Haru, kalendarz", "Kolekcje", "Ustawienia", "Ekran startowy z logo"]),
+    },
+    result: {
+      eyebrow: "efekt",
+      title: "Aplikacja, którą można kliknąć przed kodem",
+      text: "UME ma spójny system wizualny, animowane logo i siedem połączonych, klikalnych prototypów online. Każdy ekran można ocenić na telefonie, zanim powstała pierwsza linijka kodu aplikacji. Kolejne kroki to testy z użytkownikami i aplikacja w Expo, z pięcioma językami i szyfrowaniem end-to-end.",
+    },
+  },
+  en: {
+    hero: umPic("um-hero.jpg", "Three phones with the UME app: Collections, the Board and a decorated entry with a photo of a kitten"),
+    meta: [
+      ["Client", "Personal project"],
+      ["Year", "2026"],
+      ["Services", "Research, brand and logo, UX/UI, prototypes"],
+      ["Tools", "Claude Design, Claude Code"],
+    ],
+    link: { label: "open the prototype", href: `${UM_URL}/` },
+    lead: "UME is a private photo journal for iOS and Android: like Instagram, but only for you. Small moments of the day land on a cozy board, with no followers, no likes and no ads, and everything is end-to-end encrypted.",
+    brief: [
+      ["The question", "How do you make a place for everyday memories that feels as pleasant as Pinterest, as private as a safe, and puts no pressure on you?"],
+      ["The goal", "An app concept with a brand, a logo and clickable prototypes you can try on a phone before the first line of code is written."],
+    ],
+    problem: {
+      eyebrow: "overview",
+      title: "Memories that aren't a performance",
+      text: [
+        "We take more photos than ever but rarely look back at them. Social media turns them into a performance for others, and the journals that take privacy seriously look like text editors. I analysed seven apps, from Day One to BeReal, and none of them combined a beautiful memory board, encryption, Android and local languages at once.",
+        "UME is a personal project. The name is Japanese for the plum blossom, the first flower to bloom while it's still winter. It gave me a logo drawn in a single line and a burgundy accent on oat milk and linen. The research, the product decisions and the direction are mine, and I put the screens and prototypes together with AI.",
+      ],
+      image: umPic("um-start.jpg", "The UME logo in burgundy on a cream background"),
+    },
+    process: {
+      eyebrow: "decisions",
+      title: "Three decisions that shaped the app",
+      steps: [
+        {
+          title: "A board instead of a feed",
+          text: "The main screen is a Pinterest-like board: photos, short clips and notes of different heights, with filters by tag and mood. Instead of counters there's a greeting, “Good evening”. Dark mode swaps the cream for forest green, while the dates and titles in the soft Fraunces serif stay the same.",
+          image: umPic("um-step-1.jpg", "The Board in light and dark mode side by side"),
+        },
+        {
+          title: "A new entry in a few moves",
+          text: "A picker sheet, the gallery, trimming a clip to 10 seconds and an editor with mood, tags and a collection. Clips are short because these are moments of the day, not films. I designed the edge cases too: a text-only entry, the end of the trial, the clip limit and no photo access.",
+          image: umPic("um-step-2.jpg", "A new entry in three steps: the picker, trimming a clip and the editor"),
+        },
+        {
+          title: "Privacy you can see",
+          text: "Encryption is invisible, so the interface shows it. Collections say “Only you can see them”, there's no share button anywhere, and a “Where is my data?” page explains with a simple diagram how a photo travels from the phone to a server in the EU. Exporting everything takes one tap, because the data belongs to the user.",
+          image: umPic("um-step-3.jpg", "Settings, the Where is my data? page and exporting every entry"),
+        },
+      ],
+    },
+    gallery: {
+      video: umPic("um-wide.jpg", "Five UME screens: an entry with photos, the Haru calendar, Collections in light and dark mode, and a text entry"),
+      phones: [
+        umPic("um-phone-1.jpg", "The Board on Android"),
+        umPic("um-phone-2.jpg", "Collections on Android in dark mode"),
+      ],
+      detail: umPic("um-detail.jpg", "The Haru calendar with a thumbnail for every day"),
+      note: "Haru is a calendar where every day has its own thumbnail. Below it waits “On this day last year”, so the app grows more valuable over time, with no daily obligation.",
+    },
+    prototypes: {
+      title: "Try it on your phone",
+      text: "Every screen works on iPhone and Android, in light and dark mode, and the bottom bar takes you between them. They're best opened on a phone. The interface is in Polish, the first market.",
+      links: umLinks(["Project page", "Board", "Entry", "New entry", "Haru, the calendar", "Collections", "Settings", "Splash screen with the logo"]),
+    },
+    result: {
+      eyebrow: "outcome",
+      title: "An app you can click before the code",
+      text: "UME has a consistent visual system, an animated logo and seven connected, clickable prototypes online. Every screen can be judged on a phone before the first line of app code exists. Next come user testing and the Expo app, with five languages and end-to-end encryption.",
+    },
+  },
+};
+
+export const CASES = { nf: tr(NF), nr: tr(NR), su: tr(SU), rp: tr(RP), um: tr(UM) };
 
 const S = tr({
   pl: {

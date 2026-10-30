@@ -14,6 +14,7 @@ export const PROJECTS = [
   { key: "ka", name: tr({ pl: "Kancelaria", en: "Law Firm" }), cat: "branding", year: 2024, bg: "#32363a" },
   { key: "kw", name: tr({ pl: "Kawiarnia", en: "Café" }), cat: "rebranding", year: 2024, bg: "#46372b" },
   { key: "rp", name: "Red Panda Pomodoro", cat: tr({ pl: "aplikacja desktopowa", en: "desktop app" }), year: 2026, bg: "#4a3024", cover: "/assets/cases/rp/rp-hero.jpg" },
+  { key: "um", name: "UME", cat: tr({ pl: "aplikacja mobilna", en: "mobile app" }), year: 2026, bg: "#2b3128", cover: "/assets/cases/um/um-hero.jpg" },
 ];
 
 /* Card formats from the design, in px on the 1440×900 frame. */
@@ -28,6 +29,7 @@ const SHOTS = {
   ka: [["S", 0.5, 0.5], ["V", 0.5, 0.4], ["H", 0.45, 0.5], ["S", 0.4, 0.55]],
   kw: [["V", 0.5, 0.6], ["H", 0.42, 0.5], ["S", 0.6, 0.45], ["V", 0.45, 0.4]],
   rp: [["V", 0.5, 0.46], ["S", 0.5, 0.48], ["V", 0.5, 0.5], ["H", 0.55, 0.5]],
+  um: [["H", 0.5, 0.5], ["V", 0.5, 0.45], ["S", 0.5, 0.5], ["V", 0.45, 0.55]],
 };
 
 const INK = "243,235,221";
