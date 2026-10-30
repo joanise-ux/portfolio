@@ -269,13 +269,13 @@ const RP = {
 /* SUOH, the shop for crochet bags (github.com/joanise-ux/suoh). Shots are
    framed screenshots of suoh-two.vercel.app (public/assets/cases/su); the
    cart and checkout in step 3 come from the project's own screenshots. The
-   cover is the first screen in a browser window. */
+   cover is the first screen itself, full bleed. */
 const SU_DIR = "/assets/cases/su";
 const suPic = (file, alt) => ({ src: `${SU_DIR}/${file}`, alt });
 
 const SU = {
   pl: {
-    hero: suPic("su-hero.jpg", "Pierwszy ekran sklepu SUOH w oknie przeglądarki: brązowa i granatowa torebka z szydełka"),
+    hero: suPic("su-hero.jpg", "Pierwszy ekran sklepu SUOH: brązowa i granatowa torebka z szydełka"),
     meta: [
       ["Klient", "SUOH, Wrocław"],
       ["Rok", "2026"],
@@ -339,7 +339,7 @@ const SU = {
     },
   },
   en: {
-    hero: suPic("su-hero.jpg", "The SUOH shop's first screen in a browser window: a brown and a navy crochet bag"),
+    hero: suPic("su-hero.jpg", "The SUOH shop's first screen: a brown and a navy crochet bag"),
     meta: [
       ["Client", "SUOH, Wrocław"],
       ["Year", "2026"],
