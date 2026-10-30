@@ -88,15 +88,18 @@ export class Orbit {
     const k = phone ? vw / 375 : Math.min(vw / 1440, vh / 900);
     this.unit = k;
     this.pitch = phone ? vw * 0.5 : 180 * k; // px of drag per card
-    this.radius = phone ? 405 * k : Math.min(680 * k, vw * 0.48);
+    this.radius = phone ? 405 * k : Math.min(600 * k, vw * 0.44);
     this.jitter = (phone ? 140 : 260) * k;
     this.lift0 = (phone ? 34 : 40) * k; // the ring sits a little above the middle
     this.cardRadius = (phone ? 12 : 14) * k;
 
     shots.forEach((shot, i) => {
       const [dw, dh] = SHAPES[shot.shape];
-      const w = phone ? 262 * k : dw * k;
-      const h = phone ? (262 * k * dh) / dw : dh * k;
+      // desktop cards are drawn a size up from the design frame: with four
+      // projects the ring looked sparse at 1:1
+      const big = phone ? 1 : 1.15;
+      const w = phone ? 262 * k : dw * k * big;
+      const h = phone ? (262 * k * dh) / dw : dh * k * big;
       const material = new THREE.ShaderMaterial({
         vertexShader: vertex,
         fragmentShader: fragment,
@@ -248,7 +251,7 @@ export class Orbit {
       const a = t.index * this.step + turn;
       const depth = Math.cos(a); // 1 = front, -1 = back
       const tt = (depth + 1) / 2;
-      const front = Math.pow(tt, 4);
+      const front = Math.pow(tt, 3);
       t.t = tt;
       t.front = front;
       if (!this.front || tt > this.front.t) this.front = t;
@@ -262,7 +265,7 @@ export class Orbit {
       const rvE = 1 - Math.pow(1 - rv, 3);
 
       const o = t.open;
-      const scale = lerp(0.22, 1, front) * (1 + t.hover * (s.hoverScale - 1));
+      const scale = lerp(0.34, 1, front) * (1 + t.hover * (s.hoverScale - 1));
       const w = lerp(t.w * scale, c.w, o);
       const h = lerp(t.h * scale, c.h, o);
       const x = lerp(Math.sin(a) * this.radius, c.x, o);

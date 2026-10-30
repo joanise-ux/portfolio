@@ -107,7 +107,7 @@ const buddy = new Buddy({ settings, dock: $(".dock") });
 const list = new ProjectList({ root: $("#list"), projects: PROJECTS, shotOf: (p) => shots.find((s) => s.project === p), onOpen: openFromList });
 const pages = new Pages({ roots: { about: $("#about"), kontakt: $("#kontakt") } });
 const page = new CasePage({ root: $("#case"), settings, onBack: () => leave(), onNext: () => openNext() });
-if (import.meta.env.DEV) window.__lab = { walls, dots, buddy, settings, renderer, gsap };
+if (import.meta.env.DEV) window.__lab = { walls, dots, buddy, pages, settings, renderer, gsap };
 
 const listing = () => settings.view === "lista";
 let section = "work"; // the stop on the navbar: work | about | kontakt
