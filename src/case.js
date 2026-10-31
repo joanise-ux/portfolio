@@ -63,7 +63,7 @@ function markup(s, next) {
     <div class="case__body">
       <div class="case__meta">
         <dl>${c.meta.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
-        ${c.link ? `<a class="case__link" href="${c.link.href}"><span>${c.link.label}</span><span>→</span></a>` : ""}
+        ${c.link ? `<a class="case__link" href="${c.link.href}" target="_blank" rel="noopener"><span>${c.link.label}</span><span>→</span></a>` : ""}
         ${c.badge ? `<span class="case__badge">${c.badge}</span>` : ""}
       </div>
 
