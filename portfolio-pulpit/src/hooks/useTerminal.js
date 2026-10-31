@@ -38,7 +38,7 @@ export function useTerminal({ t, registry, open, after }) {
       { c: IVORY, s: `  ${pad("ls")}${c.ls}` },
       { c: IVORY, s: `  ${pad("open [project]")}${c.open}` },
       { c: IVORY, s: `  ${pad("contact")}${c.contact}` },
-      { c: IVORY, s: `  ${pad("cv")}${c.cv}${cvFor(t.code).file}` },
+      ...(cvFor(t.code) ? [{ c: IVORY, s: `  ${pad("cv")}${c.cv}${cvFor(t.code).file}` }] : []),
       { c: IVORY, s: `  ${pad("hire")}${c.hire}` },
       { c: IVORY, s: `  ${pad("help")}${c.help}` },
       { c: IVORY, s: "" },
@@ -108,7 +108,7 @@ export function useTerminal({ t, registry, open, after }) {
           { c: VIO, s: `:: ${t.responseTime} … ok` }
         );
         after(60, () => open("kontakt"));
-      } else if (head === "cv") {
+      } else if (head === "cv" && cvFor(t.code)) {
         const doc = cvFor(t.code);
         out.push({ c: VIO, s: `:: ${doc.file} — ${doc.size} … ok` });
         after(60, () => open("cv"));

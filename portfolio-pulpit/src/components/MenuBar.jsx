@@ -125,7 +125,7 @@ export default function MenuBar({
       <nav className="menubar__nav" ref={navRef} onMouseLeave={leave}>
         <Menu id="plik" label={t.menu.file} openId={openMenu} onHover={hover} onClick={click} width={238}>
           <MenuItem label={t.menu.newProject} hint={t.dock.mail} onClick={actions.mail} />
-          <MenuItem label={t.menu.downloadCv} hint={cv.size} href={cv.url} download={cv.download} />
+          {cv ? <MenuItem label={t.menu.downloadCv} hint={cv.size} href={cv.url} download={cv.download} /> : null}
           <span className="menu__sep" />
           <MenuItem label={t.menu.clearDesktop} hint="⌘⌫" onClick={actions.clear} />
         </Menu>

@@ -14,10 +14,12 @@ export default function Dock({ t, revealed, revealDelay, cv, links, termOpen, mi
         <span className="dock__label">{t.dock.mail}</span>
       </button>
 
-      <a className="dock__item" href={cv.url} download={cv.download}>
-        <span className="dock__glyph dock__glyph--cv">▥</span>
-        <span className="dock__label dock__label--cv">{cv.file}</span>
-      </a>
+      {cv ? (
+        <a className="dock__item" href={cv.url} download={cv.download}>
+          <span className="dock__glyph dock__glyph--cv">▥</span>
+          <span className="dock__label dock__label--cv">{cv.file}</span>
+        </a>
+      ) : null}
 
       <a className="dock__item" href={links.linkedin} target="_blank" rel="noopener noreferrer">
         <span className="dock__glyph dock__glyph--linkedin">in</span>
