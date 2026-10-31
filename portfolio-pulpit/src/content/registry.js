@@ -104,16 +104,6 @@ export function buildRegistry(t) {
       ],
     },
     mail: { kind: "mail", title: t.mail.title, short: "mail", glyph: "◨" },
-    cv: {
-      kind: "doc",
-      title: cv.file,
-      short: "cv",
-      glyph: "▥",
-      sections: [
-        { label: d.cv.fileLabel, text: d.cv.fileText(cv.file, cv.size, cv.updated) },
-        { label: d.cv.contentLabel, rows: d.cv.rows },
-      ],
-    },
     readme: {
       kind: "doc",
       title: "README.txt",
@@ -134,6 +124,18 @@ export function buildRegistry(t) {
     },
   });
 
+  if (cv) {
+    reg.cv = {
+      kind: "doc",
+      title: cv.file,
+      short: "cv",
+      glyph: "▥",
+      sections: [
+        { label: d.cv.fileLabel, text: d.cv.fileText(cv.file, cv.size, cv.updated) },
+        { label: d.cv.contentLabel, rows: d.cv.rows },
+      ],
+    };
+  }
   return reg;
 }
 

@@ -8,7 +8,7 @@ Vite and published by Netlify from `main`.
 | `index.html`, `src/`, `design/v2/` | The portfolio: project orbit and list, Nuri, case studies, About, Kontakt, PL/EN | `/` |
 | `portfolio-pulpit/` | The earlier desktop portfolio (NEON OS), whole in one folder — see its own README | `/portfolio-pulpit/` |
 
-`public/assets/` holds the files both use (CV, screenshots).
+`public/assets/` holds the files both use (screenshots; the CV is off the site until the new one is ready).
 
 ```bash
 npm install

@@ -8,7 +8,8 @@ import { sampleShape, shapeSpacing } from "./nuri.js";
 import { Walker } from "./walker.js";
 
 const WHO = `<div class="page__who"><span>Joanna Żuczkowska</span><span>UX/UI designer</span></div>`;
-const cvLink = (cls) => `<a class="${cls}" href="${CONTACT.cv.href}" download="${CONTACT.cv.download}">${UI.getCv}</a>`;
+// nothing while there is no CV (profile.js)
+const cvLink = (cls) => (CONTACT.cv ? `<a class="${cls}" href="${CONTACT.cv.href}" download="${CONTACT.cv.download}">${UI.getCv}</a>` : "");
 /* Where Nuri sits in a section; walker.js moves her between them. */
 const PERCH = `<span class="about__perch" aria-hidden="true"></span>`;
 const linkedin = `<a class="link-arrow" href="${CONTACT.linkedin}" target="_blank" rel="noopener">LinkedIn →</a>`;
@@ -55,7 +56,7 @@ function about() {
           <ul class="about__tools">${a.tools.map((t) => `<li>${t}</li>`).join("")}</ul>
         </div>
         <div>
-          <span class="eyebrow">cv</span>
+          <span class="eyebrow">${CONTACT.cv ? "cv" : UI.contact}</span>
           <div class="about__cv">${cvLink("btn")}${linkedin}</div>
         </div>
       </section>

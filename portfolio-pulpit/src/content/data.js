@@ -54,6 +54,9 @@ export const DATA = {
   /* Jeden plik na język — pulpit podaje wersję zgodną z aktualnym
      językiem interfejsu (patrz cvFor niżej). */
   cv: {
+    /* false while the CV is being rewritten: the dock, the menu and the
+       terminal leave it out. Back to true once the PDFs are in public/assets. */
+    ready: false,
     dir: "assets/",
     pl: {
       file: "cv_2026_pl.pdf",
@@ -115,8 +118,9 @@ export const PROJECTS_BY_KEY = Object.fromEntries(DATA.projects.map((p) => [p.ke
 
 export const PROJECT_KEYS = DATA.projects.map((p) => p.key);
 
-/* CV w języku interfejsu — polski jako zapasowy. */
+/* CV w języku interfejsu — polski jako zapasowy; null, gdy go nie ma. */
 export function cvFor(lang) {
+  if (!DATA.cv.ready) return null;
   const c = DATA.cv[lang] || DATA.cv.pl;
   return { ...c, url: `/${DATA.cv.dir}${c.file}` };
 }

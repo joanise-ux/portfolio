@@ -1,8 +1,8 @@
 /* Copy and contact details for About and Kontakt (design/v2/About.dc.html,
    Kontakt.dc.html), in both languages.
 
-   The bio, work history, stack, city, address, LinkedIn and CV files are
-   Joanna's own. The intro line and the four services are still
+   The bio, work history, stack, city, address and LinkedIn are Joanna's
+   own. The intro line and the four services are still
    the design's placeholder copy. */
 
 import { tr } from "./i18n.js";
@@ -10,10 +10,13 @@ import { tr } from "./i18n.js";
 export const CONTACT = {
   email: "zuczkowskaj@gmail.com",
   linkedin: "https://www.linkedin.com/in/joannazuczkowska",
-  cv: tr({
-    pl: { href: "/assets/cv_2026_pl.pdf", download: "Joanna_Zuczkowska_CV_PL.pdf" },
-    en: { href: "/assets/cv_2026_en.pdf", download: "Joanna_Zuczkowska_CV_EN.pdf" },
-  }),
+  /* The CV is being rewritten: while this is null there is no "Download CV"
+     button anywhere. To bring it back, put the PDFs in public/assets and:
+     cv: tr({
+       pl: { href: "/assets/cv_2026_pl.pdf", download: "Joanna_Zuczkowska_CV_PL.pdf" },
+       en: { href: "/assets/cv_2026_en.pdf", download: "Joanna_Zuczkowska_CV_EN.pdf" },
+     }), */
+  cv: null,
 };
 
 const TOOLS = ["Figma", "Adobe Suite", "Canva", "HTML / CSS", "JavaScript", "React", "SQL", "Supabase", "Vercel", "Claude Code", "Claude Design", "Figma Make"];
