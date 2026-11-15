@@ -13,6 +13,8 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         /* the earlier desktop portfolio, whole in its own folder — at /portfolio-pulpit/ */
         pulpit: resolve(__dirname, "portfolio-pulpit/index.html"),
+        /* the one-page offer for clients (Useme and the like) — at /oferta/ */
+        oferta: resolve(__dirname, "oferta/index.html"),
       },
     },
   },
