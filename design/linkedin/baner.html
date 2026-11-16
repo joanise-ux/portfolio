@@ -99,14 +99,14 @@
 
       const COPY = {
         pl: {
-          tag: "UX/UI designer",
-          head: "Projektuję spokojne,<br />czytelne interfejsy dla ludzi,<br />którzy <em>nie lubią się gubić.</em>",
-          what: ["UX research", "UI design", "Branding", "Prototypowanie"],
+          tag: "Product / UX Designer",
+          head: "Projektuję produkty cyfrowe —<br />od podstaw marki<br />po <em>gotowy interfejs.</em>",
+          what: ["Branding", "Product design", "E-commerce", "Prototypy z AI"],
         },
         en: {
-          tag: "UX/UI designer",
-          head: "I design calm, readable<br />interfaces for people who<br /><em>don't like getting lost.</em>",
-          what: ["UX research", "UI design", "Branding", "Prototyping"],
+          tag: "Product / UX Designer",
+          head: "I design digital products —<br />from brand foundations<br />to <em>shipped interfaces.</em>",
+          what: ["Branding", "Product design", "E-commerce", "AI-assisted prototyping"],
         },
       };
       const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "pl";
@@ -124,10 +124,10 @@
       const ACCENT = "#f0532a";
 
       // Nuri, in dots, on the right
-      const SIZE = 330;
-      const NX = 1372;
-      const NY = 204;
-      const COUNT = 520;
+      const SIZE = 230;
+      const NX = 1408;
+      const NY = 200;
+      const COUNT = 400;
       const pts = sampleShape(COUNT, SIZE);
       const r = shapeSpacing(COUNT, SIZE) * 0.39;
       // her cheeks, in the 200-box of src/nuri.js
@@ -150,7 +150,7 @@
       let field = "";
       for (let y = STEP / 2, row = 0; y < H; y += STEP * 0.866, row++) {
         for (let x = (row % 2 ? STEP / 2 : 0) + 4; x < W; x += STEP) {
-          const d = Math.hypot((x - NX) / 215, (y - NY) / 200);
+          const d = Math.hypot((x - NX) / 152, (y - NY) / 142);
           if (d < 1) continue;
           const t = Math.min(1, Math.max(0, (x - 380) / 900));
           const o = 0.35 + 0.65 * t;
